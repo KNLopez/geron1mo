@@ -1,8 +1,8 @@
 {
-  "name": "demo1",
+  "name": "geronimo",
   "version": "8.0.19",
   "private": true,
-  "homepage": "/metronic8/react/demo1",
+  "homepage": "www.apache.geronimoventures.com",
   "dependencies": {
     "@formatjs/intl-pluralrules": "^4.0.28",
     "@formatjs/intl-relativetimeformat": "^9.1.7",
