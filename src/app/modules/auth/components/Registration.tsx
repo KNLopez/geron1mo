@@ -93,14 +93,14 @@ export function Registration() {
       {/* end::Heading */}
 
       {/* begin::Action */}
-      <button type='button' className='btn btn-light-primary fw-bolder w-100 mb-10'>
+      {/* <button type='button' className='btn btn-light-primary fw-bolder w-100 mb-10'>
         <img
           alt='Logo'
           src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
           className='h-20px me-3'
         />
         Sign in with Google
-      </button>
+      </button> */}
       {/* end::Action */}
 
       <div className='d-flex align-items-center mb-10'>
@@ -116,62 +116,60 @@ export function Registration() {
       )}
 
       {/* begin::Form group Firstname */}
-      <div className='row fv-row mb-7'>
-        <div className='col-xl-6'>
-          <label className='class="form-label fw-bolder text-dark fs-6'>First name</label>
-          <input
-            placeholder='First name'
-            type='text'
-            autoComplete='off'
-            {...formik.getFieldProps('firstname')}
-            className={clsx(
-              'form-control form-control-lg form-control-solid',
-              {
-                'is-invalid': formik.touched.firstname && formik.errors.firstname,
-              },
-              {
-                'is-valid': formik.touched.firstname && !formik.errors.firstname,
-              }
-            )}
-          />
-          {formik.touched.firstname && formik.errors.firstname && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.firstname}</span>
-              </div>
-            </div>
+      <div className='fv-row mb-7'>
+        <label className='form-label fw-bolder text-dark fs-6'>First name</label>
+        <input
+          placeholder='First name'
+          type='text'
+          autoComplete='off'
+          {...formik.getFieldProps('firstname')}
+          className={clsx(
+            'form-control form-control-lg form-control-solid',
+            {
+              'is-invalid': formik.touched.firstname && formik.errors.firstname,
+            },
+            {
+              'is-valid': formik.touched.firstname && !formik.errors.firstname,
+            }
           )}
-        </div>
-        <div className='col-xl-6'>
-          {/* begin::Form group Lastname */}
-          <div className='fv-row mb-5'>
-            <label className='form-label fw-bolder text-dark fs-6'>Last name</label>
-            <input
-              placeholder='Last name'
-              type='text'
-              autoComplete='off'
-              {...formik.getFieldProps('lastname')}
-              className={clsx(
-                'form-control form-control-lg form-control-solid',
-                {
-                  'is-invalid': formik.touched.lastname && formik.errors.lastname,
-                },
-                {
-                  'is-valid': formik.touched.lastname && !formik.errors.lastname,
-                }
-              )}
-            />
-            {formik.touched.lastname && formik.errors.lastname && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.lastname}</span>
-                </div>
-              </div>
-            )}
+        />
+        {formik.touched.firstname && formik.errors.firstname && (
+          <div className='fv-plugins-message-container'>
+            <div className='fv-help-block'>
+              <span role='alert'>{formik.errors.firstname}</span>
+            </div>
           </div>
-          {/* end::Form group */}
-        </div>
+        )}
       </div>
+
+      {/* begin::Form group Lastname */}
+      <div className='fv-row mb-7'>
+        <label className='form-label fw-bolder text-dark fs-6'>Last name</label>
+        <input
+          placeholder='Last name'
+          type='text'
+          autoComplete='off'
+          {...formik.getFieldProps('lastname')}
+          className={clsx(
+            'form-control form-control-lg form-control-solid',
+            {
+              'is-invalid': formik.touched.lastname && formik.errors.lastname,
+            },
+            {
+              'is-valid': formik.touched.lastname && !formik.errors.lastname,
+            }
+          )}
+        />
+        {formik.touched.lastname && formik.errors.lastname && (
+          <div className='fv-plugins-message-container'>
+            <div className='fv-help-block'>
+              <span role='alert'>{formik.errors.lastname}</span>
+            </div>
+          </div>
+        )}
+      </div>
+      {/* end::Form group */}
+
       {/* end::Form group */}
 
       {/* begin::Form group Email */}
