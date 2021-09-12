@@ -1,6 +1,41 @@
+import {useEffect, useState} from 'react'
 import data, {Customer} from './mock'
 
 const Contacts = () => {
+  const [customers, setCustomers] = useState(data)
+  const [customer, setCustomer] = useState<any>()
+
+  const onSubmit = (e: any) => {
+    e.preventDefault()
+    if (customer) {
+      console.log(customers)
+      setCustomers({
+        ...customers,
+        [customer.email]: {
+          name: 'Emma Smith',
+          phone: '888-888-8888',
+          email: 'ema@gmail.com',
+          studio: 'F45 Orange',
+          status: 1,
+          dateCreated: new Date(),
+          assignee: 'Jover',
+
+          value: '$200,000',
+          ...customer,
+        },
+      })
+    }
+  }
+
+  useEffect(() => {
+    console.log('effect', customers)
+  }, [customers])
+
+  const handleChange = (e: any) => {
+    const {name, value} = e.target
+    setCustomer({...customer, [name]: value})
+  }
+
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <div className='toolbar' id='kt_toolbar'>
@@ -449,7 +484,7 @@ const Contacts = () => {
                   </thead>
 
                   <tbody className='fw-bold text-gray-600'>
-                    {Object.keys(data).map((key: any) => {
+                    {Object.keys(customers).map((key: any) => {
                       const {
                         name,
                         phone,
@@ -460,7 +495,7 @@ const Contacts = () => {
                         assignee,
                         campaigns,
                         value,
-                      }: Customer = data[key]
+                      }: Customer = customers[key]
 
                       return (
                         <tr key={key}>
@@ -503,7 +538,7 @@ const Contacts = () => {
                           <td>{value}</td>
                           <td className='text-end'>
                             <button
-                              className='btn btn-sm btn-light btn-active-light-primary show menu-dropdown'
+                              className='btn btn-sm btn-light btn-active-light-primary '
                               data-kt-menu-trigger='click'
                               data-kt-menu-placement='bottom-end'
                             >
@@ -569,7 +604,7 @@ const Contacts = () => {
                   className='form'
                   action='#'
                   id='kt_modal_add_customer_form'
-                  data-kt-redirect='../../demo1/dist/apps/customers/list.html'
+                  onSubmit={onSubmit}
                 >
                   <div className='modal-header' id='kt_modal_add_customer_header'>
                     <h2 className='fw-bolder'>Add a Customer</h2>
@@ -627,6 +662,7 @@ const Contacts = () => {
                           placeholder=''
                           name='name'
                           defaultValue='Sean Bean'
+                          onChange={handleChange}
                         />
                       </div>
 
@@ -646,6 +682,7 @@ const Contacts = () => {
                           placeholder=''
                           name='email'
                           defaultValue='sean@dellito.com'
+                          onChange={handleChange}
                         />
                       </div>
 
@@ -665,6 +702,7 @@ const Contacts = () => {
                           placeholder=''
                           name='phone'
                           defaultValue='888888888'
+                          onChange={handleChange}
                         />
                       </div>
                       <div className='fv-row mb-7'>
@@ -683,6 +721,7 @@ const Contacts = () => {
                           placeholder=''
                           name='studio'
                           defaultValue='f45'
+                          onChange={handleChange}
                         />
                       </div>
                       <div className='fv-row mb-7'>
@@ -697,10 +736,13 @@ const Contacts = () => {
 
                         <select
                           className='form-select form-select-solid'
-                          name='studio'
+                          name='assignee'
                           defaultValue='jover'
+                          onChange={handleChange}
                         >
                           <option value='jover'>Jover</option>
+                          <option value='ben'>Ben</option>
+                          <option value='doza'>Doza</option>
                         </select>
                       </div>
                       <div className='fv-row mb-7'>
@@ -722,6 +764,7 @@ const Contacts = () => {
                             placeholder=''
                             name='value'
                             defaultValue='100,000'
+                            onChange={handleChange}
                           />
                         </div>
                       </div>

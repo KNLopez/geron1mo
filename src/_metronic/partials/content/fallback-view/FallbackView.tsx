@@ -2,8 +2,8 @@ import {toAbsoluteUrl} from '../../../helpers'
 
 export function FallbackView() {
   return (
-    <div className='splash-screen'>
-      <img src={toAbsoluteUrl('/media/logos/logo-compact.svg')} alt='Start logo' />
+    <div className=''>
+      {/* <img src={toAbsoluteUrl('/media/logos/logo-geron1mo.png')} alt='Start logo' /> */}
       <span>Loading ...</span>
     </div>
   )
