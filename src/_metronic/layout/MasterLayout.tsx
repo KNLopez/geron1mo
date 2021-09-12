@@ -25,7 +25,7 @@ const MasterLayout: React.FC = ({children}) => {
           <HeaderWrapper />
 
           <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
-            <Toolbar />
+            {/* <Toolbar /> */}
             <div className='post d-flex flex-column-fluid' id='kt_post'>
               <Content>{children}</Content>
             </div>
