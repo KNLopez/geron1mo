@@ -3,12 +3,7 @@ const Contacts = () => {
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <div className='toolbar' id='kt_toolbar'>
         <div id='kt_toolbar_container' className='container-fluid d-flex flex-stack'>
-          <div
-            data-kt-swapper='true'
-            data-kt-swapper-mode='prepend'
-            data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-            className='page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0'
-          >
+          <div className='page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0'>
             <h1 className='d-flex align-items-center text-dark fw-bolder fs-3 my-1'>
               Customer List
             </h1>
@@ -26,13 +21,7 @@ const Contacts = () => {
                 <span className='bullet bg-gray-200 w-5px h-2px'></span>
               </li>
 
-              <li className='breadcrumb-item text-muted'>Customers</li>
-
-              <li className='breadcrumb-item'>
-                <span className='bullet bg-gray-200 w-5px h-2px'></span>
-              </li>
-
-              <li className='breadcrumb-item text-dark'>Customer Listing</li>
+              <li className='breadcrumb-item text-dark'>Customers</li>
             </ul>
           </div>
 
