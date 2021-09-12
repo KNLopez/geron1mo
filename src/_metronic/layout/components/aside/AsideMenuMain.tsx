@@ -16,18 +16,24 @@ export function AsideMenuMain() {
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
-      <AsideMenuItem
+      {/* <AsideMenuItem
         to='/builder'
         icon='/media/icons/duotone/Interface/Settings-02.svg'
         title='Layout Builder'
         fontIcon='bi-layers'
+      /> */}
+      <AsideMenuItem
+        to='/contacts'
+        title='Contacts'
+        icon='/media/icons/duotone/Interface/User.svg'
+        fontIcon='bi-layers'
       />
-      <div className='menu-item'>
+      {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
-      </div>
-      <AsideMenuItemWithSub
+      </div> */}
+      {/* <AsideMenuItemWithSub
         to='/crafted/pages'
         title='Pages'
         fontIcon='bi-archive'
@@ -116,7 +122,7 @@ export function AsideMenuMain() {
           </span>
           <span className='menu-title'>Changelog {process.env.REACT_APP_VERSION}</span>
         </a>
-      </div>
+      </div> */}
     </>
   )
 }
