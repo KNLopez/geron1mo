@@ -27,7 +27,7 @@ const Contacts = () => {
             </ul>
           </div>
 
-          <div className='d-flex align-items-center py-1'>
+          {/* <div className='d-flex align-items-center py-1'>
             <div className='me-4'>
               <a
                 href='#'
@@ -148,6 +148,7 @@ const Contacts = () => {
               Create
             </a>
           </div>
+         */}
         </div>
       </div>
 
@@ -195,7 +196,7 @@ const Contacts = () => {
                 <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
                   <button
                     type='button'
-                    className='btn btn-light-primary me-3'
+                    className='btn btn-light me-3'
                     data-kt-menu-trigger='click'
                     data-kt-menu-placement='bottom-end'
                     data-kt-menu-flip='top-end'
@@ -252,7 +253,7 @@ const Contacts = () => {
                         </select>
                       </div>
 
-                      <div className='mb-10'>
+                      {/* <div className='mb-10'>
                         <label className='form-label fs-5 fw-bold mb-3'>Payment Type:</label>
 
                         <div
@@ -299,7 +300,7 @@ const Contacts = () => {
                             <span className='form-check-label text-gray-600'>American Express</span>
                           </label>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className='d-flex justify-content-end'>
                         <button
@@ -324,7 +325,7 @@ const Contacts = () => {
 
                   <button
                     type='button'
-                    className='btn btn-light-primary me-3'
+                    className='btn btn-light me-3'
                     data-bs-toggle='modal'
                     data-bs-target='#kt_customers_export_modal'
                   >
@@ -625,7 +626,7 @@ const Contacts = () => {
                           className='form-control form-control-solid'
                           placeholder=''
                           name='name'
-                          value='Sean Bean'
+                          defaultValue='Sean Bean'
                         />
                       </div>
 
@@ -644,10 +645,87 @@ const Contacts = () => {
                           className='form-control form-control-solid'
                           placeholder=''
                           name='email'
-                          value='sean@dellito.com'
+                          defaultValue='sean@dellito.com'
                         />
                       </div>
 
+                      <div className='fv-row mb-7'>
+                        <label className='fs-6 fw-bold mb-2'>
+                          <span className='required'>Phone</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-1 fs-7'
+                            data-bs-toggle='tooltip'
+                            title='Email address must be active'
+                          ></i>
+                        </label>
+
+                        <input
+                          type='tel'
+                          className='form-control form-control-solid'
+                          placeholder=''
+                          name='phone'
+                          defaultValue='888888888'
+                        />
+                      </div>
+                      <div className='fv-row mb-7'>
+                        <label className='fs-6 fw-bold mb-2'>
+                          <span className='required'>Studio</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-1 fs-7'
+                            data-bs-toggle='tooltip'
+                            title='Email address must be active'
+                          ></i>
+                        </label>
+
+                        <input
+                          type='tel'
+                          className='form-control form-control-solid'
+                          placeholder=''
+                          name='studio'
+                          defaultValue='f45'
+                        />
+                      </div>
+                      <div className='fv-row mb-7'>
+                        <label className='fs-6 fw-bold mb-2'>
+                          <span className='required'>Assign</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-1 fs-7'
+                            data-bs-toggle='tooltip'
+                            title='Email address must be active'
+                          ></i>
+                        </label>
+
+                        <select
+                          className='form-select form-select-solid'
+                          name='studio'
+                          defaultValue='jover'
+                        >
+                          <option value='jover'>Jover</option>
+                        </select>
+                      </div>
+                      <div className='fv-row mb-7'>
+                        <label className='fs-6 fw-bold mb-2'>
+                          <span className='required'>Value</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-1 fs-7'
+                            data-bs-toggle='tooltip'
+                          ></i>
+                        </label>
+                        <div className='input-group'>
+                          <div className='input-group-prepend'>
+                            <span className='input-group-text'>$</span>
+                            {/* <span className='input-group-text'>0.00</span> */}
+                          </div>
+                          <input
+                            type='tel'
+                            className='form-control form-control-solid'
+                            placeholder=''
+                            name='value'
+                            defaultValue='100,000'
+                          />
+                        </div>
+                      </div>
+                      {/* 
                       <div className='fv-row mb-15'>
                         <label className='fs-6 fw-bold mb-2'>Description</label>
 
@@ -657,9 +735,9 @@ const Contacts = () => {
                           placeholder=''
                           name='description'
                         />
-                      </div>
+                      </div> */}
 
-                      <div
+                      {/* <div
                         className='fw-bolder fs-3 rotate collapsible mb-7'
                         data-bs-toggle='collapse'
                         role='button'
@@ -1041,6 +1119,7 @@ const Contacts = () => {
                           </div>
                         </div>
                       </div>
+                     */}
                     </div>
                   </div>
 
@@ -1143,7 +1222,7 @@ const Contacts = () => {
                       </select>
                     </div>
 
-                    <div className='row fv-row mb-15'>
+                    {/* <div className='row fv-row mb-15'>
                       <label className='fs-5 fw-bold form-label mb-5'>Payment Type:</label>
 
                       <div className='d-flex flex-column'>
@@ -1189,7 +1268,7 @@ const Contacts = () => {
                           </span>
                         </label>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className='text-center'>
                       <button
