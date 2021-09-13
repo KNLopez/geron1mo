@@ -4,6 +4,7 @@ import {Redirect, Route, Switch} from 'react-router-dom'
 import {Registration} from './components/Registration'
 import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
+import {toAbsoluteUrl} from '../../../_metronic/helpers/AssetHelpers'
 
 export function AuthPage() {
   useEffect(() => {
@@ -16,7 +17,13 @@ export function AuthPage() {
   return (
     <div className='w-100 h-100'>
       <div className='row h-100'>
-        <div className='col-md-6 d-flex flex-center bg-dark'>some content</div>
+        <div className='col-md-6 d-flex flex-center bg-dark'>
+          <img
+            src={toAbsoluteUrl('/media/misc/splash.png')}
+            alt='Geron1mo'
+            style={{maxWidth: '80%'}}
+          />
+        </div>
         {/* begin::Content */}
         <div className='col-md-6 d-flex flex-center flex-column flex-column-fluid'>
           {/* begin::Logo */}
