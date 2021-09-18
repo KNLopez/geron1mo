@@ -22,8 +22,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: 'kurtdevph@gmail.com',
+  password: 'password',
 }
 
 /*
@@ -40,18 +40,19 @@ export function Login() {
     validationSchema: loginSchema,
     onSubmit: (values, {setStatus, setSubmitting}) => {
       setLoading(true)
-      setTimeout(() => {
-        login(values.email, values.password)
-          .then(({data: {accessToken}}) => {
-            setLoading(false)
-            dispatch(auth.actions.login(accessToken))
-          })
-          .catch(() => {
-            setLoading(false)
-            setSubmitting(false)
-            setStatus('The login detail is incorrect')
-          })
-      }, 1000)
+      dispatch(auth.actions.login(values))
+      // setTimeout(() => {
+      //   login(values.email, values.password)
+      //     .then(({data: {accessToken}}) => {
+      //       setLoading(false)
+      //       dispatch(auth.actions.login(accessToken))
+      //     })
+      //     .catch(() => {
+      //       setLoading(false)
+      //       setSubmitting(false)
+      //       setStatus('The login detail is incorrect')
+      //     })
+      // }, 1000)
     },
   })
 

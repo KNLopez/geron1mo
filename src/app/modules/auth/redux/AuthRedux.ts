@@ -1,9 +1,13 @@
 import {Action} from '@reduxjs/toolkit'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import {put, takeLatest} from 'redux-saga/effects'
+import * as Eff from 'redux-saga/effects'
 import {UserModel} from '../models/UserModel'
-import {getUserByToken} from './AuthCRUD'
+import {login} from './AuthCRUD'
+
+const takeLatest: any = Eff.takeLatest;
+const call:any = Eff.call
+const put:any = Eff.put
 
 export interface ActionWithPayload<T> extends Action {
   payload?: T
@@ -13,7 +17,6 @@ export const actionTypes = {
   Login: '[Login] Action',
   Logout: '[Logout] Action',
   Register: '[Register] Action',
-  UserRequested: '[Request User] Action',
   UserLoaded: '[Load User] Auth API',
   SetUser: '[Set User] Action',
 }
@@ -29,8 +32,9 @@ export interface IAuthState {
 }
 
 export const reducer = persistReducer(
-  {storage, key: 'v100-demo1-auth', whitelist: ['user', 'accessToken']},
+  {storage, key: 'v1-geron1mo', whitelist: []},
   (state: IAuthState = initialAuthState, action: ActionWithPayload<IAuthState>) => {
+    console.log(action.type, action.payload)
     switch (action.type) {
       case actionTypes.Login: {
         const accessToken = action.payload?.accessToken
@@ -43,11 +47,8 @@ export const reducer = persistReducer(
       }
 
       case actionTypes.Logout: {
+        localStorage.removeItem('auth')
         return initialAuthState
-      }
-
-      case actionTypes.UserRequested: {
-        return {...state, user: undefined}
       }
 
       case actionTypes.UserLoaded: {
@@ -57,6 +58,7 @@ export const reducer = persistReducer(
 
       case actionTypes.SetUser: {
         const user = action.payload?.user
+        console.log(user)
         return {...state, user}
       }
 
@@ -67,30 +69,45 @@ export const reducer = persistReducer(
 )
 
 export const actions = {
-  login: (accessToken: string) => ({type: actionTypes.Login, payload: {accessToken}}),
+  login: (values: any) => ({type: actionTypes.Login, payload: values}),
   register: (accessToken: string) => ({
     type: actionTypes.Register,
     payload: {accessToken},
   }),
+  setUser: (payload:any) => ({ type: actionTypes.SetUser, payload}),
   logout: () => ({type: actionTypes.Logout}),
-  requestUser: () => ({
-    type: actionTypes.UserRequested,
-  }),
-  fulfillUser: (user: UserModel) => ({type: actionTypes.UserLoaded, payload: {user}}),
-  setUser: (user: UserModel) => ({type: actionTypes.SetUser, payload: {user}}),
 }
+
+
+interface LoginProps {
+  type: string;
+  payload: {
+    email: string;
+    password: string;
+  }
+  
+}
+
+function* loginSaga ({payload}: LoginProps):any {
+  const {email, password} = payload;
+  try {
+    const response = yield call(login, email, password)
+    yield put(actions.setUser({user: response.data})) 
+    const { authorization } = yield response.headers;
+    yield localStorage.setItem('auth', authorization)
+  } catch (err:any) {
+    throw new Error(err)
+  } 
+}
+
+function* registerSaga (param:any) {
+  yield console.log(param)
+}
+
 
 export function* saga() {
-  yield takeLatest(actionTypes.Login, function* loginSaga() {
-    yield put(actions.requestUser())
-  })
+  yield takeLatest(actionTypes.Login, loginSaga)
 
-  yield takeLatest(actionTypes.Register, function* registerSaga() {
-    yield put(actions.requestUser())
-  })
+  yield takeLatest(actionTypes.Register, registerSaga)
 
-  yield takeLatest(actionTypes.UserRequested, function* userRequested() {
-    const {data: user} = yield getUserByToken()
-    yield put(actions.fulfillUser(user))
-  })
-}
+ }

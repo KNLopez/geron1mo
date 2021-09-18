@@ -6,8 +6,9 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import * as auth from '../redux/AuthRedux'
 import {register} from '../redux/AuthCRUD'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {createImportSpecifier} from 'typescript'
 
 const initialValues = {
   firstname: '',
@@ -47,7 +48,8 @@ const registrationSchema = Yup.object().shape({
 
 export function Registration() {
   const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
+
+  const history = useHistory()
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
@@ -55,12 +57,13 @@ export function Registration() {
       setLoading(true)
       setTimeout(() => {
         register(values.email, values.firstname, values.lastname, values.password)
-          .then(({data: {accessToken}}) => {
+          .then((response) => {
             setLoading(false)
-            dispatch(auth.actions.login(accessToken))
+            history.push('/auth/emailsent')
           })
-          .catch(() => {
+          .catch((err) => {
             setLoading(false)
+            console.log(err)
             setSubmitting(false)
             setStatus('Registration process has broken')
           })

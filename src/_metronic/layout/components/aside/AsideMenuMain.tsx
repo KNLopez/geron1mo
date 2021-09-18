@@ -28,6 +28,30 @@ export function AsideMenuMain() {
         icon='/media/icons/duotone/Interface/User.svg'
         fontIcon='bi-layers'
       />
+      <AsideMenuItem
+        to='/studios'
+        title='Studios'
+        icon='/media/icons/duotone/Home/Chair1.svg'
+        fontIcon='bi-layers'
+      />
+      <AsideMenuItem
+        to='/campaigns'
+        title='Campaigns'
+        icon='/media/icons/duotone/Devices/LTE1.svg'
+        fontIcon='bi-layers'
+      />
+      <AsideMenuItem
+        to='/pitcrews'
+        title='Pitcrews'
+        icon='/media/icons/duotone/Clothes/Tie.svg'
+        fontIcon='bi-layers'
+      />
+      <AsideMenuItem
+        to='/students'
+        title='Students'
+        icon='/media/icons/duotone/Clothes/Socks.svg'
+        fontIcon='bi-layers'
+      />
       {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
