@@ -21,7 +21,7 @@ export function PrivateRoutes() {
         <Route path='/campaigns' component={ContactsPage} />
         <Route path='/contacts' component={ContactsPage} />
         <Route path='/pitcrews' component={ContactsPage} />
-        <Route path='/students' component={ContactsPage} />
+        {/* <Route path='/students' component={ContactsPage} /> */}
         {/* <Route path='/builder' component={BuilderPageWrapper} />
         <Route path='/crafted/pages/profile' component={ProfilePage} />
         <Route path='/crafted/pages/wizards' component={WizardsPage} />
