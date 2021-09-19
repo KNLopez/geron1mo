@@ -4,6 +4,7 @@ import {RootState} from '../../../setup/redux/RootReducer'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
+import CreateContact from './modals/CreateContact'
 import {contactsActions} from './state/contacts'
 
 const Contacts = () => {
@@ -13,15 +14,20 @@ const Contacts = () => {
     shallowEqual
   )
 
-  console.log(contacts, loadingContacts, error)
   useEffect(() => {
     dispatch(contactsActions.fetchContacts())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (error) {
+    return <h2>Error</h2>
+  }
 
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!!contacts.length && <Table data={contacts} columns={data.columns} />}
+      {!loadingContacts && <Table data={contacts} columns={data.columns} />}
+      <CreateContact />
     </div>
   )
 }

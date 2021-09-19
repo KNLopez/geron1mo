@@ -12,10 +12,8 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
 }) => {
   return (
     <div className='card-header border-0 pt-6'>
-      <div className='card-toolbar'>
-        <TableSearch {...{searchPlaceholder}} />
-        <TableActions {...{addButtonText}} />
-      </div>
+      <TableSearch {...{searchPlaceholder}} />
+      <TableActions {...{addButtonText}} />
     </div>
   )
 }

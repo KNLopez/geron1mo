@@ -1,11 +1,9 @@
 export interface Customer {
     name: string
-    phone: string
-    email: string
-    studio: string
-    status: number
-    dateCreated: Date
-    assignee: string
-    campaigns: number[]
-    value: string
+    phone?: string
+    email?: string
+    status?: number
+    created_at: Date
+    assigned?: string
+    campaign_name?: number[]
   }

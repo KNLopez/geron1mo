@@ -7,11 +7,13 @@ type TableActionsProps = TableAddButtonProps
 
 const TableActions: React.FC<TableActionsProps> = ({addButtonText}) => {
   return (
-    <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
-      <TableExport />
-      <TableFilter />
-      <TableAddButton {...{addButtonText}} />
-      <TableDelete />
+    <div className='card-toolbar'>
+      <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
+        <TableExport />
+        <TableFilter />
+        <TableAddButton {...{addButtonText}} />
+        <TableDelete />
+      </div>
     </div>
   )
 }
