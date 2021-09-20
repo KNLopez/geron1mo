@@ -14,7 +14,6 @@ const TableSearch: React.FC<TableSearchProps> = ({
   preGlobalFilteredRows,
   globalFilter,
 }) => {
-  const count = preGlobalFilteredRows.length
   const [value, setValue] = useState(globalFilter)
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined)
@@ -57,7 +56,7 @@ const TableSearch: React.FC<TableSearchProps> = ({
           type='text'
           data-kt-customer-table-filter='search'
           className='form-control form-control-solid w-250px ps-15'
-          placeholder={`${searchPlaceholder} ${count} items`}
+          placeholder={`${searchPlaceholder}`}
           onChange={handleChange}
           value={value}
         />
