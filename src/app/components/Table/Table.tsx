@@ -1,5 +1,5 @@
 import TableToolbar, {TableToolbarProps} from './TableToolbar'
-import {Column, useTable} from 'react-table'
+import {Column, useFilters, useGlobalFilter, useTable} from 'react-table'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
@@ -9,13 +9,37 @@ export interface TableProps {
 type Props = TableProps & TableToolbarProps
 
 const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, addButtonText}) => {
-  const tableInstance = useTable({columns, data})
+  const tableInstance: any = useTable(
+    {
+      columns,
+      data,
+    },
+    useFilters,
+    useGlobalFilter
+  )
 
-  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    state,
+    prepareRow,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+  } = tableInstance
 
   return (
     <div className='card'>
-      <TableToolbar {...{searchPlaceholder, addButtonText}} />
+      <TableToolbar
+        {...{
+          searchPlaceholder,
+          addButtonText,
+          preGlobalFilteredRows,
+          globalFilter: state.globalFilter,
+          setGlobalFilter,
+        }}
+      />
       <div className='card-body pt-0'>
         <div className='table-responsive'>
           <table
@@ -24,7 +48,7 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
             {...getTableProps()}
           >
             <thead>
-              {headerGroups.map((headerGroup) => (
+              {headerGroups.map((headerGroup: any) => (
                 <tr
                   className='text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0'
                   {...headerGroup.getHeaderGroupProps()}
@@ -39,14 +63,14 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
                       />
                     </div>
                   </th>
-                  {headerGroup.headers.map((column) => (
+                  {headerGroup.headers.map((column: any) => (
                     <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                   ))}
                 </tr>
               ))}
             </thead>
             <tbody className='fw-bold text-gray-600' {...getTableBodyProps()}>
-              {rows.map((row) => {
+              {rows.map((row: any) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
@@ -60,7 +84,7 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
                         />
                       </div>
                     </td>
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell: any) => {
                       return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                     })}
                   </tr>

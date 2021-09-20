@@ -9,8 +9,8 @@ import {contactsActions} from './state/contacts'
 
 const Contacts = () => {
   const dispatch = useDispatch()
-  const {contacts, loadingContacts, error}: any = useSelector<RootState>(
-    ({contacts}) => contacts,
+  const {contacts, loadingContacts, error}: any = useSelector(
+    ({contacts}: RootState) => contacts,
     shallowEqual
   )
 

@@ -1,8 +1,30 @@
+import {useState} from 'react'
+import {useAsyncDebounce} from 'react-table'
+
 interface TableSearchProps {
   searchPlaceholder: string
+  preGlobalFilteredRows?: any
+  setGlobalFilter?: any
+  globalFilter: any
 }
 
-const TableSearch: React.FC<TableSearchProps> = ({searchPlaceholder}) => {
+const TableSearch: React.FC<TableSearchProps> = ({
+  searchPlaceholder,
+  setGlobalFilter,
+  preGlobalFilteredRows,
+  globalFilter,
+}) => {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = useState(globalFilter)
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined)
+  }, 200)
+
+  const handleChange = (e: any) => {
+    setValue(e.target.value)
+    onChange(e.target.value)
+  }
+
   return (
     <div className='card-title'>
       <div className='d-flex align-items-center position-relative my-1'>
@@ -35,7 +57,9 @@ const TableSearch: React.FC<TableSearchProps> = ({searchPlaceholder}) => {
           type='text'
           data-kt-customer-table-filter='search'
           className='form-control form-control-solid w-250px ps-15'
-          placeholder={searchPlaceholder}
+          placeholder={`${searchPlaceholder} ${count} items`}
+          onChange={handleChange}
+          value={value}
         />
       </div>
     </div>
