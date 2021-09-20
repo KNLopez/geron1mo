@@ -43,8 +43,6 @@ const CreateContact: React.FC<any> = () => {
     },
   })
 
-  console.log(loadingContact, formik.isValid, !formik.isSubmitting)
-
   return (
     <Modal
       title='Create Contact'

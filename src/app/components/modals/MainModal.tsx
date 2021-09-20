@@ -20,7 +20,6 @@ const MainModal: React.FC<ModalProps> = ({
   children,
 }) => {
   const [show, setShow] = useState(false)
-  console.log(isValid)
 
   const handleClose = () => {
     setShow(false)

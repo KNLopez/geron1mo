@@ -103,6 +103,7 @@ function* createContact({lead}: any): any {
   yield put(contactActions.loadingContact())
   try {
     const response = yield call(createContactApi, lead)
+    console.log(response.data)
     yield put(contactActions.contactLoaded(response.data))
   } catch (err: any) {
     yield put(contactActions.contactError(err))

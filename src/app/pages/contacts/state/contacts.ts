@@ -56,12 +56,7 @@ export const reducer = persistReducer(
       case contactActionTypes.ContactLoaded: {
         return {
           ...state,
-          contacts: state.contacts.map((contact) => {
-            if (contact.id === action.payload.id) {
-              return action.payload
-            }
-            return contact
-          }),
+          contacts: [action.payload, ...state.contacts],
         }
       }
 
