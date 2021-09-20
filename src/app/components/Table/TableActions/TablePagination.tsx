@@ -176,7 +176,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
         </div> */}
 
         <select
-          className='form-control form-control-sm font-weight-bold mr-4 border-0 bg-light'
+          className='form-select form-select-sm form-select-solid mx-4 border-0 bg-light'
           style={{width: 75}}
           value={pageSize}
           onChange={(e) => setPageSize(e.target.value)}
