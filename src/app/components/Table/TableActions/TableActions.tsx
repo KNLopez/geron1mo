@@ -1,17 +1,18 @@
-import TableAddButton, {TableAddButtonProps} from './TableAddButton'
 import TableDelete from './TableDelete'
 import TableExport from './TableExport'
 import TableFilter from './TableFilter'
 
-type TableActionsProps = TableAddButtonProps
+export interface TableActionsProps {
+  addActionModal?: any
+}
 
-const TableActions: React.FC<TableActionsProps> = ({addButtonText}) => {
+const TableActions: React.FC<TableActionsProps> = ({addActionModal}) => {
   return (
     <div className='card-toolbar'>
       <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
         {/* <TableExport /> */}
         <TableFilter />
-        <TableAddButton {...{addButtonText}} />
+        {addActionModal && addActionModal()}
         <TableDelete />
       </div>
     </div>

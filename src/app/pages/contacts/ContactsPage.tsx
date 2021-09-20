@@ -26,8 +26,14 @@ const Contacts = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingContacts && <Table data={contacts} columns={data.columns} />}
-      <CreateContact />
+      {!loadingContacts && (
+        <Table
+          data={contacts}
+          columns={data.columns}
+          searchPlaceholder='Search leads'
+          addActionModal={() => <CreateContact />}
+        />
+      )}
     </div>
   )
 }

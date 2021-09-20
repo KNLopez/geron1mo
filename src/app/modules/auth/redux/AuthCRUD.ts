@@ -10,23 +10,17 @@ export const REQUEST_PASSWORD_URL = `${API_URL}/auth/forgot-password`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
-  console.log(email, password)
-  return axios.post(LOGIN_URL, {user: {
-    email, password
-  }})
+  return axios.post(LOGIN_URL, {
+    user: {
+      email,
+      password,
+    },
+  })
 }
 
 // Server should return AuthModel
 export function register(email: string, firstname: string, lastname: string, password: string) {
-  return axios.post<AuthModel>(REGISTER_URL, 
-    { user: 
-      { email,
-        firstname,
-        lastname,
-        password,
-      }
-    }
-  )
+  return axios.post<AuthModel>(REGISTER_URL, {user: {email, firstname, lastname, password}})
 }
 
 // Server should return object => { result: boolean } (Is Email in DB)

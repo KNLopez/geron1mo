@@ -40,12 +40,12 @@ export function AsideMenuMain() {
         icon='/media/icons/duotone/Devices/LTE1.svg'
         fontIcon='bi-layers'
       />
-      <AsideMenuItem
+      {/* <AsideMenuItem
         to='/pitcrew'
         title='Pitcrew'
         icon='/media/icons/duotone/Clothes/Tie.svg'
         fontIcon='bi-layers'
-      />
+      /> */}
       {/* <AsideMenuItem
         to='/students'
         title='Students'

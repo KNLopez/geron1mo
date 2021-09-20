@@ -7,6 +7,7 @@ export interface TableToolbarProps {
   preGlobalFilteredRows?: any
   setGlobalFilter?: any
   globalFilter?: any
+  addActionModal?: any
 }
 
 const TableToolbar: React.FC<TableToolbarProps> = ({
@@ -15,11 +16,12 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
   preGlobalFilteredRows,
   setGlobalFilter,
   globalFilter,
+  addActionModal,
 }) => {
   return (
     <div className='card-header border-0 pt-6'>
       <TableSearch {...{searchPlaceholder, globalFilter, preGlobalFilteredRows, setGlobalFilter}} />
-      <TableActions {...{addButtonText}} />
+      <TableActions {...{addButtonText, addActionModal}} />
     </div>
   )
 }
