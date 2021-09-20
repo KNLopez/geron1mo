@@ -9,7 +9,7 @@ const TableActions: React.FC<TableActionsProps> = ({addButtonText}) => {
   return (
     <div className='card-toolbar'>
       <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
-        <TableExport />
+        {/* <TableExport /> */}
         <TableFilter />
         <TableAddButton {...{addButtonText}} />
         <TableDelete />

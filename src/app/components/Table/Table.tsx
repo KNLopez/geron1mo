@@ -1,5 +1,6 @@
 import TableToolbar, {TableToolbarProps} from './TableToolbar'
-import {Column, useFilters, useGlobalFilter, useTable} from 'react-table'
+import {Column, useFilters, useGlobalFilter, usePagination, useTable} from 'react-table'
+import TablePagination from './TableActions/TablePagination'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
@@ -9,25 +10,33 @@ export interface TableProps {
 type Props = TableProps & TableToolbarProps
 
 const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, addButtonText}) => {
-  const tableInstance: any = useTable(
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    state,
+    prepareRow,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: {pageIndex, pageSize},
+  }: any = useTable<any>(
     {
       columns,
       data,
     },
     useFilters,
-    useGlobalFilter
+    useGlobalFilter,
+    usePagination
   )
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    state,
-    prepareRow,
-    preGlobalFilteredRows,
-    setGlobalFilter,
-  } = tableInstance
 
   return (
     <div className='card'>
@@ -70,7 +79,7 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
               ))}
             </thead>
             <tbody className='fw-bold text-gray-600' {...getTableBodyProps()}>
-              {rows.map((row: any) => {
+              {page.map((row: any) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
@@ -92,6 +101,20 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
               })}
             </tbody>
           </table>
+          <TablePagination
+            {...{
+              canPreviousPage,
+              canNextPage,
+              pageOptions,
+              pageCount,
+              gotoPage,
+              nextPage,
+              previousPage,
+              setPageSize,
+              pageIndex,
+              pageSize,
+            }}
+          />
         </div>
       </div>
     </div>
