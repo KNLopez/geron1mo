@@ -31,11 +31,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           onClick={() => gotoPage(0)}
           disabled={!canPreviousPage}
         >
-          <span className='svg-icon svg-icon-primary svg-icon-2x'>
+          <span className='svg-icon svg-icon-primary svg-icon'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width='24px'
-              height='24px'
+              width='16px'
+              height='16px'
               viewBox='0 0 24 24'
               version='1.1'
             >
@@ -63,11 +63,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           disabled={!canPreviousPage}
           className='btn btn-icon btn-sm btn-light mx-2 my-1'
         >
-          <span className='svg-icon svg-icon-primary svg-icon-2x'>
+          <span className='svg-icon svg-icon-primary svg-icon'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width='24px'
-              height='24px'
+              width='16px'
+              height='16px'
               viewBox='0 0 24 24'
               version='1.1'
             >
@@ -117,11 +117,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           onClick={() => nextPage()}
           disabled={!canNextPage}
         >
-          <span className='svg-icon svg-icon-primary svg-icon-2x'>
+          <span className='svg-icon svg-icon-primary svg-icon'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width='24px'
-              height='24px'
+              width='16px'
+              height='16px'
               viewBox='0 0 24 24'
               version='1.1'
             >
@@ -142,11 +142,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           onClick={() => gotoPage(pageCount - 1)}
           disabled={!canNextPage}
         >
-          <span className='svg-icon svg-icon-primary svg-icon-2x'>
+          <span className='svg-icon svg-icon-primary svg-icon'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width='24px'
-              height='24px'
+              width='16px'
+              height='16px'
               viewBox='0 0 24 24'
               version='1.1'
             >
