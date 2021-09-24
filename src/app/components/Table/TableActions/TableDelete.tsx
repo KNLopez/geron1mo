@@ -1,12 +1,12 @@
-const TableDelete = () => {
+const TableDelete = ({selectedRowIds}: any) => {
   return (
     <div
-      className='d-flex justify-content-end align-items-center d-none'
+      className='d-flex justify-content-end align-items-center '
       data-kt-customer-table-toolbar='selected'
     >
       <div className='fw-bolder me-5'>
         <span className='me-2' data-kt-customer-table-select='selected_count'></span>
-        Selected
+        {Object.keys(selectedRowIds).length} Selected
       </div>
       <button
         type='button'

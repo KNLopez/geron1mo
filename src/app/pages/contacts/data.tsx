@@ -14,7 +14,7 @@ const columns = [
   {
     Header: 'Name',
     accessor: 'firstname',
-    Cell: ({row}: any) => <p>{`${row.original?.firstname} ${row.original?.lastname}`}</p>,
+    Cell: ({row}: any) => <span>{`${row.original?.firstname} ${row.original?.lastname}`}</span>,
   },
   {
     Header: 'Phone',
@@ -27,7 +27,7 @@ const columns = [
   {
     Header: 'Date Created',
     accessor: 'created_at',
-    Cell: ({row}: any) => <p>{new Date(row.original.created_at).toLocaleString()}</p>,
+    Cell: ({row}: any) => <span>{new Date(row.original.created_at).toLocaleString()}</span>,
   },
   {
     Header: 'Status',

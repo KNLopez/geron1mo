@@ -172,7 +172,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
       <div className='d-flex align-items-center py-3'>
         {/* <div className='d-flex align-items-center'>
           <div className='mx-2 text-muted'>Loading...</div>
-          <div className='spinner mr-10'></div>
+          <div className='spinner mr-10'>div>
         </div> */}
 
         <select

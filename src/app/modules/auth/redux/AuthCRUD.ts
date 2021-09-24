@@ -6,6 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'api'
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/auth/get-user`
 export const LOGIN_URL = `${API_URL}/users/sign_in`
 export const REGISTER_URL = `${API_URL}/users`
+export const USER_BY_TOKEN_URL = `/me`
 export const REQUEST_PASSWORD_URL = `${API_URL}/auth/forgot-password`
 
 // Server should return AuthModel
@@ -26,6 +27,10 @@ export function register(email: string, firstname: string, lastname: string, pas
 // Server should return object => { result: boolean } (Is Email in DB)
 export function requestPassword(email: string) {
   return axios.post<{result: boolean}>(REQUEST_PASSWORD_URL, {email})
+}
+
+export function getUserByToken() {
+  return axios.post(USER_BY_TOKEN_URL)
 }
 
 export function getAuthToken() {
