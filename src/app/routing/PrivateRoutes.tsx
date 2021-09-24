@@ -6,7 +6,7 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 
 export function PrivateRoutes() {
   const ContactsPage = lazy(() => import('../pages/contacts/ContactsPage'))
-  const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
+  const CampaignsPage = lazy(() => import('../pages/campaigns/CampaignsPage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
@@ -17,10 +17,10 @@ export function PrivateRoutes() {
       <Switch>
         <Route path='/dashboard' component={DashboardWrapper} />
         <Route path='/contacts' component={ContactsPage} />
-        <Route path='/studios' component={ContactsPage} />
-        <Route path='/campaigns' component={ContactsPage} />
-        <Route path='/contacts' component={ContactsPage} />
-        <Route path='/pitcrews' component={ContactsPage} />
+        {/* <Route path='/studios' component={ContactsPage} /> */}
+        <Route path='/campaigns' component={CampaignsPage} />
+        {/* <Route path='/contacts' component={ContactsPage} /> */}
+        {/* <Route path='/pitcrews' component={ContactsPage} /> */}
         {/* <Route path='/students' component={ContactsPage} /> */}
         {/* <Route path='/builder' component={BuilderPageWrapper} />
         <Route path='/crafted/pages/profile' component={ProfilePage} />

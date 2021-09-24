@@ -4,15 +4,19 @@ import {combineReducers} from 'redux'
 import * as auth from '../../app/modules/auth'
 import {contacts} from '../../app/pages/contacts/state'
 import {contact} from '../../app/pages/contacts/state'
+import {campaigns} from '../../app/pages/campaigns/state'
+import {campaign} from '../../app/pages/campaigns/state'
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
   contacts: contacts.reducer,
   contact: contact.reducer,
+  campaign: campaign.reducer,
+  campaigns: campaigns.reducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
 
 export function* rootSaga() {
-  yield all([auth.saga(), contacts.saga(), contact.saga()])
+  yield all([auth.saga(), contacts.saga(), contact.saga(), campaign.saga(), campaigns.saga()])
 }
