@@ -4,7 +4,7 @@ import {RootState} from '../../../setup/redux/RootReducer'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateCampaign from './modals/CreateCampaign'
+import CreateCampaign from './modals/CampaignForm'
 import {campaignsActions} from './state/campaigns'
 
 const Campaigns = () => {

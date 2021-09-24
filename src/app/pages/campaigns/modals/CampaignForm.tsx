@@ -15,23 +15,19 @@ const CreateCampaign: React.FC<any> = () => {
   )
 
   const CreateCampaignSchema = Yup.object().shape({
-    firstname: Yup.string().required('First Name is required'),
-    lastname: Yup.string().required('Last Name is required'),
-    phone: Yup.string(),
+    name: Yup.string().required('Name is required'),
+    details: Yup.string().required('Last Name is required'),
     status: Yup.string(),
-    assigned: Yup.string(),
-    campaign_name: Yup.string(),
-    email: Yup.string().email('Wrong email format').required('Email is required'),
+    start_date: Yup.string(),
+    end_date: Yup.string(),
   })
 
   const initialValues = {
-    firstname: '',
-    lastname: '',
+    name: '',
+    details: '',
     status: '',
-    phone: '',
-    campaign_name: '',
-    assigned: '',
-    email: '',
+    start_date: '',
+    end_date: '',
   }
 
   const formik = useFormik({
@@ -68,75 +64,43 @@ const CreateCampaign: React.FC<any> = () => {
             data-kt-scroll-offset='300px'
           >
             <div className='fv-row mb-7'>
-              <label className='required fs-6 fw-bold mb-2'>First Name</label>
+              <label className='required fs-6 fw-bold mb-2'>Name</label>
               <input
-                {...formik.getFieldProps('firstname')}
+                {...formik.getFieldProps('name')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.firstname && formik.errors.firstname},
+                  {'is-invalid': formik.touched.name && formik.errors.name},
                   {
-                    'is-valid': formik.touched.firstname && !formik.errors.firstname,
+                    'is-valid': formik.touched.name && !formik.errors.name,
                   }
                 )}
                 type='text'
-                placeholder='Enter Full Name'
-                name='firstname'
+                placeholder='Enter Campaign Name'
+                name='name'
               />
             </div>
-            <div className='fv-row mb-7'>
-              <label className='required fs-6 fw-bold mb-2'>Last Name</label>
-              <input
-                {...formik.getFieldProps('lastname')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.lastname && formik.errors.lastname},
-                  {
-                    'is-valid': formik.touched.lastname && !formik.errors.lastname,
-                  }
-                )}
-                type='text'
-                placeholder='Enter Full Name'
-                name='lastname'
-              />
-            </div>
+
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>
-                <span className='required'>Email</span>
+                <span className='required'>Details</span>
                 <i
                   className='fas fa-exclamation-circle ms-1 fs-7'
                   data-bs-toggle='tooltip'
-                  title='Email address must be active'
+                  title='Campaign details'
                 ></i>
               </label>
 
-              <input
-                {...formik.getFieldProps('email')}
+              <textarea
+                {...formik.getFieldProps('details')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.email && formik.errors.email},
+                  {'is-invalid': formik.touched.details && formik.errors.details},
                   {
-                    'is-valid': formik.touched.email && !formik.errors.email,
+                    'is-valid': formik.touched.details && !formik.errors.details,
                   }
                 )}
-                type='email'
-                placeholder='campaign@gmail.com'
-                name='email'
-              />
-            </div>
-            <div className='fv-row mb-7'>
-              <label className='fs-6 fw-bold mb-2'>Phone</label>
-              <input
-                {...formik.getFieldProps('phone')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.phone && formik.errors.phone},
-                  {
-                    'is-valid': formik.touched.phone && !formik.errors.phone,
-                  }
-                )}
-                type='text'
-                placeholder='+88-888-8888'
-                name='phone'
+                placeholder='Campaign details'
+                name='details'
               />
             </div>
             <div className='fv-row mb-7'>
@@ -156,35 +120,35 @@ const CreateCampaign: React.FC<any> = () => {
               />
             </div>
             <div className='fv-row mb-7'>
-              <label className='fs-6 fw-bold mb-2'>Assigned To</label>
+              <label className='fs-6 fw-bold mb-2'>Start Date</label>
               <input
-                {...formik.getFieldProps('assigned')}
+                {...formik.getFieldProps('start_date')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.assigned && formik.errors.assigned},
+                  {'is-invalid': formik.touched.start_date && formik.errors.start_date},
                   {
-                    'is-valid': formik.touched.assigned && !formik.errors.assigned,
+                    'is-valid': formik.touched.start_date && !formik.errors.start_date,
                   }
                 )}
                 type='text'
-                placeholder='Doza'
-                name='assigned'
+                placeholder='Start Date'
+                name='start_date'
               />
             </div>
             <div className='fv-row mb-5'>
-              <label className='fs-6 fw-bold mb-2'>Campaign</label>
+              <label className='fs-6 fw-bold mb-2'>End Date</label>
               <input
-                {...formik.getFieldProps('campaign_name')}
+                {...formik.getFieldProps('end_date')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.campaign_name && formik.errors.campaign_name},
+                  {'is-invalid': formik.touched.end_date && formik.errors.end_date},
                   {
-                    'is-valid': formik.touched.campaign_name && !formik.errors.campaign_name,
+                    'is-valid': formik.touched.end_date && !formik.errors.end_date,
                   }
                 )}
                 type='text'
-                placeholder='Awesome campaign name'
-                name='campaign_name'
+                placeholder='End Date'
+                name='end_date'
               />
             </div>
           </div>

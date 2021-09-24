@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
 
 import {getCampaignsApi} from '../api/campaigns'
+import {campaignActionTypes} from './campaign'
 import {Campaign} from './models'
 
 const takeLatest: any = Eff.takeLatest
@@ -49,6 +50,12 @@ export const reducer = persistReducer(
         return {
           ...state,
           error: action.payload,
+        }
+      }
+      case campaignActionTypes.CampaignLoaded: {
+        return {
+          ...state,
+          campaigns: [action.payload, ...state.campaigns],
         }
       }
 

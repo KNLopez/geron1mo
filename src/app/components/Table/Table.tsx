@@ -62,7 +62,6 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
       ])
     }
   )
-  console.log(Object.keys(selectedRowIds)?.length)
 
   return (
     <div className='card'>

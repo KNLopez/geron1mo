@@ -1,11 +1,7 @@
 export interface Campaign {
-  id: string
-  firstname: string
-  lastname: string
-  phone?: string
-  email?: string
-  status?: number
-  created_at: Date | undefined
-  assigned?: string
-  campaign_name?: string
+  name: string
+  details: string
+  status: string
+  start_date?: string
+  end_date?: string
 }

@@ -26,15 +26,11 @@ export interface InitialCampaignStateType {
 
 const initialCampaign: InitialCampaignStateType = {
   campaign: {
-    id: '',
-    firstname: '',
-    lastname: '',
-    status: undefined,
-    phone: '',
-    campaign_name: '',
-    assigned: '',
-    email: '',
-    created_at: undefined,
+    name: '',
+    details: '',
+    status: '',
+    start_date: '',
+    end_date: '',
   },
   loadingCampaign: false,
   error: undefined,
@@ -82,7 +78,7 @@ export const reducer = persistReducer(
 export const campaignActions = {
   loadingCampaign: () => ({type: campaignActionTypes.LoadingCampaign}),
   fetchCampaign: () => ({type: campaignActionTypes.FetchCampaign}),
-  createCampaign: (lead: any) => ({type: campaignActionTypes.CreateCampaign, lead}),
+  createCampaign: (campaign: any) => ({type: campaignActionTypes.CreateCampaign, campaign}),
   campaignLoaded: (payload: any) => ({type: campaignActionTypes.CampaignLoaded, payload}),
   campaignError: (payload: any) => ({type: campaignActionTypes.CampaignError, payload}),
 }
@@ -98,10 +94,11 @@ function* getCampaign(payload: any): any {
   }
 }
 
-function* createCampaign({lead}: any): any {
+function* createCampaign({campaign}: any): any {
   yield put(campaignActions.loadingCampaign())
+  console.log('test')
   try {
-    const response = yield call(createCampaignApi, lead)
+    const response = yield call(createCampaignApi, campaign)
     console.log(response.data)
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {

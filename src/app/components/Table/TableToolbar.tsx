@@ -22,7 +22,6 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
 }) => {
   return (
     <div className='card-header border-0 pt-6'>
-      {console.log(selectedRowIds)}
       <TableSearch {...{searchPlaceholder, globalFilter, preGlobalFilteredRows, setGlobalFilter}} />
       <TableActions {...{addButtonText, addActionModal, selectedRowIds}} />
     </div>

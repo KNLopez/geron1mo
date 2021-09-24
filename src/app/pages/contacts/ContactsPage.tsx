@@ -4,7 +4,7 @@ import {RootState} from '../../../setup/redux/RootReducer'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateContact from './modals/CreateContact'
+import CreateContact from './modals/ContactForm'
 import {contactsActions} from './state/contacts'
 
 const Contacts = () => {
