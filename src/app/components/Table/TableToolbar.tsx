@@ -1,29 +1,28 @@
-import TableActions from './TableActions/TableActions'
+import TableActions, {TableActionsProps} from './TableActions/TableActions'
 import TableSearch from './TableSearch'
 
-export interface TableToolbarProps {
+interface TableToolbarLocalProps {
   searchPlaceholder?: string
-  addButtonText?: string
   preGlobalFilteredRows?: any
   setGlobalFilter?: any
   globalFilter?: any
-  addActionModal?: any
-  selectedRowIds?: any
 }
+
+export type TableToolbarProps = TableToolbarLocalProps & TableActionsProps
 
 const TableToolbar: React.FC<TableToolbarProps> = ({
   searchPlaceholder = 'Search',
-  addButtonText = 'Add',
   preGlobalFilteredRows,
   setGlobalFilter,
   globalFilter,
   addActionModal,
   selectedRowIds,
+  deleteAction,
 }) => {
   return (
     <div className='card-header border-0 pt-6'>
       <TableSearch {...{searchPlaceholder, globalFilter, preGlobalFilteredRows, setGlobalFilter}} />
-      <TableActions {...{addButtonText, addActionModal, selectedRowIds}} />
+      <TableActions {...{addActionModal, selectedRowIds, deleteAction}} />
     </div>
   )
 }

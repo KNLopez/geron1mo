@@ -2,12 +2,11 @@ import React, {Suspense, lazy} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {FallbackView} from '../../_metronic/partials'
 import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
-import {MenuTestPage} from '../pages/MenuTestPage'
 
 export function PrivateRoutes() {
   const ContactsPage = lazy(() => import('../pages/contacts/ContactsPage'))
   const CampaignsPage = lazy(() => import('../pages/campaigns/CampaignsPage'))
-  const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
+  const StudiosPage = lazy(() => import('../pages/studios/StudioPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
@@ -17,7 +16,7 @@ export function PrivateRoutes() {
       <Switch>
         <Route path='/dashboard' component={DashboardWrapper} />
         <Route path='/contacts' component={ContactsPage} />
-        {/* <Route path='/studios' component={ContactsPage} /> */}
+        <Route path='/studios' component={StudiosPage} />
         <Route path='/campaigns' component={CampaignsPage} />
         {/* <Route path='/contacts' component={ContactsPage} /> */}
         {/* <Route path='/pitcrews' component={ContactsPage} /> */}

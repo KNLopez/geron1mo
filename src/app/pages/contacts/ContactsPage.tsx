@@ -19,6 +19,8 @@ const Contacts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const handleDelete = () => {}
+
   if (error) {
     return <h2>Error</h2>
   }
@@ -30,6 +32,7 @@ const Contacts = () => {
         <Table
           data={contacts}
           columns={data.columns}
+          deleteAction={handleDelete}
           searchPlaceholder='Search leads'
           addActionModal={() => <CreateContact />}
         />

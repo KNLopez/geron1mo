@@ -1,17 +1,15 @@
 import {useState} from 'react'
 import {useAsyncDebounce} from 'react-table'
 
-interface TableSearchProps {
+export interface TableSearchProps {
   searchPlaceholder: string
-  preGlobalFilteredRows?: any
   setGlobalFilter?: any
-  globalFilter: any
+  globalFilter?: any
 }
 
 const TableSearch: React.FC<TableSearchProps> = ({
   searchPlaceholder,
   setGlobalFilter,
-  preGlobalFilteredRows,
   globalFilter,
 }) => {
   const [value, setValue] = useState(globalFilter)

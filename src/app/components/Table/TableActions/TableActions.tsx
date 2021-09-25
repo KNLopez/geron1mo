@@ -1,13 +1,18 @@
-import TableDelete from './TableDelete'
-import TableExport from './TableExport'
+import TableDelete, {TableDeleteProps} from './TableDelete'
+// import TableExport from './TableExport'
 import TableFilter from './TableFilter'
 
-export interface TableActionsProps {
+interface TableActionsLocalProps {
   addActionModal?: any
-  selectedRowIds: any
 }
 
-const TableActions: React.FC<TableActionsProps> = ({addActionModal, selectedRowIds}) => {
+export type TableActionsProps = TableActionsLocalProps & TableDeleteProps
+
+const TableActions: React.FC<TableActionsProps> = ({
+  addActionModal,
+  selectedRowIds,
+  deleteAction,
+}) => {
   return (
     <div className='card-toolbar'>
       <div className='d-flex justify-content-end' data-kt-customer-table-toolbar='base'>
@@ -18,7 +23,7 @@ const TableActions: React.FC<TableActionsProps> = ({addActionModal, selectedRowI
             {addActionModal && addActionModal()}{' '}
           </>
         ) : (
-          <TableDelete {...{selectedRowIds}} />
+          <TableDelete {...{selectedRowIds, deleteAction}} />
         )}
       </div>
     </div>

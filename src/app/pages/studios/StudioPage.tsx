@@ -4,18 +4,18 @@ import {RootState} from '../../../setup/redux/RootReducer'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateCampaign from './modals/CampaignForm'
-import {campaignsActions} from './state/campaigns'
+import CreateStudios from './modals/StudioForm'
+import {studiosActions} from './state/studios'
 
-const Campaigns = () => {
+const Studioss = () => {
   const dispatch = useDispatch()
-  const {campaigns, loadingCampaigns, error}: any = useSelector(
-    ({campaigns}: RootState) => campaigns,
+  const {studios, loadingStudioss, error}: any = useSelector(
+    ({studios}: RootState) => studios,
     shallowEqual
   )
 
   useEffect(() => {
-    dispatch(campaignsActions.fetchCampaigns())
+    dispatch(studiosActions.fetchStudios())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -28,17 +28,17 @@ const Campaigns = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingCampaigns && (
+      {!loadingStudioss && (
         <Table
-          data={campaigns}
+          data={studios}
           columns={data.columns}
           searchPlaceholder='Search leads'
           deleteAction={handleDelete}
-          addActionModal={() => <CreateCampaign />}
+          addActionModal={() => <CreateStudios />}
         />
       )}
     </div>
   )
 }
 
-export default Campaigns
+export default Studioss

@@ -11,16 +11,24 @@ import {
 import TablePagination from './TableActions/TablePagination'
 import ColumnSort from './Components/ColumnSort'
 import RowCheckBox from './Components/RowChecbox'
+import {TableSearchProps} from './TableSearch'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
   data?: readonly any[]
   addActionModal: any
+  deleteAction: () => any
 }
 
-type Props = TableProps & TableToolbarProps
+type Props = TableProps & TableSearchProps
 
-const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, addActionModal}) => {
+const Table: React.FC<Props> = ({
+  columns = [],
+  data = [],
+  searchPlaceholder,
+  addActionModal,
+  deleteAction,
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -73,6 +81,7 @@ const Table: React.FC<Props> = ({columns = [], data = [], searchPlaceholder, add
           globalFilter: state.globalFilter,
           setGlobalFilter,
           selectedRowIds,
+          deleteAction,
         }}
       />
       <div className='card-body pt-0'>
