@@ -16,7 +16,7 @@ export const rootReducer = combineReducers({
   campaign: campaign.reducer,
   campaigns: campaigns.reducer,
   studio: studio.reducer,
-  studios: studio.reducer,
+  studios: studios.reducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

@@ -85,7 +85,7 @@ export const reducer = persistReducer(
 export const studioActions = {
   loadingStudio: () => ({type: studioActionTypes.LoadingStudio}),
   fetchStudio: () => ({type: studioActionTypes.FetchStudio}),
-  createStudio: (lead: any) => ({type: studioActionTypes.CreateStudio, lead}),
+  createStudio: (studio: any) => ({type: studioActionTypes.CreateStudio, studio}),
   studioLoaded: (payload: any) => ({type: studioActionTypes.StudioLoaded, payload}),
   studioError: (payload: any) => ({type: studioActionTypes.StudioError, payload}),
 }
@@ -101,10 +101,10 @@ function* getStudio(payload: any): any {
   }
 }
 
-function* createStudio({lead}: any): any {
+function* createStudio({studio}: any): any {
   yield put(studioActions.loadingStudio())
   try {
-    const response = yield call(createStudioApi, lead)
+    const response = yield call(createStudioApi, studio)
     yield put(studioActions.studioLoaded(response.data))
   } catch (err: any) {
     yield put(studioActions.studioError(err))

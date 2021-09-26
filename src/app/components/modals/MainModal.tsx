@@ -8,6 +8,7 @@ export interface ModalProps {
   submitButtonText?: string
   buttonAction?: () => any
   isValid?: boolean
+  onEntered?: any
 }
 
 const MainModal: React.FC<ModalProps> = ({
@@ -18,6 +19,7 @@ const MainModal: React.FC<ModalProps> = ({
   buttonAction,
   isValid,
   children,
+  onEntered,
 }) => {
   const [show, setShow] = useState(false)
 
@@ -65,19 +67,21 @@ const MainModal: React.FC<ModalProps> = ({
         {buttonText}
       </Button>
 
-      <Modal show={show} onHide={handleClose} size='lg'>
+      <Modal show={show} onHide={handleClose} size='lg' onEntered={onEntered}>
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
-            {cancelButtonText}
-          </Button>
-          <Button variant='primary' onClick={handleSubmit}>
-            {submitButtonText}
-          </Button>
-        </Modal.Footer>
+        {buttonAction && (
+          <Modal.Footer>
+            <Button variant='secondary' onClick={handleClose}>
+              {cancelButtonText}
+            </Button>
+            <Button variant='primary' onClick={handleSubmit}>
+              {submitButtonText}
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     </>
   )

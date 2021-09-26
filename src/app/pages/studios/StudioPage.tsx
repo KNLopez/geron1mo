@@ -9,7 +9,7 @@ import {studiosActions} from './state/studios'
 
 const Studioss = () => {
   const dispatch = useDispatch()
-  const {studios, loadingStudioss, error}: any = useSelector(
+  const {studios, loadingStudios, error}: any = useSelector(
     ({studios}: RootState) => studios,
     shallowEqual
   )
@@ -28,7 +28,7 @@ const Studioss = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingStudioss && (
+      {!loadingStudios && (
         <Table
           data={studios}
           columns={data.columns}

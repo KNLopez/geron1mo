@@ -13,5 +13,5 @@ export function getStudioApi(id: string) {
 }
 
 export function createStudioApi(studio: Studio) {
-  return axios.post(STUDIO, studio)
+  return axios.post(STUDIO, {studio})
 }
