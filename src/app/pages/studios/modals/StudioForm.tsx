@@ -90,6 +90,12 @@ const CreateStudio: React.FC<any> = () => {
   }
 
   useEffect(() => {
+    if (error) {
+      alert('error!')
+    }
+  }, [error])
+
+  useEffect(() => {
     if (!stepperRef.current) {
       return
     }
@@ -102,6 +108,7 @@ const CreateStudio: React.FC<any> = () => {
       title='Create Studio'
       buttonText='Add Studio'
       onEntered={loadStepper}
+      onHide={() => dispatch(studioActions.resetStudio())}
       // buttonAction={formik.handleSubmit}
       // isValid={!loadingStudio && formik.isValid}
     >
@@ -180,7 +187,7 @@ const CreateStudio: React.FC<any> = () => {
               initialValues={initValues}
               onSubmit={submitStep}
             >
-              {() => (
+              {({status}) => (
                 <Form className='form ' noValidate id='kt_modal_create_app_form'>
                   <div className='current' data-kt-stepper-element='content'>
                     <div className='w-100'>
@@ -595,6 +602,11 @@ const CreateStudio: React.FC<any> = () => {
             </Formik>
           </div>
         </div>
+        {error && (
+          <div className='mb-lg-15 alert alert-danger'>
+            <div className='alert-text font-weight-bold'>{error.message}</div>
+          </div>
+        )}
       </div>
     </Modal>
   )

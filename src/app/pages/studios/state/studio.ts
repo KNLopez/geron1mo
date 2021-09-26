@@ -17,6 +17,7 @@ export const studioActionTypes = {
   UpdateStudio: '[Studio] Update',
   StudioLoaded: '[Studio] Loaded',
   StudioError: '[Studio] Error',
+  ResetStudio: '[Studio] Reset',
 }
 
 export interface InitialStudioStateType {
@@ -48,7 +49,7 @@ export const reducer = persistReducer(
   (state: InitialStudioStateType = initialStudio, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case studioActionTypes.LoadingStudio: {
-        return {...state, loadingStudio: true}
+        return {...state, loadingStudio: true, error: undefined}
       }
 
       case studioActionTypes.StudioLoaded: {
@@ -59,6 +60,7 @@ export const reducer = persistReducer(
         return {
           ...state,
           error: action.payload,
+          loadingStudio: false,
         }
       }
 
@@ -75,6 +77,9 @@ export const reducer = persistReducer(
           studio: action.payload,
         }
       }
+      case studioActionTypes.ResetStudio: {
+        return initialStudio
+      }
 
       default:
         return state
@@ -88,6 +93,7 @@ export const studioActions = {
   createStudio: (studio: any) => ({type: studioActionTypes.CreateStudio, studio}),
   studioLoaded: (payload: any) => ({type: studioActionTypes.StudioLoaded, payload}),
   studioError: (payload: any) => ({type: studioActionTypes.StudioError, payload}),
+  resetStudio: () => ({type: studioActionTypes.ResetStudio}),
 }
 
 function* getStudio(payload: any): any {

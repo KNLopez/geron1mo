@@ -9,6 +9,7 @@ export interface ModalProps {
   buttonAction?: () => any
   isValid?: boolean
   onEntered?: any
+  onHide?: () => any
 }
 
 const MainModal: React.FC<ModalProps> = ({
@@ -20,10 +21,12 @@ const MainModal: React.FC<ModalProps> = ({
   isValid,
   children,
   onEntered,
+  onHide,
 }) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => {
+    onHide && onHide()
     setShow(false)
   }
 

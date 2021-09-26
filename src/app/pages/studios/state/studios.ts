@@ -39,7 +39,7 @@ export const reducer = persistReducer(
   (state: InitialContacstStateType = initialStudios, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case studiosActionTypes.LoadingStudios: {
-        return {...state, loadingStudios: true}
+        return {...state, loadingStudios: true, error: null}
       }
 
       case studiosActionTypes.StudiosLoaded: {
@@ -50,6 +50,7 @@ export const reducer = persistReducer(
         return {
           ...state,
           error: action.payload,
+          loadingStudios: false,
         }
       }
 
