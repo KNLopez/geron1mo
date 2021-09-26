@@ -124,18 +124,18 @@ const CreateCampaign: React.FC<any> = () => {
                 name='status'
               />
             </div>
-            <div className='fv-row mb-7'>
+            <div className='fv-row mb-7' data-kt-calendar='datepicker'>
               <label className='fs-6 fw-bold mb-2'>Start Date</label>
               <input
                 {...formik.getFieldProps('start_date')}
                 className={clsx(
-                  'form-control form-control-lg form-control-solid',
+                  'form-control form-control-lg form-control-solid flatpickr-input',
                   {'is-invalid': formik.touched.start_date && formik.errors.start_date},
                   {
                     'is-valid': formik.touched.start_date && !formik.errors.start_date,
                   }
                 )}
-                type='text'
+                type='date'
                 placeholder='Start Date'
                 name='start_date'
               />
@@ -145,13 +145,13 @@ const CreateCampaign: React.FC<any> = () => {
               <input
                 {...formik.getFieldProps('end_date')}
                 className={clsx(
-                  'form-control form-control-lg form-control-solid',
+                  'form-control form-control-lg form-control-solid flatpickr-input',
                   {'is-invalid': formik.touched.end_date && formik.errors.end_date},
                   {
                     'is-valid': formik.touched.end_date && !formik.errors.end_date,
                   }
                 )}
-                type='text'
+                type='date'
                 placeholder='End Date'
                 name='end_date'
               />

@@ -41,7 +41,7 @@ const Campaigns = () => {
         <Table
           data={campaigns}
           columns={data.columns}
-          searchPlaceholder='Search leads'
+          searchPlaceholder='Search Campaigns'
           deleteAction={handleDelete}
           rowClick={handleRowClick}
           addActionModal={() => (
