@@ -15,7 +15,9 @@ export const campaignActionTypes = {
   CreateCampaign: '[Campaign] Create',
   UpdateCampaign: '[Campaign] Update',
   CampaignLoaded: '[Campaign] Loaded',
+  SetCampaign: '[Campaign] Set',
   CampaignError: '[Campaign] Error',
+  ResetCampaign: '[Campaign] Reset',
 }
 
 export interface InitialCampaignStateType {
@@ -26,6 +28,7 @@ export interface InitialCampaignStateType {
 
 const initialCampaign: InitialCampaignStateType = {
   campaign: {
+    id: '',
     name: '',
     details: '',
     status: '',
@@ -43,7 +46,7 @@ export const reducer = persistReducer(
       case campaignActionTypes.LoadingCampaign: {
         return {...state, loadingCampaign: true}
       }
-
+      case campaignActionTypes.SetCampaign:
       case campaignActionTypes.CampaignLoaded: {
         return {...state, campaign: action.payload, loadingCampaign: false}
       }
@@ -69,6 +72,10 @@ export const reducer = persistReducer(
         }
       }
 
+      case campaignActionTypes.ResetCampaign: {
+        return initialCampaign
+      }
+
       default:
         return state
     }
@@ -78,8 +85,10 @@ export const reducer = persistReducer(
 export const campaignActions = {
   loadingCampaign: () => ({type: campaignActionTypes.LoadingCampaign}),
   fetchCampaign: () => ({type: campaignActionTypes.FetchCampaign}),
+  resetCampaign: () => ({type: campaignActionTypes.ResetCampaign}),
   createCampaign: (campaign: any) => ({type: campaignActionTypes.CreateCampaign, campaign}),
   campaignLoaded: (payload: any) => ({type: campaignActionTypes.CampaignLoaded, payload}),
+  setCampaign: (payload: any) => ({type: campaignActionTypes.SetCampaign, payload}),
   campaignError: (payload: any) => ({type: campaignActionTypes.CampaignError, payload}),
 }
 
@@ -96,10 +105,8 @@ function* getCampaign(payload: any): any {
 
 function* createCampaign({campaign}: any): any {
   yield put(campaignActions.loadingCampaign())
-  console.log('test')
   try {
     const response = yield call(createCampaignApi, campaign)
-    console.log(response.data)
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))

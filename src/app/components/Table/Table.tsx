@@ -18,6 +18,7 @@ export interface TableProps {
   data?: readonly any[]
   addActionModal: any
   deleteAction: () => any
+  rowClick?: (row: any) => any
 }
 
 type Props = TableProps & TableSearchProps
@@ -28,13 +29,13 @@ const Table: React.FC<Props> = ({
   searchPlaceholder,
   addActionModal,
   deleteAction,
+  rowClick,
 }) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     page,
-    state,
     prepareRow,
     preGlobalFilteredRows,
     setGlobalFilter,
@@ -46,7 +47,7 @@ const Table: React.FC<Props> = ({
     nextPage,
     previousPage,
     setPageSize,
-    state: {pageIndex, pageSize, selectedRowIds},
+    state: {pageIndex, pageSize, selectedRowIds, globalFilter},
   }: any = useTable<any>(
     {
       columns,
@@ -78,7 +79,7 @@ const Table: React.FC<Props> = ({
           searchPlaceholder,
           addActionModal,
           preGlobalFilteredRows,
-          globalFilter: state.globalFilter,
+          globalFilter,
           setGlobalFilter,
           selectedRowIds,
           deleteAction,
@@ -108,7 +109,7 @@ const Table: React.FC<Props> = ({
               {page.map((row: any) => {
                 prepareRow(row)
                 return (
-                  <tr {...row.getRowProps()}>
+                  <tr {...row.getRowProps()} onClick={() => rowClick && rowClick(row.original)}>
                     {row.cells.map((cell: any) => {
                       return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                     })}

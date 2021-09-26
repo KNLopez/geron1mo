@@ -6,10 +6,10 @@ import {contactActions, InitialContactStateType} from '../state/contact'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
 
-const CreateContact: React.FC<any> = () => {
+const ContactForm: React.FC<any> = () => {
   const dispatch = useDispatch()
 
-  const {loadingContact, error}: InitialContactStateType = useSelector(
+  const {contact, loadingContact, error}: InitialContactStateType = useSelector(
     (state: RootState) => state.contact,
     shallowEqual
   )
@@ -24,15 +24,18 @@ const CreateContact: React.FC<any> = () => {
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
 
-  const initialValues = {
-    firstname: '',
-    lastname: '',
-    status: '',
-    phone: '',
-    campaign_name: '',
-    assigned: '',
-    email: '',
-  }
+  const initialValues = contact?.id
+    ? contact
+    : {
+        id: '',
+        firstname: '',
+        lastname: '',
+        status: '',
+        phone: '',
+        campaign_name: '',
+        assigned: '',
+        email: '',
+      }
 
   const formik = useFormik({
     initialValues,
@@ -43,12 +46,14 @@ const CreateContact: React.FC<any> = () => {
     },
   })
 
+  const title = contact?.id ? 'Edit Contact' : 'Create Contact'
+
   return (
     <Modal
-      title='Create Contact'
-      buttonText='Add Contact'
+      title={title}
       buttonAction={formik.handleSubmit}
       isValid={!loadingContact && formik.isValid}
+      onHide={() => dispatch(contactActions.resetContact())}
     >
       {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
@@ -194,4 +199,4 @@ const CreateContact: React.FC<any> = () => {
   )
 }
 
-export default CreateContact
+export default ContactForm

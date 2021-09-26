@@ -1,10 +1,13 @@
 import {useEffect} from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../../setup/redux/RootReducer'
+import ModalButton from '../../components/modals/ModalButton'
+import {ModalTypes} from '../../components/modals/models'
+import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateStudios from './modals/StudioForm'
+import {studioActions} from './state/studio'
 import {studiosActions} from './state/studios'
 
 const Studioss = () => {
@@ -21,6 +24,11 @@ const Studioss = () => {
 
   const handleDelete = () => {}
 
+  const handleRowClick = (value: any) => {
+    dispatch(studioActions.setStudio(value))
+    dispatch(modalActions.showModal(ModalTypes.STUDIO_FORM))
+  }
+
   if (error) {
     return <h2>Error</h2>
   }
@@ -34,9 +42,13 @@ const Studioss = () => {
           columns={data.columns}
           searchPlaceholder='Search leads'
           deleteAction={handleDelete}
-          addActionModal={() => <CreateStudios />}
+          rowClick={handleRowClick}
+          addActionModal={() => (
+            <ModalButton buttonText='Add Studio' modalType={ModalTypes.STUDIO_FORM} />
+          )}
         />
       )}
+      {/* <CreateStudios /> */}
     </div>
   )
 }

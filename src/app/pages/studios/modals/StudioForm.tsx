@@ -49,7 +49,7 @@ const createAppSchema = [
 const CreateStudio: React.FC<any> = () => {
   const dispatch = useDispatch()
 
-  const {loadingStudio, error}: InitialStudioStateType = useSelector(
+  const {studio, loadingStudio, error}: InitialStudioStateType = useSelector(
     (state: RootState) => state.studio,
     shallowEqual
   )
@@ -57,7 +57,7 @@ const CreateStudio: React.FC<any> = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAppSchema[0])
-  const [initValues] = useState<Studio>(inits)
+  const [initValues] = useState<Studio>(studio || inits)
 
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
@@ -103,10 +103,11 @@ const CreateStudio: React.FC<any> = () => {
     loadStepper()
   }, [stepperRef])
 
+  const title = studio?.id ? 'Edit Studio' : 'Create Studio'
+
   return (
     <Modal
-      title='Create Studio'
-      buttonText='Add Studio'
+      title={title}
       onEntered={loadStepper}
       onHide={() => dispatch(studioActions.resetStudio())}
       // buttonAction={formik.handleSubmit}

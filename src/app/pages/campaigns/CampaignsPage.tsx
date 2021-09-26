@@ -1,10 +1,14 @@
 import {useEffect} from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../../setup/redux/RootReducer'
+import ModalButton from '../../components/modals/ModalButton'
+import {ModalTypes} from '../../components/modals/models'
+import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
 import CreateCampaign from './modals/CampaignForm'
+import {campaignActions} from './state/campaign'
 import {campaignsActions} from './state/campaigns'
 
 const Campaigns = () => {
@@ -18,6 +22,11 @@ const Campaigns = () => {
     dispatch(campaignsActions.fetchCampaigns())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const handleRowClick = (value: any) => {
+    dispatch(campaignActions.setCampaign(value))
+    dispatch(modalActions.showModal(ModalTypes.CAMPAIGN_FORM))
+  }
 
   const handleDelete = () => {}
 
@@ -34,7 +43,10 @@ const Campaigns = () => {
           columns={data.columns}
           searchPlaceholder='Search leads'
           deleteAction={handleDelete}
-          addActionModal={() => <CreateCampaign />}
+          rowClick={handleRowClick}
+          addActionModal={() => (
+            <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
+          )}
         />
       )}
     </div>

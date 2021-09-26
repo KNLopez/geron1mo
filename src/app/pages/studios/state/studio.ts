@@ -16,6 +16,7 @@ export const studioActionTypes = {
   CreateStudio: '[Studio] Create',
   UpdateStudio: '[Studio] Update',
   StudioLoaded: '[Studio] Loaded',
+  SetStudio: '[Studio] Set',
   StudioError: '[Studio] Error',
   ResetStudio: '[Studio] Reset',
 }
@@ -52,7 +53,8 @@ export const reducer = persistReducer(
         return {...state, loadingStudio: true, error: undefined}
       }
 
-      case studioActionTypes.StudioLoaded: {
+      case studioActionTypes.StudioLoaded:
+      case studioActionTypes.SetStudio: {
         return {...state, studio: action.payload, loadingStudio: false}
       }
 
@@ -92,6 +94,7 @@ export const studioActions = {
   fetchStudio: () => ({type: studioActionTypes.FetchStudio}),
   createStudio: (studio: any) => ({type: studioActionTypes.CreateStudio, studio}),
   studioLoaded: (payload: any) => ({type: studioActionTypes.StudioLoaded, payload}),
+  setStudio: (payload: any) => ({type: studioActionTypes.SetStudio, payload}),
   studioError: (payload: any) => ({type: studioActionTypes.StudioError, payload}),
   resetStudio: () => ({type: studioActionTypes.ResetStudio}),
 }

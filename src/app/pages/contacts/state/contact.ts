@@ -16,11 +16,13 @@ export const contactActionTypes = {
   CreateContact: '[Contact] Create',
   UpdateContact: '[Contact] Update',
   ContactLoaded: '[Contact] Loaded',
+  SetContact: '[Contact] Set',
+  ResetContact: '[Contact] Reset',
   ContactError: '[Contact] Error',
 }
 
 export interface InitialContactStateType {
-  contact?: Customer
+  contact: Customer
   loadingContact?: boolean
   error?: any
 }
@@ -48,7 +50,7 @@ export const reducer = persistReducer(
       case contactActionTypes.LoadingContact: {
         return {...state, loadingContact: true}
       }
-
+      case contactActionTypes.SetContact:
       case contactActionTypes.ContactLoaded: {
         return {...state, contact: action.payload, loadingContact: false}
       }
@@ -74,6 +76,10 @@ export const reducer = persistReducer(
         }
       }
 
+      case contactActionTypes.ResetContact: {
+        return initialContact
+      }
+
       default:
         return state
     }
@@ -83,7 +89,9 @@ export const reducer = persistReducer(
 export const contactActions = {
   loadingContact: () => ({type: contactActionTypes.LoadingContact}),
   fetchContact: () => ({type: contactActionTypes.FetchContact}),
+  resetContact: () => ({type: contactActionTypes.ResetContact}),
   createContact: (lead: any) => ({type: contactActionTypes.CreateContact, lead}),
+  setContact: (payload: any) => ({type: contactActionTypes.SetContact, payload}),
   contactLoaded: (payload: any) => ({type: contactActionTypes.ContactLoaded, payload}),
   contactError: (payload: any) => ({type: contactActionTypes.ContactError, payload}),
 }

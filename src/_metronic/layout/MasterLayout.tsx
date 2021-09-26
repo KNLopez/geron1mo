@@ -9,12 +9,13 @@ import {MasterInit} from './MasterInit'
 import {PageDataProvider} from './core'
 import {
   DrawerMessenger,
-  ExploreMain,
+  // ExploreMain,
   ActivityDrawer,
   Main,
   InviteUsers,
   UpgradePlan,
 } from '../partials'
+import ModalContainer from '../../app/components/modals/ModalContainer'
 
 const MasterLayout: React.FC = ({children}) => {
   return (
@@ -48,6 +49,7 @@ const MasterLayout: React.FC = ({children}) => {
 
       <MasterInit />
       <ScrollTop />
+      <ModalContainer />
     </PageDataProvider>
   )
 }

@@ -1,10 +1,14 @@
 import {useEffect} from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../../setup/redux/RootReducer'
+import ModalButton from '../../components/modals/ModalButton'
+import {ModalTypes} from '../../components/modals/models'
+import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateContact from './modals/ContactForm'
+import ContactFormModal from './modals/ContactForm'
+import {contactActions} from './state/contact'
 import {contactsActions} from './state/contacts'
 
 const Contacts = () => {
@@ -21,6 +25,11 @@ const Contacts = () => {
 
   const handleDelete = () => {}
 
+  const handleRowClick = (value: any) => {
+    dispatch(contactActions.setContact(value))
+    dispatch(modalActions.showModal(ModalTypes.CONTACT_FORM))
+  }
+
   if (error) {
     return <h2>Error</h2>
   }
@@ -34,9 +43,14 @@ const Contacts = () => {
           columns={data.columns}
           deleteAction={handleDelete}
           searchPlaceholder='Search leads'
-          addActionModal={() => <CreateContact />}
+          rowClick={handleRowClick}
+          addActionModal={() => (
+            <ModalButton buttonText='Add Contact' modalType={ModalTypes.CONTACT_FORM} />
+          )}
         />
       )}
+
+      {/* <ContactFormModal /> */}
     </div>
   )
 }

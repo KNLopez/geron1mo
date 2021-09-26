@@ -8,6 +8,7 @@ import {campaigns} from '../../app/pages/campaigns/state'
 import {campaign} from '../../app/pages/campaigns/state'
 import {studio} from '../../app/pages/studios/state'
 import {studios} from '../../app/pages/studios/state'
+import {modal} from '../../app/components/modals/state'
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   campaigns: campaigns.reducer,
   studio: studio.reducer,
   studios: studios.reducer,
+  modal: modal.reducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

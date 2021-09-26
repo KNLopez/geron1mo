@@ -9,7 +9,7 @@ import {RootState} from '../../../../setup/redux/RootReducer'
 const CreateCampaign: React.FC<any> = () => {
   const dispatch = useDispatch()
 
-  const {loadingCampaign, error}: InitialCampaignStateType = useSelector(
+  const {campaign, loadingCampaign, error}: InitialCampaignStateType = useSelector(
     (state: RootState) => state.campaign,
     shallowEqual
   )
@@ -22,13 +22,16 @@ const CreateCampaign: React.FC<any> = () => {
     end_date: Yup.string(),
   })
 
-  const initialValues = {
-    name: '',
-    details: '',
-    status: '',
-    start_date: '',
-    end_date: '',
-  }
+  const initialValues = campaign
+    ? campaign
+    : {
+        id: '',
+        name: '',
+        details: '',
+        status: '',
+        start_date: '',
+        end_date: '',
+      }
 
   const formik = useFormik({
     initialValues,
@@ -39,12 +42,14 @@ const CreateCampaign: React.FC<any> = () => {
     },
   })
 
+  const title = campaign?.id ? 'Edit Campaign' : 'Create Campaign'
+
   return (
     <Modal
-      title='Create Campaign'
-      buttonText='Add Campaign'
+      title={title}
       buttonAction={formik.handleSubmit}
       isValid={!loadingCampaign && formik.isValid}
+      onHide={() => dispatch(campaignActions.resetCampaign())}
     >
       {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
