@@ -10,6 +10,7 @@ import {useEffect, useRef, useState} from 'react'
 import {StepperComponent} from '../../../../_metronic/assets/ts/components'
 import {KTSVG, toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {Studio} from '../state/models'
+import {modalActions} from '../../../components/modals/state/MainModalState'
 
 const inits: Studio = {
   name: '',
@@ -86,7 +87,7 @@ const CreateStudio: React.FC<any> = () => {
       isEdit
         ? dispatch(studioActions.updateStudio(values))
         : dispatch(studioActions.createStudio(values))
-
+      setTimeout(() => dispatch(modalActions.hideModal()), 300)
       // stepper.current.goto(1)
       // actions.resetForm()
     }
