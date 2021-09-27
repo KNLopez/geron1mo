@@ -12,6 +12,10 @@ export function getContactApi(id: string) {
   return axios.get(LEADS, {params: {id}})
 }
 
+export function updateContactApi(lead: Customer) {
+  return axios.put(`${LEADS}/${lead.id}`, lead)
+}
+
 export function createContactApi(lead: Customer) {
   return axios.post(LEADS, lead)
 }

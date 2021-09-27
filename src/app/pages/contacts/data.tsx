@@ -32,6 +32,7 @@ const columns = [
   {
     Header: 'Status',
     accessor: 'status',
+    Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
   },
   {
     Header: 'Assigned to',

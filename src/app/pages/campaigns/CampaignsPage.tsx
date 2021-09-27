@@ -7,7 +7,6 @@ import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import CreateCampaign from './modals/CampaignForm'
 import {campaignActions} from './state/campaign'
 import {campaignsActions} from './state/campaigns'
 

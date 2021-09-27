@@ -40,7 +40,7 @@ const Studioss = () => {
         <Table
           data={studios}
           columns={data.columns}
-          searchPlaceholder='Search leads'
+          searchPlaceholder='Search Studios'
           deleteAction={handleDelete}
           rowClick={handleRowClick}
           addActionModal={() => (

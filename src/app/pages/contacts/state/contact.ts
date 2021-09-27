@@ -2,7 +2,7 @@ import {Action} from '@reduxjs/toolkit'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
-import {createContactApi, getContactApi} from '../api/contacts'
+import {createContactApi, getContactApi, updateContactApi} from '../api/contacts'
 import {ActionWithPayload} from './contacts'
 import {Customer} from './models'
 
@@ -14,7 +14,8 @@ export const contactActionTypes = {
   FetchContact: '[Contact] Fetch',
   LoadingContact: '[Contact] Loading',
   CreateContact: '[Contact] Create',
-  UpdateContact: '[Contact] Update',
+  ContactUpdate: '[Contact] Update',
+  ContactUpdated: '[Contact] Updated',
   ContactLoaded: '[Contact] Loaded',
   SetContact: '[Contact] Set',
   ResetContact: '[Contact] Reset',
@@ -48,7 +49,7 @@ export const reducer = persistReducer(
   (state: InitialContactStateType = initialContact, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case contactActionTypes.LoadingContact: {
-        return {...state, loadingContact: true}
+        return {...state, loadingContact: true, error: undefined}
       }
       case contactActionTypes.SetContact:
       case contactActionTypes.ContactLoaded: {
@@ -62,11 +63,12 @@ export const reducer = persistReducer(
         }
       }
 
-      case contactActionTypes.UpdateContact: {
-        return {
-          ...state,
-          contact: {...state.contact, ...action.payload},
-        }
+      case contactActionTypes.ContactUpdate: {
+        return {...state, loadingContact: true, error: undefined}
+      }
+
+      case contactActionTypes.ContactUpdated: {
+        return {...state, loadingContact: false}
       }
 
       case contactActionTypes.CreateContact: {
@@ -90,9 +92,11 @@ export const contactActions = {
   loadingContact: () => ({type: contactActionTypes.LoadingContact}),
   fetchContact: () => ({type: contactActionTypes.FetchContact}),
   resetContact: () => ({type: contactActionTypes.ResetContact}),
+  updateContact: (lead: any) => ({type: contactActionTypes.ContactUpdate, lead}),
   createContact: (lead: any) => ({type: contactActionTypes.CreateContact, lead}),
   setContact: (payload: any) => ({type: contactActionTypes.SetContact, payload}),
   contactLoaded: (payload: any) => ({type: contactActionTypes.ContactLoaded, payload}),
+  contactUpdated: (payload: any) => ({type: contactActionTypes.ContactUpdated, payload}),
   contactError: (payload: any) => ({type: contactActionTypes.ContactError, payload}),
 }
 
@@ -118,7 +122,19 @@ function* createContact({lead}: any): any {
   }
 }
 
+function* updateContact({lead}: any): any {
+  yield put(contactActions.loadingContact())
+  try {
+    const response = yield call(updateContactApi, lead)
+    yield put(contactActions.contactUpdated(response.data))
+  } catch (err: any) {
+    yield put(contactActions.contactError(err))
+    throw new Error(err)
+  }
+}
+
 export function* saga() {
   yield takeLatest(contactActionTypes.FetchContact, getContact)
   yield takeLatest(contactActionTypes.CreateContact, createContact)
+  yield takeLatest(contactActionTypes.ContactUpdate, updateContact)
 }

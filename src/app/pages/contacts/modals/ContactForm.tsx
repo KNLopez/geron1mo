@@ -14,6 +14,8 @@ const ContactForm: React.FC<any> = () => {
     shallowEqual
   )
 
+  const isEdit = contact?.id
+
   const CreateCustomerSchema = Yup.object().shape({
     firstname: Yup.string().required('First Name is required'),
     lastname: Yup.string().required('Last Name is required'),
@@ -24,7 +26,7 @@ const ContactForm: React.FC<any> = () => {
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
 
-  const initialValues = contact?.id
+  const initialValues = isEdit
     ? contact
     : {
         id: '',
@@ -41,12 +43,16 @@ const ContactForm: React.FC<any> = () => {
     initialValues,
     validationSchema: CreateCustomerSchema,
     onSubmit: (values, {setSubmitting}) => {
-      dispatch(contactActions.createContact(values))
+      isEdit
+        ? dispatch(contactActions.updateContact(values))
+        : dispatch(contactActions.createContact(values))
+
       setSubmitting(false)
     },
   })
 
-  const title = contact?.id ? 'Edit Contact' : 'Create Contact'
+  const title = isEdit ? 'Edit Contact' : 'Create Contact'
+  const submitButtonText = isEdit ? 'Update' : 'Submit'
 
   return (
     <Modal
@@ -54,6 +60,7 @@ const ContactForm: React.FC<any> = () => {
       buttonAction={formik.handleSubmit}
       isValid={!loadingContact && formik.isValid}
       onHide={() => dispatch(contactActions.resetContact())}
+      {...{submitButtonText}}
     >
       {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
@@ -146,19 +153,26 @@ const ContactForm: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Status</label>
-              <input
-                {...formik.getFieldProps('status')}
+              <select
                 className={clsx(
-                  'form-control form-control-lg form-control-solid',
+                  'form-select form-select-solid  select2-hidden-accessible',
                   {'is-invalid': formik.touched.status && formik.errors.status},
                   {
                     'is-valid': formik.touched.status && !formik.errors.status,
                   }
                 )}
-                type='text'
-                placeholder='Active'
+                {...formik.getFieldProps('status')}
                 name='status'
-              />
+              >
+                <option value='' disabled selected>
+                  Select Status
+                </option>
+                <option value='lead'>Lead</option>
+                <option value='won'>Won</option>
+                <option value='lost'>Lost</option>
+                <option value='active'>Active</option>
+                <option value='cancelled'>Cancelled</option>
+              </select>
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Assigned To</label>
@@ -181,7 +195,7 @@ const ContactForm: React.FC<any> = () => {
               <input
                 {...formik.getFieldProps('campaign_name')}
                 className={clsx(
-                  'form-control form-control-lg form-control-solid',
+                  'form-control form-control-lg form-control-solid ',
                   {'is-invalid': formik.touched.campaign_name && formik.errors.campaign_name},
                   {
                     'is-valid': formik.touched.campaign_name && !formik.errors.campaign_name,

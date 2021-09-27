@@ -15,6 +15,7 @@ export const studioActionTypes = {
   LoadingStudio: '[Studio] Loading',
   CreateStudio: '[Studio] Create',
   UpdateStudio: '[Studio] Update',
+  UpdatedStudio: '[Studio] Updated',
   StudioLoaded: '[Studio] Loaded',
   SetStudio: '[Studio] Set',
   StudioError: '[Studio] Error',
@@ -22,7 +23,7 @@ export const studioActionTypes = {
 }
 
 export interface InitialStudioStateType {
-  studio?: Studio
+  studio: Studio
   loadingStudio?: boolean
   error?: any
 }
@@ -31,7 +32,6 @@ const initialStudio: InitialStudioStateType = {
   studio: {
     id: '',
     name: '',
-    location: '',
     email: '',
     owner_firstname: '',
     owner_lastname: '',
@@ -67,10 +67,11 @@ export const reducer = persistReducer(
       }
 
       case studioActionTypes.UpdateStudio: {
-        return {
-          ...state,
-          studio: {...state.studio, ...action.payload},
-        }
+        return {...state, loadingStudio: true, error: undefined}
+      }
+
+      case studioActionTypes.UpdatedStudio: {
+        return {...state, loadingStudio: false, error: undefined}
       }
 
       case studioActionTypes.CreateStudio: {
@@ -93,6 +94,8 @@ export const studioActions = {
   loadingStudio: () => ({type: studioActionTypes.LoadingStudio}),
   fetchStudio: () => ({type: studioActionTypes.FetchStudio}),
   createStudio: (studio: any) => ({type: studioActionTypes.CreateStudio, studio}),
+  updateStudio: (studio: any) => ({type: studioActionTypes.UpdateStudio, studio}),
+  updatedStudio: (studio: any) => ({type: studioActionTypes.UpdateStudio, studio}),
   studioLoaded: (payload: any) => ({type: studioActionTypes.StudioLoaded, payload}),
   setStudio: (payload: any) => ({type: studioActionTypes.SetStudio, payload}),
   studioError: (payload: any) => ({type: studioActionTypes.StudioError, payload}),
@@ -121,7 +124,19 @@ function* createStudio({studio}: any): any {
   }
 }
 
+function* updateStudio({studio}: any): any {
+  yield put(studioActions.loadingStudio())
+  try {
+    const response = yield call(updateStudio, studio)
+    yield put(studioActions.updatedStudio(response.data))
+  } catch (err: any) {
+    yield put(studioActions.studioError(err))
+    throw new Error(err)
+  }
+}
+
 export function* saga() {
   yield takeLatest(studioActionTypes.FetchStudio, getStudio)
   yield takeLatest(studioActionTypes.CreateStudio, createStudio)
+  yield takeLatest(studioActionTypes.UpdateStudio, updateStudio)
 }

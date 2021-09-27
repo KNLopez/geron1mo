@@ -14,6 +14,7 @@ export const campaignActionTypes = {
   LoadingCampaign: '[Campaign] Loading',
   CreateCampaign: '[Campaign] Create',
   UpdateCampaign: '[Campaign] Update',
+  UpdatedCampaign: '[Campaign] Updated',
   CampaignLoaded: '[Campaign] Loaded',
   SetCampaign: '[Campaign] Set',
   CampaignError: '[Campaign] Error',
@@ -21,7 +22,7 @@ export const campaignActionTypes = {
 }
 
 export interface InitialCampaignStateType {
-  campaign?: Campaign
+  campaign: Campaign
   loadingCampaign?: boolean
   error?: any
 }
@@ -44,7 +45,7 @@ export const reducer = persistReducer(
   (state: InitialCampaignStateType = initialCampaign, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case campaignActionTypes.LoadingCampaign: {
-        return {...state, loadingCampaign: true}
+        return {...state, loadingCampaign: true, error: undefined}
       }
       case campaignActionTypes.SetCampaign:
       case campaignActionTypes.CampaignLoaded: {
@@ -59,10 +60,11 @@ export const reducer = persistReducer(
       }
 
       case campaignActionTypes.UpdateCampaign: {
-        return {
-          ...state,
-          campaign: {...state.campaign, ...action.payload},
-        }
+        return {...state, loadingCampaign: true, error: undefined}
+      }
+
+      case campaignActionTypes.UpdatedCampaign: {
+        return {...state, loadingCampaign: false}
       }
 
       case campaignActionTypes.CreateCampaign: {
@@ -86,6 +88,8 @@ export const campaignActions = {
   loadingCampaign: () => ({type: campaignActionTypes.LoadingCampaign}),
   fetchCampaign: () => ({type: campaignActionTypes.FetchCampaign}),
   resetCampaign: () => ({type: campaignActionTypes.ResetCampaign}),
+  updateCampaign: (campaign: any) => ({type: campaignActionTypes.UpdateCampaign, campaign}),
+  updatedCampaign: (campaign: any) => ({type: campaignActionTypes.UpdatedCampaign, campaign}),
   createCampaign: (campaign: any) => ({type: campaignActionTypes.CreateCampaign, campaign}),
   campaignLoaded: (payload: any) => ({type: campaignActionTypes.CampaignLoaded, payload}),
   setCampaign: (payload: any) => ({type: campaignActionTypes.SetCampaign, payload}),
@@ -114,7 +118,19 @@ function* createCampaign({campaign}: any): any {
   }
 }
 
+function* updateCampaign({campaign}: any): any {
+  yield put(campaignActions.loadingCampaign())
+  try {
+    const response = yield call(createCampaignApi, campaign)
+    yield put(campaignActions.campaignLoaded(response.data))
+  } catch (err: any) {
+    yield put(campaignActions.campaignError(err))
+    throw new Error(err)
+  }
+}
+
 export function* saga() {
   yield takeLatest(campaignActionTypes.FetchCampaign, getCampaign)
   yield takeLatest(campaignActionTypes.CreateCampaign, createCampaign)
+  yield takeLatest(campaignActionTypes.UpdateCampaign, updateCampaign)
 }

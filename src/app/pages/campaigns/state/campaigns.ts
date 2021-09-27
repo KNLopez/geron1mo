@@ -52,6 +52,19 @@ export const reducer = persistReducer(
           error: action.payload,
         }
       }
+
+      case campaignActionTypes.UpdatedCampaign: {
+        return {
+          ...state,
+          campaigns: state.campaigns.map((campaign) => {
+            if (campaign.id === action.payload.id) {
+              return action.payload
+            }
+            return campaign
+          }),
+        }
+      }
+
       case campaignActionTypes.CampaignLoaded: {
         return {
           ...state,

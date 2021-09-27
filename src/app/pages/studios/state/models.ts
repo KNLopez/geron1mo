@@ -1,7 +1,6 @@
 export interface Studio {
   id?: string
   name: string
-  location: string
   email: string
   owner_firstname: string
   owner_lastname: string

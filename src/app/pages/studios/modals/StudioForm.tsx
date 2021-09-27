@@ -13,7 +13,6 @@ import {Studio} from '../state/models'
 
 const inits: Studio = {
   name: '',
-  location: '',
   email: '',
   owner_firstname: '',
   owner_lastname: '',
@@ -27,7 +26,6 @@ const inits: Studio = {
 const createAppSchema = [
   Yup.object({
     name: Yup.string().required('Studio Name is Required').label('Studio Name'),
-    location: Yup.string().required().label('Studio Location'),
     email: Yup.string().email('Wrong email format').label('Studio Email').required(),
   }),
   Yup.object({
@@ -54,10 +52,12 @@ const CreateStudio: React.FC<any> = () => {
     shallowEqual
   )
 
+  const isEdit = studio?.id
+
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAppSchema[0])
-  const [initValues] = useState<Studio>(studio || inits)
+  const [initValues] = useState<Studio>(isEdit ? studio : inits)
 
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
@@ -73,7 +73,7 @@ const CreateStudio: React.FC<any> = () => {
     setCurrentSchema(createAppSchema[stepper.current.currentStepIndex - 1])
   }
 
-  const submitStep = (values: Studio, actions: FormikValues) => {
+  const submitStep = (values: Studio) => {
     if (!stepper.current) {
       return
     }
@@ -83,7 +83,10 @@ const CreateStudio: React.FC<any> = () => {
     if (stepper.current.currentStepIndex !== stepper.current.totatStepsNumber) {
       stepper.current.goNext()
     } else {
-      dispatch(studioActions.createStudio(values))
+      isEdit
+        ? dispatch(studioActions.updateStudio(values))
+        : dispatch(studioActions.createStudio(values))
+
       // stepper.current.goto(1)
       // actions.resetForm()
     }
@@ -103,13 +106,15 @@ const CreateStudio: React.FC<any> = () => {
     loadStepper()
   }, [stepperRef])
 
-  const title = studio?.id ? 'Edit Studio' : 'Create Studio'
+  const title = isEdit ? 'Edit Studio' : 'Create Studio'
+  const submitButtonText = isEdit ? 'Update' : 'Submit'
 
   return (
     <Modal
       title={title}
       onEntered={loadStepper}
       onHide={() => dispatch(studioActions.resetStudio())}
+      {...{submitButtonText}}
       // buttonAction={formik.handleSubmit}
       // isValid={!loadingStudio && formik.isValid}
     >
@@ -214,29 +219,7 @@ const CreateStudio: React.FC<any> = () => {
                           className='fv-plugins-message-container invalid-feedback'
                         />
                       </div>
-                      <div className='fv-row mb-10'>
-                        <label className='d-flex align-items-center fs-5 fw-bold mb-2'>
-                          <span className='required'>Studio Location</span>
-                          <i
-                            className='fas fa-exclamation-circle ms-2 fs-7'
-                            data-bs-toggle='tooltip'
-                            title='Location of your Studio'
-                          ></i>
-                        </label>
 
-                        <Field
-                          type='text'
-                          className='form-control form-control-lg form-control-solid'
-                          name='location'
-                          placeholder=''
-                        />
-
-                        <ErrorMessage
-                          name='location'
-                          component='div'
-                          className='fv-plugins-message-container invalid-feedback'
-                        />
-                      </div>
                       <div className='fv-row mb-10'>
                         <label className='d-flex align-items-center fs-5 fw-bold mb-2'>
                           <span className='required'>Studio Email</span>

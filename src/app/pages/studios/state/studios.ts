@@ -54,6 +54,18 @@ export const reducer = persistReducer(
         }
       }
 
+      case studioActionTypes.UpdateStudio: {
+        return {
+          ...state,
+          studios: state.studios.map((studio) => {
+            if (studio.id === action.payload.id) {
+              return action.payload
+            }
+            return studio
+          }),
+        }
+      }
+
       case studioActionTypes.StudioLoaded: {
         return {
           ...state,

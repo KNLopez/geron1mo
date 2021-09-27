@@ -14,6 +14,8 @@ const CreateCampaign: React.FC<any> = () => {
     shallowEqual
   )
 
+  const isEdit = campaign?.id
+
   const CreateCampaignSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     details: Yup.string().required('Last Name is required'),
@@ -22,7 +24,7 @@ const CreateCampaign: React.FC<any> = () => {
     end_date: Yup.string(),
   })
 
-  const initialValues = campaign
+  const initialValues = isEdit
     ? campaign
     : {
         id: '',
@@ -37,12 +39,15 @@ const CreateCampaign: React.FC<any> = () => {
     initialValues,
     validationSchema: CreateCampaignSchema,
     onSubmit: (values, {setSubmitting}) => {
-      dispatch(campaignActions.createCampaign(values))
+      isEdit
+        ? dispatch(campaignActions.updateCampaign(values))
+        : dispatch(campaignActions.createCampaign(values))
       setSubmitting(false)
     },
   })
 
-  const title = campaign?.id ? 'Edit Campaign' : 'Create Campaign'
+  const title = isEdit ? 'Edit Campaign' : 'Create Campaign'
+  const submitButtonText = isEdit ? 'Update' : 'Submit'
 
   return (
     <Modal
@@ -50,6 +55,7 @@ const CreateCampaign: React.FC<any> = () => {
       buttonAction={formik.handleSubmit}
       isValid={!loadingCampaign && formik.isValid}
       onHide={() => dispatch(campaignActions.resetCampaign())}
+      {...{submitButtonText}}
     >
       {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
@@ -110,26 +116,30 @@ const CreateCampaign: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Status</label>
-              <input
-                {...formik.getFieldProps('status')}
+              <select
                 className={clsx(
-                  'form-control form-control-lg form-control-solid',
+                  'form-select form-select-solid  select2-hidden-accessible',
                   {'is-invalid': formik.touched.status && formik.errors.status},
                   {
                     'is-valid': formik.touched.status && !formik.errors.status,
                   }
                 )}
-                type='text'
-                placeholder='Active'
+                {...formik.getFieldProps('status')}
                 name='status'
-              />
+              >
+                <option value='' disabled selected>
+                  Select Status
+                </option>
+                <option value='active'>Active</option>
+                <option value='cancelled'>Inactive</option>
+              </select>
             </div>
-            <div className='fv-row mb-7' data-kt-calendar='datepicker'>
+            <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Start Date</label>
               <input
                 {...formik.getFieldProps('start_date')}
                 className={clsx(
-                  'form-control form-control-lg form-control-solid flatpickr-input',
+                  'form-control form-control-lg form-control-solid',
                   {'is-invalid': formik.touched.start_date && formik.errors.start_date},
                   {
                     'is-valid': formik.touched.start_date && !formik.errors.start_date,
@@ -145,7 +155,7 @@ const CreateCampaign: React.FC<any> = () => {
               <input
                 {...formik.getFieldProps('end_date')}
                 className={clsx(
-                  'form-control form-control-lg form-control-solid flatpickr-input',
+                  'form-control form-control-lg form-control-solid',
                   {'is-invalid': formik.touched.end_date && formik.errors.end_date},
                   {
                     'is-valid': formik.touched.end_date && !formik.errors.end_date,
