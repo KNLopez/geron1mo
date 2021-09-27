@@ -14,7 +14,7 @@ const ProfileHeader: React.FC = () => {
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
           <div className='me-7 mb-4'>
             <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-              <img src={toAbsoluteUrl('/media/avatars/150-2.jpg')} alt='Metornic' />
+              <img src={toAbsoluteUrl('/media/products/1.png')} alt='Metornic' />
               <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
             </div>
           </div>
@@ -24,7 +24,7 @@ const ProfileHeader: React.FC = () => {
               <div className='d-flex flex-column'>
                 <div className='d-flex align-items-center mb-2'>
                   <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
-                    Max Smith
+                    Campaign Sample
                   </a>
                   <a href='#'>
                     <KTSVG
@@ -81,14 +81,14 @@ const ProfileHeader: React.FC = () => {
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                   </span>
                 </a>
-                <a
+                {/* <a
                   href='#'
                   className='btn btn-sm btn-primary me-3'
                   data-bs-toggle='modal'
                   data-bs-target='#kt_modal_offer_a_deal'
                 >
                   Hire Me
-                </a>
+                </a> */}
                 <div className='me-0'>
                   <button
                     className='btn btn-sm btn-icon btn-bg-light btn-active-color-primary'
@@ -127,7 +127,7 @@ const ProfileHeader: React.FC = () => {
                       <div className='fs-2 fw-bolder'>75</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Projects</div>
+                    <div className='fw-bold fs-6 text-gray-400'>Reach</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -144,7 +144,7 @@ const ProfileHeader: React.FC = () => {
                 </div>
               </div>
 
-              <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
+              {/* <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                   <span className='fw-bold fs-6 text-gray-400'>Profile Compleation</span>
                   <span className='fw-bolder fs-6'>50%</span>
@@ -156,7 +156,7 @@ const ProfileHeader: React.FC = () => {
                     style={{width: '50%'}}
                   ></div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -167,42 +167,42 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/overview' && 'active')
+                  (location.pathname === '/campaign/overview' && 'active')
                 }
-                to='/crafted/pages/profile/overview'
+                to='/campaign/overview'
               >
                 Overview
               </Link>
             </li>
-            <li className='nav-item'>
+            {/* <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/projects' && 'active')
+                  (location.pathname === '/campaign/projects' && 'active')
                 }
-                to='/crafted/pages/profile/projects'
+                to='/campaign/projects'
               >
                 Projects
               </Link>
-            </li>
-            <li className='nav-item'>
+            </li> */}
+            {/* <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/campaigns' && 'active')
+                  (location.pathname === '/campaign/campaigns' && 'active')
                 }
-                to='/crafted/pages/profile/campaigns'
+                to='/campaign/campaigns'
               >
                 Campaigns
               </Link>
-            </li>
+            </li> */}
             <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/documents' && 'active')
+                  (location.pathname === '/campaign/documents' && 'active')
                 }
-                to='/crafted/pages/profile/documents'
+                to='/campaign/documents'
               >
                 Documents
               </Link>
@@ -211,9 +211,9 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/connections' && 'active')
+                  (location.pathname === '/campaign/connections' && 'active')
                 }
-                to='/crafted/pages/profile/connections'
+                to='/campaign/connections'
               >
                 Connections
               </Link>

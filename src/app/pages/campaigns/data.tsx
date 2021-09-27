@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {BreadCrumb} from '../../components/Toolbar'
 
 const campaignsBreadCrumbs: BreadCrumb[] = [
@@ -14,6 +15,7 @@ const columns = [
   {
     Header: 'Name',
     accessor: 'name',
+    Cell: ({row}: any) => <Link to='/campaign/overview'>{row.original.name?.toUpperCase()}</Link>,
   },
   {
     Header: 'ID',

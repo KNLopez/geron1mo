@@ -42,7 +42,7 @@ const Campaigns = () => {
           columns={data.columns}
           searchPlaceholder='Search Campaigns'
           deleteAction={handleDelete}
-          rowClick={handleRowClick}
+          // rowClick={handleRowClick}
           addActionModal={() => (
             <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
           )}
