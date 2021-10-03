@@ -13,7 +13,7 @@ const studiosBreadCrumbs: BreadCrumb[] = [
 const columns = [
   {
     Header: 'Studio Name',
-    accessor: 'Nnme',
+    accessor: 'name',
   },
   {
     Header: 'Location',
@@ -25,8 +25,10 @@ const columns = [
   },
   {
     Header: 'Owner',
-    accessor: 'owner_lastname',
-    Cell: ({row}: any) => <span>{`${row.original.lastname}, ${row.original.firstname}`}</span>,
+    accessor: 'studio_owner.data.lastname',
+    Cell: ({row}: any) => (
+      <span>{`${row.original.studio_owner?.data?.lastname}, ${row.original.studio_owner?.data?.firstname}`}</span>
+    ),
   },
   {
     Header: 'Contact Number',
@@ -36,7 +38,7 @@ const columns = [
     Header: 'Studio Manager',
     accessor: 'studio_manager_lastname',
     Cell: ({row}: any) => (
-      <span>{`${row.original.studio_manager_lastname}, ${row.original.studio_manager_firstname}`}</span>
+      <span>{`${row.original.studio_manager?.data?.lastname}, ${row.original.studio_manager?.data?.firstname}`}</span>
     ),
   },
   {

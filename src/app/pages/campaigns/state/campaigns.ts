@@ -43,7 +43,7 @@ export const reducer = persistReducer(
       }
 
       case campaignsActionTypes.CampaignsLoaded: {
-        return {...state, campaigns: action.payload, loadingCampaigns: false}
+        return {...state, campaigns: action.payload.reverse(), loadingCampaigns: false}
       }
 
       case campaignsActionTypes.CampaignsError: {

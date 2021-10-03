@@ -8,6 +8,8 @@ import {campaigns} from '../../app/pages/campaigns/state'
 import {campaign} from '../../app/pages/campaigns/state'
 import {studio} from '../../app/pages/studios/state'
 import {studios} from '../../app/pages/studios/state'
+import {user} from '../../app/pages/users/state'
+import {users} from '../../app/pages/users/state'
 import {modal} from '../../app/components/modals/state'
 
 export const rootReducer = combineReducers({
@@ -18,6 +20,8 @@ export const rootReducer = combineReducers({
   campaigns: campaigns.reducer,
   studio: studio.reducer,
   studios: studios.reducer,
+  user: user.reducer,
+  users: users.reducer,
   modal: modal.reducer,
 })
 

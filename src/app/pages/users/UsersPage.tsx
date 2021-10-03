@@ -7,27 +7,25 @@ import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import {campaignActions} from './state/campaign'
-import {campaignsActions} from './state/campaigns'
+import UserFormModal from './modals/UserForm'
+import {userActions} from './state/user'
+import {usersActions} from './state/users'
 
-const Campaigns = () => {
+const Users = () => {
   const dispatch = useDispatch()
-  const {campaigns, loadingCampaigns, error}: any = useSelector(
-    ({campaigns}: RootState) => campaigns,
-    shallowEqual
-  )
+  const {users, loadingUsers, error}: any = useSelector(({users}: RootState) => users, shallowEqual)
 
   useEffect(() => {
-    dispatch(campaignsActions.fetchCampaigns())
+    dispatch(usersActions.fetchUsers())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleRowClick = (value: any) => {
-    dispatch(campaignActions.setCampaign(value))
-    dispatch(modalActions.showModal(ModalTypes.CAMPAIGN_FORM))
-  }
-
   const handleDelete = () => {}
+
+  const handleRowClick = (value: any) => {
+    dispatch(userActions.setUser(value))
+    dispatch(modalActions.showModal(ModalTypes.CONTACT_FORM))
+  }
 
   if (error) {
     return <h2>Error</h2>
@@ -36,20 +34,22 @@ const Campaigns = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingCampaigns && (
+      {!loadingUsers && (
         <Table
-          data={campaigns}
+          data={users}
           columns={data.columns}
-          searchPlaceholder='Search Campaigns'
           deleteAction={handleDelete}
+          searchPlaceholder='Search users'
           rowClick={handleRowClick}
           addActionModal={() => (
-            <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
+            <ModalButton buttonText='Add User' modalType={ModalTypes.CONTACT_FORM} />
           )}
         />
       )}
+
+      {/* <UserFormModal /> */}
     </div>
   )
 }
 
-export default Campaigns
+export default Users

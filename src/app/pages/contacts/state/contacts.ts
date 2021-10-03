@@ -43,7 +43,7 @@ export const reducer = persistReducer(
       }
 
       case contactsActionTypes.ContactsLoaded: {
-        return {...state, contacts: action.payload, loadingContacts: false}
+        return {...state, contacts: action.payload.reverse(), loadingContacts: false}
       }
 
       case contactsActionTypes.ContactsError: {
