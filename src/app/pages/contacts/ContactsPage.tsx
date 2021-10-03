@@ -43,6 +43,7 @@ const Contacts = () => {
         deleteAction={handleDelete}
         searchPlaceholder='Search leads'
         rowClick={handleRowClick}
+        loading={loadingContacts}
         addActionModal={() => (
           <ModalButton buttonText='Add Contact' modalType={ModalTypes.CONTACT_FORM} />
         )}

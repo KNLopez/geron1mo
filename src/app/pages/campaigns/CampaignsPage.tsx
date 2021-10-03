@@ -42,6 +42,7 @@ const Campaigns = () => {
         searchPlaceholder='Search Campaigns'
         deleteAction={handleDelete}
         rowClick={handleRowClick}
+        loading={loadingCampaigns}
         addActionModal={() => (
           <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
         )}

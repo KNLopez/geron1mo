@@ -15,6 +15,7 @@ import {TableSearchProps} from './TableSearch'
 import {FallbackView} from '../../../_metronic/partials'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import Loader from '../Loader'
+import clsx from 'clsx'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
@@ -86,7 +87,7 @@ const Table: React.FC<Props> = ({
   }
 
   return (
-    <div className='card   '>
+    <div className='card table-comp'>
       <TableToolbar
         {...{
           searchPlaceholder,
@@ -99,7 +100,7 @@ const Table: React.FC<Props> = ({
         }}
       />
       <div className='card-body pt-0'>
-        <div className='table-responsive overlay overlay-block'>
+        <div className={clsx('table-responsive overlay', {'overlay-block': loading})}>
           {loading && (
             <div className='flex align-items-center fullwidth p-4 overlay-layer bg-white '>
               <Loader LoadingText='Table Loading' />
