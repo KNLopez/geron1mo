@@ -17,30 +17,42 @@ const columns = [
     Cell: ({row}: any) => <span>{`${row.original?.firstname} ${row.original?.lastname}`}</span>,
   },
   {
-    Header: 'Phone',
-    accessor: 'phone',
+    Header: 'Start Date(MM/YYYY)',
+    accessor: 'start_date',
   },
   {
-    Header: 'Email',
+    Header: 'Role',
+    accessor: 'role',
+  },
+  {
+    Header: 'Title',
+    accessor: 'title',
+    Cell: ({row}: any) => <span>{row.original.title}</span>,
+  },
+  {
+    Header: 'Job Description',
+    accessor: 'Job',
+    Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
+  },
+  {
+    Header: 'Email Address',
     accessor: 'email',
   },
   {
-    Header: 'Date Created',
-    accessor: 'created_at',
-    Cell: ({row}: any) => <span>{new Date(row.original.created_at).toLocaleString()}</span>,
+    Header: 'Phone Number',
+    accessor: 'phone',
+  },
+  {
+    Header: 'Meeting Links',
+    accessor: 'meeting_link',
+  },
+  {
+    Header: 'Birthday',
+    accessor: 'birthday',
   },
   {
     Header: 'Status',
     accessor: 'status',
-    Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
-  },
-  {
-    Header: 'Assigned to',
-    accessor: 'assigned',
-  },
-  {
-    Header: 'Campaign',
-    accessor: 'campaign_name',
   },
 ]
 

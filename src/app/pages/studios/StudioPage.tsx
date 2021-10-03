@@ -36,18 +36,18 @@ const Studioss = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingStudios && (
-        <Table
-          data={studios}
-          columns={data.columns}
-          searchPlaceholder='Search Studios'
-          deleteAction={handleDelete}
-          rowClick={handleRowClick}
-          addActionModal={() => (
-            <ModalButton buttonText='Add Studio' modalType={ModalTypes.STUDIO_FORM} />
-          )}
-        />
-      )}
+      <Table
+        data={studios}
+        columns={data.columns}
+        searchPlaceholder='Search Studios'
+        deleteAction={handleDelete}
+        rowClick={handleRowClick}
+        loading={loadingStudios}
+        addActionModal={() => (
+          <ModalButton buttonText='Add Studio' modalType={ModalTypes.STUDIO_FORM} />
+        )}
+      />
+
       {/* <CreateStudios /> */}
     </div>
   )

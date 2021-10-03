@@ -36,18 +36,16 @@ const Campaigns = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingCampaigns && (
-        <Table
-          data={campaigns}
-          columns={data.columns}
-          searchPlaceholder='Search Campaigns'
-          deleteAction={handleDelete}
-          rowClick={handleRowClick}
-          addActionModal={() => (
-            <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
-          )}
-        />
-      )}
+      <Table
+        data={campaigns}
+        columns={data.columns}
+        searchPlaceholder='Search Campaigns'
+        deleteAction={handleDelete}
+        rowClick={handleRowClick}
+        addActionModal={() => (
+          <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
+        )}
+      />
     </div>
   )
 }

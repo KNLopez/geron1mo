@@ -12,6 +12,9 @@ import TablePagination from './TableActions/TablePagination'
 import ColumnSort from './Components/ColumnSort'
 import RowCheckBox from './Components/RowChecbox'
 import {TableSearchProps} from './TableSearch'
+import {FallbackView} from '../../../_metronic/partials'
+import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import Loader from '../Loader'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
@@ -19,6 +22,7 @@ export interface TableProps {
   addActionModal: any
   deleteAction: () => any
   rowClick?: (row: any) => any
+  loading?: boolean
 }
 
 type Props = TableProps & TableSearchProps
@@ -30,6 +34,7 @@ const Table: React.FC<Props> = ({
   addActionModal,
   deleteAction,
   rowClick,
+  loading = false,
 }) => {
   const {
     getTableProps,
@@ -72,8 +77,16 @@ const Table: React.FC<Props> = ({
     }
   )
 
+  const handleClick = (e: any, row: any) => {
+    if (e.target instanceof HTMLAnchorElement) {
+      return
+    }
+
+    rowClick && rowClick(row.original)
+  }
+
   return (
-    <div className='card'>
+    <div className='card   '>
       <TableToolbar
         {...{
           searchPlaceholder,
@@ -86,7 +99,12 @@ const Table: React.FC<Props> = ({
         }}
       />
       <div className='card-body pt-0'>
-        <div className='table-responsive'>
+        <div className='table-responsive overlay overlay-block'>
+          {loading && (
+            <div className='flex align-items-center fullwidth p-4 overlay-layer bg-white '>
+              <Loader LoadingText='Table Loading' />
+            </div>
+          )}
           <table className='table align-middle table-row-dashed fs-6 gy-5' {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup: any) => (
@@ -105,17 +123,19 @@ const Table: React.FC<Props> = ({
                 </tr>
               ))}
             </thead>
+
             <tbody className='fw-bold text-gray-600' {...getTableBodyProps()}>
-              {page.map((row: any) => {
-                prepareRow(row)
-                return (
-                  <tr {...row.getRowProps()} onClick={() => rowClick && rowClick(row.original)}>
-                    {row.cells.map((cell: any) => {
-                      return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    })}
-                  </tr>
-                )
-              })}
+              {!loading &&
+                page.map((row: any) => {
+                  prepareRow(row)
+                  return (
+                    <tr {...row.getRowProps()} onClick={(e) => handleClick(e, row)}>
+                      {row.cells.map((cell: any) => {
+                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      })}
+                    </tr>
+                  )
+                })}
             </tbody>
           </table>
           <TablePagination

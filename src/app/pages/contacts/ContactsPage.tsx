@@ -37,18 +37,16 @@ const Contacts = () => {
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      {!loadingContacts && (
-        <Table
-          data={contacts}
-          columns={data.columns}
-          deleteAction={handleDelete}
-          searchPlaceholder='Search leads'
-          rowClick={handleRowClick}
-          addActionModal={() => (
-            <ModalButton buttonText='Add Contact' modalType={ModalTypes.CONTACT_FORM} />
-          )}
-        />
-      )}
+      <Table
+        data={contacts}
+        columns={data.columns}
+        deleteAction={handleDelete}
+        searchPlaceholder='Search leads'
+        rowClick={handleRowClick}
+        addActionModal={() => (
+          <ModalButton buttonText='Add Contact' modalType={ModalTypes.CONTACT_FORM} />
+        )}
+      />
 
       {/* <ContactFormModal /> */}
     </div>
