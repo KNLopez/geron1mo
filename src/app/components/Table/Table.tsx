@@ -1,4 +1,4 @@
-import TableToolbar, {TableToolbarProps} from './TableToolbar'
+import TableToolbar from './TableToolbar'
 import {
   Column,
   useFilters,
@@ -12,10 +12,9 @@ import TablePagination from './TableActions/TablePagination'
 import ColumnSort from './Components/ColumnSort'
 import RowCheckBox from './Components/RowChecbox'
 import {TableSearchProps} from './TableSearch'
-import {FallbackView} from '../../../_metronic/partials'
-import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import Loader from '../Loader'
 import clsx from 'clsx'
+import {useMemo} from 'react'
 
 export interface TableProps {
   columns?: readonly Column<any>[]
@@ -37,6 +36,13 @@ const Table: React.FC<Props> = ({
   rowClick,
   loading = false,
 }) => {
+  const defaultColumn: any = useMemo(
+    () => ({
+      disableFilters: true,
+    }),
+    []
+  )
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -58,6 +64,7 @@ const Table: React.FC<Props> = ({
     {
       columns,
       data,
+      defaultColumn,
     },
     useFilters,
     useGlobalFilter,
@@ -90,6 +97,7 @@ const Table: React.FC<Props> = ({
     <div className='card table-comp'>
       <TableToolbar
         {...{
+          headerGroups,
           searchPlaceholder,
           addActionModal,
           preGlobalFilteredRows,

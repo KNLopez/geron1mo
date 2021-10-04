@@ -1,17 +1,18 @@
 import TableDelete, {TableDeleteProps} from './TableDelete'
 // import TableExport from './TableExport'
-import TableFilter from './TableFilter'
+import TableFilter, {TableFilterProps} from './TableFilter'
 
 interface TableActionsLocalProps {
   addActionModal?: any
 }
 
-export type TableActionsProps = TableActionsLocalProps & TableDeleteProps
+export type TableActionsProps = TableActionsLocalProps & TableDeleteProps & TableFilterProps
 
 const TableActions: React.FC<TableActionsProps> = ({
   addActionModal,
   selectedRowIds,
   deleteAction,
+  headerGroups,
 }) => {
   return (
     <div className='card-toolbar'>
@@ -19,7 +20,7 @@ const TableActions: React.FC<TableActionsProps> = ({
         {/* <TableExport /> */}
         {!Object.keys(selectedRowIds)?.length ? (
           <>
-            <TableFilter />
+            <TableFilter {...{headerGroups}} />
             {addActionModal && addActionModal()}{' '}
           </>
         ) : (

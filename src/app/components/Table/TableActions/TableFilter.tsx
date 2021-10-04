@@ -1,4 +1,10 @@
-const TableFilter = () => {
+import {HeaderGroup} from 'react-table'
+
+export interface TableFilterProps {
+  headerGroups: HeaderGroup<object>[]
+}
+
+const TableFilter = ({headerGroups}: TableFilterProps) => {
   return (
     <>
       <button
@@ -39,46 +45,13 @@ const TableFilter = () => {
 
         <div className='separator border-gray-200'></div>
 
-        <div className='px-7 py-5'>
-          <div className='mb-10'>
-            <label className='form-label fs-5 fw-bold mb-3'>Month:</label>
-
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-customer-table-filter='month'
-              data-dropdown-parent='#kt-toolbar-filter'
-            >
-              <option></option>
-              <option value='aug'>August</option>
-              <option value='sep'>September</option>
-              <option value='oct'>October</option>
-              <option value='nov'>November</option>
-              <option value='dec'>December</option>
-            </select>
-          </div>
-
-          <div className='d-flex justify-content-end'>
-            <button
-              type='reset'
-              className='btn btn-light btn-active-light-primary me-2'
-              data-kt-menu-dismiss='true'
-              data-kt-customer-table-filter='reset'
-            >
-              Reset
-            </button>
-            <button
-              type='submit'
-              className='btn btn-primary'
-              data-kt-menu-dismiss='true'
-              data-kt-customer-table-filter='filter'
-            >
-              Apply
-            </button>
-          </div>
-        </div>
+        {headerGroups.map((headerGroup) => (
+          <>
+            {headerGroup.headers.map((column: any) => (
+              <>{column.canFilter ? column.render('Filter') : null}</>
+            ))}
+          </>
+        ))}
       </div>
     </>
   )

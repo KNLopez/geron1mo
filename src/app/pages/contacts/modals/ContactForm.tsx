@@ -21,7 +21,6 @@ const ContactForm: React.FC<any> = () => {
     lastname: Yup.string().required('Last Name is required'),
     phone: Yup.string(),
     status: Yup.string(),
-    assigned: Yup.string(),
     campaign_name: Yup.string(),
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
