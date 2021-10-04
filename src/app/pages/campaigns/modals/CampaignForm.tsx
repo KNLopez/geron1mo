@@ -5,6 +5,7 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {campaignActions, InitialCampaignStateType} from '../state/campaign'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
+import Datepicker from '../../../components/Flatpicker'
 
 const CreateCampaign: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -39,10 +40,11 @@ const CreateCampaign: React.FC<any> = () => {
     initialValues,
     validationSchema: CreateCampaignSchema,
     onSubmit: (values, {setSubmitting}) => {
-      isEdit
-        ? dispatch(campaignActions.updateCampaign(values))
-        : dispatch(campaignActions.createCampaign(values))
-      setSubmitting(false)
+      console.log(values)
+      // isEdit
+      //   ? dispatch(campaignActions.updateCampaign(values))
+      //   : dispatch(campaignActions.createCampaign(values))
+      // setSubmitting(false)
     },
   })
 
@@ -126,8 +128,9 @@ const CreateCampaign: React.FC<any> = () => {
                 )}
                 {...formik.getFieldProps('status')}
                 name='status'
+                defaultValue=''
               >
-                <option value='' disabled selected>
+                <option value='' disabled>
                   Select Status
                 </option>
                 <option value='active'>Active</option>
@@ -136,8 +139,7 @@ const CreateCampaign: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Start Date</label>
-              <input
-                {...formik.getFieldProps('start_date')}
+              <Datepicker
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
                   {'is-invalid': formik.touched.start_date && formik.errors.start_date},
@@ -145,15 +147,15 @@ const CreateCampaign: React.FC<any> = () => {
                     'is-valid': formik.touched.start_date && !formik.errors.start_date,
                   }
                 )}
-                type='date'
+                handleChange={formik.setFieldValue}
                 placeholder='Start Date'
                 name='start_date'
               />
             </div>
             <div className='fv-row mb-5'>
               <label className='fs-6 fw-bold mb-2'>End Date</label>
-              <input
-                {...formik.getFieldProps('end_date')}
+              {/* {console.log(formik.getFieldProps('end_date'))} */}
+              <Datepicker
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
                   {'is-invalid': formik.touched.end_date && formik.errors.end_date},
@@ -161,7 +163,8 @@ const CreateCampaign: React.FC<any> = () => {
                     'is-valid': formik.touched.end_date && !formik.errors.end_date,
                   }
                 )}
-                type='date'
+                handleChange={formik.setFieldValue}
+                minDate={formik.values.start_date}
                 placeholder='End Date'
                 name='end_date'
               />
