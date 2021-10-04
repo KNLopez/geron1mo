@@ -22,7 +22,6 @@ const Datepicker = ({
   ...props
 }: DatePickerComponentProps) => {
   const dateHandler = (date: any) => {
-    console.log(date)
     handleChange(name, date[0])
   }
 
