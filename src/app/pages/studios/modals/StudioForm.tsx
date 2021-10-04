@@ -9,6 +9,8 @@ import {RootState} from '../../../../setup/redux/RootReducer'
 import {useEffect, useRef, useState} from 'react'
 import {StepperComponent} from '../../../../_metronic/assets/ts/components'
 import {KTSVG} from '../../../../_metronic/helpers'
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/css/solid.min.css'
 import {Studio} from '../state/models'
 import {modalActions} from '../../../components/modals/state/MainModalState'
 
@@ -46,8 +48,8 @@ const createAppSchema = [
       .required(),
   }),
   Yup.object({
-    assigned_to: Yup.string().required().label('Assign to'),
-    service_offered: Yup.string().required().label('Service Offered'),
+    assigned_to: Yup.string().required().label('Assign to').required(),
+    service_offered: Yup.string().required().label('Service Offered').required(),
   }),
 ]
 
@@ -215,7 +217,6 @@ const CreateStudio: React.FC<any> = () => {
                   <div className='stepper-desc'>Add your Studio Manager</div>
                 </div>
               </div>
-
               <div
                 className='stepper-item stepper-item-clickable'
                 data-kt-stepper-element='nav'

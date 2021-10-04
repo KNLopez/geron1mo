@@ -24,7 +24,6 @@ const CreateCampaign: React.FC<any> = () => {
     start_date: Yup.string(),
     end_date: Yup.string(),
     fb_campaign_id: Yup.string(),
-    campaign_id: Yup.string(),
   })
 
   const initialValues = isEdit
@@ -37,7 +36,6 @@ const CreateCampaign: React.FC<any> = () => {
         start_date: '',
         end_date: '',
         fb_campaign_id: '',
-        campaign_id: '',
       }
 
   const formik = useFormik({
@@ -173,7 +171,7 @@ const CreateCampaign: React.FC<any> = () => {
               />
             </div>
             <div className='fv-row mb-7'>
-              <label className='required fs-6 fw-bold mb-2'>Name</label>
+              <label className='required fs-6 fw-bold mb-2'>FB Campaign ID</label>
               <input
                 {...formik.getFieldProps('fb_campaign_id')}
                 className={clsx(
@@ -186,22 +184,6 @@ const CreateCampaign: React.FC<any> = () => {
                 type='text'
                 placeholder='Facebook Campaign ID'
                 name='fb_campaign_id'
-              />
-            </div>
-            <div className='fv-row mb-7'>
-              <label className='required fs-6 fw-bold mb-2'>Name</label>
-              <input
-                {...formik.getFieldProps('campaign_id')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.campaign_id && formik.errors.campaign_id},
-                  {
-                    'is-valid': formik.touched.campaign_id && !formik.errors.campaign_id,
-                  }
-                )}
-                type='text'
-                placeholder='Campaign ID'
-                name='campaign_id'
               />
             </div>
           </div>
