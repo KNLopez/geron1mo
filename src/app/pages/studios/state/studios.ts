@@ -54,7 +54,7 @@ export const reducer = persistReducer(
         }
       }
 
-      case studioActionTypes.UpdateStudio: {
+      case studioActionTypes.UpdatedStudio: {
         return {
           ...state,
           studios: state.studios.map((studio) => {

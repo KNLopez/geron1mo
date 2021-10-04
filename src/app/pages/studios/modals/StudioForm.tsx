@@ -1,14 +1,14 @@
 import Modal from '../../../components/modals/MainModal'
 import * as Yup from 'yup'
-import {ErrorMessage, Field, Form, Formik, FormikValues, useFormik} from 'formik'
+import {ErrorMessage, Field, Form, Formik} from 'formik'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
-import {studioActions, InitialStudioStateType} from '../state/studio'
-import clsx from 'clsx'
+import {studioActions} from '../state/studio'
+
 import {RootState} from '../../../../setup/redux/RootReducer'
-import {Main} from '../../../../_metronic/partials/modals/create-app/Main'
+
 import {useEffect, useRef, useState} from 'react'
 import {StepperComponent} from '../../../../_metronic/assets/ts/components'
-import {KTSVG, toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {KTSVG} from '../../../../_metronic/helpers'
 import {Studio} from '../state/models'
 import {modalActions} from '../../../components/modals/state/MainModalState'
 
@@ -48,17 +48,34 @@ const createAppSchema = [
 const CreateStudio: React.FC<any> = () => {
   const dispatch = useDispatch()
 
-  const {studio, loadingStudio, error}: InitialStudioStateType = useSelector(
+  const {studio, loadingStudio, error}: any = useSelector(
     (state: RootState) => state.studio,
     shallowEqual
   )
 
   const isEdit = studio?.id
+  let editData: any = {}
+
+  if (isEdit) {
+    editData = {
+      name: studio.name,
+      email: studio.email,
+      owner_firstname: studio.studio_owner.data.firstname,
+      owner_lastname: studio.studio_owner.data.lastname,
+      owner_email: studio.studio_owner.user.email,
+      mobile_number: studio.studio_owner.data.mobile_number,
+      studio_manager_firstname: studio.studio_owner.data.firstname,
+      studio_manager_lastname: studio.studio_owner.data.lastname,
+      studio_manager_email: studio.studio_owner.user.email,
+    }
+  }
+
+  console.log(studio?.id)
 
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAppSchema[0])
-  const [initValues] = useState<Studio>(isEdit ? studio : inits)
+  const [initValues] = useState<Studio>(isEdit ? editData : inits)
 
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
@@ -85,9 +102,10 @@ const CreateStudio: React.FC<any> = () => {
       stepper.current.goNext()
     } else {
       isEdit
-        ? dispatch(studioActions.updateStudio(values))
+        ? dispatch(studioActions.updateStudio({id: studio.id, ...values}))
         : dispatch(studioActions.createStudio(values))
-      setTimeout(() => dispatch(modalActions.hideModal()), 300)
+
+      // setTimeout(() => dispatch(modalActions.hideModal()), 300)
       // stepper.current.goto(1)
       // actions.resetForm()
     }
@@ -171,7 +189,7 @@ const CreateStudio: React.FC<any> = () => {
                 </div>
               </div>
 
-              <div className='stepper-item' data-kt-stepper-element='nav'>
+              {/* <div className='stepper-item' data-kt-stepper-element='nav'>
                 <div className='stepper-line w-40px'></div>
 
                 <div className='stepper-icon w-40px h-40px'>
@@ -184,7 +202,7 @@ const CreateStudio: React.FC<any> = () => {
 
                   <div className='stepper-desc'>Review and Submit</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -524,7 +542,7 @@ const CreateStudio: React.FC<any> = () => {
                     </div>
                   </div>
 
-                  <div data-kt-stepper-element='content'>
+                  {/* <div data-kt-stepper-element='content'>
                     <div className='w-100 text-center'>
                       <h1 className='fw-bolder text-dark mb-3'>You're Almost Done!</h1>
 
@@ -540,7 +558,7 @@ const CreateStudio: React.FC<any> = () => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className='d-flex flex-stack pt-10'>
                     <div className='me-2'>
@@ -571,9 +589,10 @@ const CreateStudio: React.FC<any> = () => {
                             </span>
                           )}
                           {stepper.current?.currentStepIndex !==
-                            stepper.current?.totatStepsNumber! - 1 && 'Continue'}
-                          {stepper.current?.currentStepIndex ===
-                            stepper.current?.totatStepsNumber! - 1 && 'Submit'}
+                          stepper.current?.totatStepsNumber! - 1
+                            ? 'Continue'
+                            : 'Submit'}
+
                           <KTSVG
                             path='/media/icons/duotone/Navigation/Right-2.svg'
                             className='svg-icon-3 ms-2 me-0'

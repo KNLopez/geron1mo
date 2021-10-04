@@ -46,11 +46,11 @@ const TableFilter = ({headerGroups}: TableFilterProps) => {
         <div className='separator border-gray-200'></div>
 
         {headerGroups.map((headerGroup) => (
-          <>
+          <div {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column: any) => (
-              <>{column.canFilter ? column.render('Filter') : null}</>
+              <div key={column.id}>{column.canFilter ? column.render('Filter') : null}</div>
             ))}
-          </>
+          </div>
         ))}
       </div>
     </>

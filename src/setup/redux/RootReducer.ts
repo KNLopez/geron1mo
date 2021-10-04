@@ -36,5 +36,7 @@ export function* rootSaga() {
     campaigns.saga(),
     studio.saga(),
     studios.saga(),
+    user.saga(),
+    users.saga(),
   ])
 }

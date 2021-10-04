@@ -1,10 +1,10 @@
-import {Action} from '@reduxjs/toolkit'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
-import {createStudioApi, getStudioApi} from '../api/studios'
+import {createStudioApi, getStudioApi, updateStudio} from '../api/studios'
 import {ActionWithPayload} from './studios'
 import {Studio} from './models'
+import {modalActions} from '../../../components/modals/state/MainModalState'
 
 const takeLatest: any = Eff.takeLatest
 const call: any = Eff.call
@@ -66,10 +66,6 @@ export const reducer = persistReducer(
         }
       }
 
-      case studioActionTypes.UpdateStudio: {
-        return {...state, loadingStudio: true, error: undefined}
-      }
-
       case studioActionTypes.UpdatedStudio: {
         return {...state, loadingStudio: false, error: undefined}
       }
@@ -95,7 +91,7 @@ export const studioActions = {
   fetchStudio: () => ({type: studioActionTypes.FetchStudio}),
   createStudio: (studio: any) => ({type: studioActionTypes.CreateStudio, studio}),
   updateStudio: (studio: any) => ({type: studioActionTypes.UpdateStudio, studio}),
-  updatedStudio: (studio: any) => ({type: studioActionTypes.UpdateStudio, studio}),
+  updatedStudio: (studio: any) => ({type: studioActionTypes.UpdatedStudio, studio}),
   studioLoaded: (payload: any) => ({type: studioActionTypes.StudioLoaded, payload}),
   setStudio: (payload: any) => ({type: studioActionTypes.SetStudio, payload}),
   studioError: (payload: any) => ({type: studioActionTypes.StudioError, payload}),
@@ -114,21 +110,25 @@ function* getStudio(payload: any): any {
 }
 
 function* createStudio({studio}: any): any {
+  console.log(studio)
   yield put(studioActions.loadingStudio())
   try {
     const response = yield call(createStudioApi, studio)
     yield put(studioActions.studioLoaded(response.data))
+    yield put(modalActions.hideModal())
   } catch (err: any) {
     yield put(studioActions.studioError(err))
     throw new Error(err)
   }
 }
 
-function* updateStudio({studio}: any): any {
+function* updateStudioSaga({studio}: any): any {
+  // console.log(studio, 'update')
   yield put(studioActions.loadingStudio())
   try {
     const response = yield call(updateStudio, studio)
     yield put(studioActions.updatedStudio(response.data))
+    yield put(modalActions.hideModal())
   } catch (err: any) {
     yield put(studioActions.studioError(err))
     throw new Error(err)
@@ -136,7 +136,7 @@ function* updateStudio({studio}: any): any {
 }
 
 export function* saga() {
+  yield takeLatest(studioActionTypes.UpdateStudio, updateStudioSaga)
   yield takeLatest(studioActionTypes.FetchStudio, getStudio)
   yield takeLatest(studioActionTypes.CreateStudio, createStudio)
-  yield takeLatest(studioActionTypes.UpdateStudio, updateStudio)
 }
