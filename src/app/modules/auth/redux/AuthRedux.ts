@@ -5,9 +5,9 @@ import * as Eff from 'redux-saga/effects'
 import {UserModel} from '../models/UserModel'
 import {login} from './AuthCRUD'
 
-const takeLatest: any = Eff.takeLatest;
-const call:any = Eff.call
-const put:any = Eff.put
+const takeLatest: any = Eff.takeLatest
+const call: any = Eff.call
+const put: any = Eff.put
 
 export interface ActionWithPayload<T> extends Action {
   payload?: T
@@ -19,16 +19,19 @@ export const actionTypes = {
   Register: '[Register] Action',
   UserLoaded: '[Load User] Auth API',
   SetUser: '[Set User] Action',
+  setError: '[Auth] Set Error',
 }
 
 const initialAuthState: IAuthState = {
   user: undefined,
   accessToken: undefined,
+  error: undefined,
 }
 
 export interface IAuthState {
   user?: UserModel
   accessToken?: string
+  error?: any
 }
 
 export const reducer = persistReducer(
@@ -52,12 +55,17 @@ export const reducer = persistReducer(
 
       case actionTypes.UserLoaded: {
         const user = action.payload?.user
-        return {...state, user}
+        return {...state, user, error: undefined}
       }
 
       case actionTypes.SetUser: {
         const user = action.payload?.user
         return {...state, user}
+      }
+
+      case actionTypes.setError: {
+        console.log(action.payload)
+        return {...state, error: action.payload}
       }
 
       default:
@@ -72,40 +80,40 @@ export const actions = {
     type: actionTypes.Register,
     payload: {accessToken},
   }),
-  setUser: (payload:any) => ({ type: actionTypes.SetUser, payload}),
+  setUser: (payload: any) => ({type: actionTypes.SetUser, payload}),
   logout: () => ({type: actionTypes.Logout}),
+  setError: (err: any) => ({type: actionTypes.setError, payload: err.message}),
 }
-
 
 interface LoginProps {
-  type: string;
+  type: string
   payload: {
-    email: string;
-    password: string;
+    email: string
+    password: string
   }
-  
 }
 
-function* loginSaga ({payload}: LoginProps):any {
-  const {email, password} = payload;
+function* loginSaga({payload}: LoginProps): any {
+  const {email, password} = payload
   try {
     const response = yield call(login, email, password)
-    yield put(actions.setUser({user: response.data})) 
-    const { authorization } = yield response.headers;
+    console.log(response)
+    yield put(actions.setUser({user: response.data}))
+    const {authorization} = yield response.headers
     yield localStorage.setItem('auth', authorization)
-  } catch (err:any) {
-    throw new Error(err)
-  } 
+  } catch (err: any) {
+    console.log('error')
+    yield put(actions.setError(err))
+    // throw new Error(err)
+  }
 }
 
-function* registerSaga (param:any) {
+function* registerSaga(param: any) {
   yield console.log(param)
 }
-
 
 export function* saga() {
   yield takeLatest(actionTypes.Login, loginSaga)
 
   yield takeLatest(actionTypes.Register, registerSaga)
-
- }
+}

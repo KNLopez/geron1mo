@@ -1,21 +1,21 @@
 import axios from 'axios'
 import {Customer} from '../state/models'
 
-export const LEADS = `/leads`
+export const USERS = `/users`
 
 export function getUsersApi() {
-  return axios.get(LEADS)
+  return axios.get(USERS)
 }
 
 //singular user
 export function getUserApi(id: string) {
-  return axios.get(LEADS, {params: {id}})
+  return axios.get(USERS, {params: {id}})
 }
 
-export function updateUserApi(lead: Customer) {
-  return axios.put(`${LEADS}/${lead.id}`, lead)
+export function updateUserApi(user: Customer) {
+  return axios.put(`${USERS}/${user.id}`, user)
 }
 
-export function createUserApi(lead: Customer) {
-  return axios.post(LEADS, lead)
+export function createUserApi(user: Customer) {
+  return axios.post(USERS, user)
 }

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
@@ -8,6 +8,7 @@ import {useFormik} from 'formik'
 import * as auth from '../redux/AuthRedux'
 import {login} from '../redux/AuthCRUD'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {RootState} from '../../../../setup'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,6 +35,10 @@ const initialValues = {
 
 export function Login() {
   const [loading, setLoading] = useState(false)
+  const {user, error} = useSelector(({auth}: RootState) => auth, shallowEqual)
+
+  console.log(user, error)
+
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues,
@@ -41,6 +46,7 @@ export function Login() {
     onSubmit: (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       dispatch(auth.actions.login(values))
+
       // setTimeout(() => {
       //   login(values.email, values.password)
       //     .then(({data: {accessToken}}) => {
@@ -55,6 +61,14 @@ export function Login() {
       // }, 1000)
     },
   })
+
+  useEffect(() => {
+    if (error) {
+      formik.setStatus(error)
+      setLoading(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   return (
     <form

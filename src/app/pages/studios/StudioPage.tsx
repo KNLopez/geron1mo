@@ -10,7 +10,7 @@ import data from './data'
 import {studioActions} from './state/studio'
 import {studiosActions} from './state/studios'
 
-const Studioss = () => {
+const Studios = () => {
   const dispatch = useDispatch()
   const {studios, loadingStudios, error}: any = useSelector(
     ({studios}: RootState) => studios,
@@ -53,4 +53,4 @@ const Studioss = () => {
   )
 }
 
-export default Studioss
+export default Studios
