@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom'
+import SelectColumnFilter from '../../components/Table/Filters/SelectColumnFilter'
 import {BreadCrumb} from '../../components/Toolbar'
 
 const campaignsBreadCrumbs: BreadCrumb[] = [
@@ -15,6 +16,8 @@ const columns = [
   {
     Header: 'Name',
     accessor: 'name',
+    Filter: SelectColumnFilter,
+    disableFilters: false,
     Cell: ({row}: any) => <Link to='/campaign/overview'>{row.original.name?.toUpperCase()}</Link>,
   },
   {
@@ -24,6 +27,8 @@ const columns = [
   {
     Header: 'Status',
     accessor: 'status',
+    Filter: SelectColumnFilter,
+    disableFilters: false,
     Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
   },
   {

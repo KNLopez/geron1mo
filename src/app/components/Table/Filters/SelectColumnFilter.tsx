@@ -2,7 +2,6 @@ import {useMemo} from 'react'
 
 const SelectColumnFilter = ({
   column: {filterValue, setFilter, preFilteredRows, id, Header},
-  ...props
 }: any) => {
   // Calculate the options for filtering
   // using the preFilteredRows

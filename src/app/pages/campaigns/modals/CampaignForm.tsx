@@ -131,7 +131,7 @@ const CreateCampaign: React.FC<any> = () => {
                   Select Status
                 </option>
                 <option value='active'>Active</option>
-                <option value='cancelled'>Inactive</option>
+                <option value='cancelled'>Cancelled</option>
               </select>
             </div>
             <div className='fv-row mb-7'>

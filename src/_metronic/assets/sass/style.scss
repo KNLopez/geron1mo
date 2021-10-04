@@ -22,3 +22,7 @@ $mode: default;
     background: $gray-100;
   }
 }
+
+select option {
+  text-transform: capitalize;
+}

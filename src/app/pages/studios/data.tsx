@@ -1,3 +1,4 @@
+import SelectColumnFilter from '../../components/Table/Filters/SelectColumnFilter'
 import {BreadCrumb} from '../../components/Toolbar'
 
 const studiosBreadCrumbs: BreadCrumb[] = [
@@ -18,6 +19,8 @@ const columns = [
   {
     Header: 'Location',
     accessor: 'location',
+    Filter: SelectColumnFilter,
+    disableFilters: false,
   },
   {
     Header: 'Email',
@@ -44,6 +47,18 @@ const columns = [
   {
     Header: 'Studio Manager Email',
     accessor: 'studio_manager_email',
+  },
+  {
+    Header: 'Service Offered',
+    accessor: 'service',
+    Filter: SelectColumnFilter,
+    disableFilters: false,
+  },
+  {
+    Header: 'Assigned',
+    accessor: 'assigned',
+    Filter: SelectColumnFilter,
+    disableFilters: false,
   },
 ]
 
