@@ -22,6 +22,8 @@ const inits: Studio = {
   studio_manager_firstname: '',
   studio_manager_lastname: '',
   studio_manager_email: '',
+  assigned_to: '',
+  service_offered: '',
 }
 
 const createAppSchema = [
@@ -43,6 +45,10 @@ const createAppSchema = [
       .label("Studio Manager's Email")
       .required(),
   }),
+  Yup.object({
+    assigned_to: Yup.string().required().label('Assign to'),
+    service_offered: Yup.string().required().label('Service Offered'),
+  }),
 ]
 
 const CreateStudio: React.FC<any> = () => {
@@ -60,13 +66,15 @@ const CreateStudio: React.FC<any> = () => {
     editData = {
       name: studio.name,
       email: studio.email,
-      owner_firstname: studio.studio_owner.data.firstname,
-      owner_lastname: studio.studio_owner.data.lastname,
-      owner_email: studio.studio_owner.user.email,
-      mobile_number: studio.studio_owner.data.mobile_number,
-      studio_manager_firstname: studio.studio_owner.data.firstname,
-      studio_manager_lastname: studio.studio_owner.data.lastname,
-      studio_manager_email: studio.studio_owner.user.email,
+      owner_firstname: studio.studio_owner.data?.firstname,
+      owner_lastname: studio.studio_owner.data?.lastname,
+      owner_email: studio.studio_owner.user?.email,
+      mobile_number: studio.studio_owner.data?.mobile_number,
+      studio_manager_firstname: studio.studio_owner.data?.firstname,
+      studio_manager_lastname: studio.studio_owner.data?.lastname,
+      studio_manager_email: studio.studio_owner.user?.email,
+      assigned_to: '',
+      service_offered: '',
     }
   }
 
@@ -105,7 +113,6 @@ const CreateStudio: React.FC<any> = () => {
         ? dispatch(studioActions.updateStudio({id: studio.id, ...values}))
         : dispatch(studioActions.createStudio(values))
 
-      // setTimeout(() => dispatch(modalActions.hideModal()), 300)
       // stepper.current.goto(1)
       // actions.resetForm()
     }
@@ -124,6 +131,14 @@ const CreateStudio: React.FC<any> = () => {
 
     loadStepper()
   }, [stepperRef])
+
+  const handleStepperClick = (index: any) => {
+    console.log('clicked', stepper.current)
+    if (!stepper.current || !isEdit) {
+      return
+    }
+    stepper.current.goto(index)
+  }
 
   const title = isEdit ? 'Edit Studio' : 'Create Studio'
   const submitButtonText = isEdit ? 'Update' : 'Submit'
@@ -144,7 +159,11 @@ const CreateStudio: React.FC<any> = () => {
         >
           <div className='d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px'>
             <div className='stepper-nav ps-lg-10'>
-              <div className='stepper-item current' data-kt-stepper-element='nav'>
+              <div
+                className='stepper-item current stepper-item-clickable'
+                data-kt-stepper-element='nav'
+                onClick={() => handleStepperClick(1)}
+              >
                 <div className='stepper-line w-40px'></div>
 
                 <div className='stepper-icon w-40px h-40px'>
@@ -159,7 +178,11 @@ const CreateStudio: React.FC<any> = () => {
                 </div>
               </div>
 
-              <div className='stepper-item' data-kt-stepper-element='nav'>
+              <div
+                className='stepper-item stepper-item-clickable'
+                data-kt-stepper-element='nav'
+                onClick={() => handleStepperClick(2)}
+              >
                 <div className='stepper-line w-40px'></div>
 
                 <div className='stepper-icon w-40px h-40px'>
@@ -174,7 +197,11 @@ const CreateStudio: React.FC<any> = () => {
                 </div>
               </div>
 
-              <div className='stepper-item' data-kt-stepper-element='nav'>
+              <div
+                className='stepper-item stepper-item-clickable'
+                data-kt-stepper-element='nav'
+                onClick={() => handleStepperClick(3)}
+              >
                 <div className='stepper-line w-40px'></div>
 
                 <div className='stepper-icon w-40px h-40px'>
@@ -189,7 +216,11 @@ const CreateStudio: React.FC<any> = () => {
                 </div>
               </div>
 
-              {/* <div className='stepper-item' data-kt-stepper-element='nav'>
+              <div
+                className='stepper-item stepper-item-clickable'
+                data-kt-stepper-element='nav'
+                onClick={() => handleStepperClick(4)}
+              >
                 <div className='stepper-line w-40px'></div>
 
                 <div className='stepper-icon w-40px h-40px'>
@@ -200,9 +231,9 @@ const CreateStudio: React.FC<any> = () => {
                 <div className='stepper-label'>
                   <h3 className='stepper-title'>Finalize Studio</h3>
 
-                  <div className='stepper-desc'>Review and Submit</div>
+                  <div className='stepper-desc'>Assign to Staff and Service</div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 
@@ -542,23 +573,75 @@ const CreateStudio: React.FC<any> = () => {
                     </div>
                   </div>
 
-                  {/* <div data-kt-stepper-element='content'>
-                    <div className='w-100 text-center'>
-                      <h1 className='fw-bolder text-dark mb-3'>You're Almost Done!</h1>
+                  <div data-kt-stepper-element='content'>
+                    <div className='w-100'>
+                      <div className='fv-row mb-10'>
+                        <label className='d-flex align-items-center fs-5 fw-bold mb-2'>
+                          <span className='required'>Assign to</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-2 fs-7'
+                            data-bs-toggle='tooltip'
+                            title='Assign to staff'
+                          ></i>
+                        </label>
+                        <Field
+                          as='select'
+                          className='form-select form-select-lg form-select-solid  select2-hidden-accessible'
+                          name='assigned_to'
+                          placeholder='Service Offered'
+                          defaultValue=''
+                        >
+                          <option value='' disabled>
+                            Select Staff
+                          </option>
+                          <option value='1'>Jover Newspain</option>
+                          <option value='2'>Ed Salinas</option>
+                        </Field>
 
-                      <div className='text-muted fw-bold fs-3'>
-                        Submit your Studio to kickstart your Campaigns.
+                        <ErrorMessage
+                          name='assigned_to'
+                          component='div'
+                          className='fv-plugins-message-container invalid-feedback'
+                        />
                       </div>
 
-                      <div className='text-center px-4 py-15'>
-                        <img
-                          src={toAbsoluteUrl('/media/illustrations/todo.png')}
-                          alt=''
-                          className='mw-100 mh-150px'
+                      <div className='fv-row mb-10'>
+                        <label className='d-flex align-items-center fs-5 fw-bold mb-2'>
+                          <span className='required'>Service offered</span>
+                          <i
+                            className='fas fa-exclamation-circle ms-2 fs-7'
+                            data-bs-toggle='tooltip'
+                            title='Service offered'
+                          ></i>
+                        </label>
+
+                        <Field
+                          as='select'
+                          className='form-select form-select-lg form-select-solid  select2-hidden-accessible'
+                          name='service_offered'
+                          placeholder='Service Offered'
+                          defaultValue=''
+                        >
+                          <option value='' disabled>
+                            Select Service
+                          </option>
+                          <option value='1'>Accelerate (AU studios) $2680/mo + GST</option>
+                          <option value='2'>Accelerate (non AU studios) AUD2680/mo</option>
+                          <option value='3'>Accelerate (USD pricing) USD1933/mo</option>
+                          <option value='4'>
+                            Geronimo Pay - Pay as You Grow - half price first month (and discounted
+                            month 2) on the above options
+                          </option>
+                        </Field>
+
+                        <ErrorMessage
+                          name='service_offered'
+                          component='div'
+                          className='fv-plugins-message-container invalid-feedback'
                         />
                       </div>
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className='d-flex flex-stack pt-10'>
                     <div className='me-2'>

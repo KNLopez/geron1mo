@@ -40,6 +40,8 @@ const initialStudio: InitialStudioStateType = {
     studio_manager_firstname: '',
     studio_manager_lastname: '',
     studio_manager_email: '',
+    assigned_to: '',
+    service_offered: '',
   },
   loadingStudio: false,
   error: undefined,

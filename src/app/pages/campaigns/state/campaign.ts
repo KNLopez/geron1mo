@@ -35,6 +35,8 @@ const initialCampaign: InitialCampaignStateType = {
     status: '',
     start_date: '',
     end_date: '',
+    fb_campaign_id: '',
+    campaign_id: '',
   },
   loadingCampaign: false,
   error: undefined,

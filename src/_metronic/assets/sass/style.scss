@@ -26,3 +26,10 @@ $mode: default;
 select option {
   text-transform: capitalize;
 }
+
+.stepper-item-clickable {
+  cursor: pointer;
+  &:hover {
+    background: $gray-100;
+  }
+}
