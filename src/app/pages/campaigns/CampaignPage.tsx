@@ -45,7 +45,7 @@ const CampaignPage: React.FC = () => {
           <Documents />
         </Route>
         <Route path='/campaign/connections'>
-          <PageTitle breadcrumbs={profileBreadCrumbs}>Connections</PageTitle>
+          <PageTitle breadcrumbs={profileBreadCrumbs}>Leads</PageTitle>
           <Connections />
         </Route>
         <Redirect from='/campaign/profile' exact={true} to='/campaign/overview' />

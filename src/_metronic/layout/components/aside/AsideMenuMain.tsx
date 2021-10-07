@@ -25,13 +25,13 @@ export function AsideMenuMain() {
       <AsideMenuItem
         to='/contacts'
         title='Contacts'
-        icon='/media/icons/duotone/Interface/User.svg'
+        icon='/media/icons/duotone/Communication/Contact1.svg'
         fontIcon='bi-layers'
       />
       <AsideMenuItem
         to='/studios'
         title='Studios'
-        icon='/media/icons/duotone/Home/Chair1.svg'
+        icon='/media/icons/duotone/Map/Marker2.svg'
         fontIcon='bi-layers'
       />
       <AsideMenuItem
