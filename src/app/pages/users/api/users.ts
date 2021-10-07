@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {Customer} from '../state/models'
 
-export const USERS = `/users`
+export const USERS = `/staffs`
 
 export function getUsersApi() {
   return axios.get(USERS)
