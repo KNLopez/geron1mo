@@ -2,11 +2,10 @@ import React from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {Overview} from '../../modules/profile/components/Overview'
-import {Connections} from '../../modules/profile/components/Connections'
 import {Documents} from '../../modules/profile/components/Documents'
-import {Projects} from '../../modules/profile/components/Projects'
 import {ProfileHeader} from '../../modules/profile/ProfileHeader'
 import Campaigns from './CampaignsPage'
+import ContactsPage from '../contacts/ContactsPage'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -46,7 +45,7 @@ const CampaignPage: React.FC = () => {
         </Route>
         <Route path='/campaign/connections'>
           <PageTitle breadcrumbs={profileBreadCrumbs}>Leads</PageTitle>
-          <Connections />
+          <ContactsPage />
         </Route>
         <Redirect from='/campaign/profile' exact={true} to='/campaign/overview' />
         <Redirect to='/campaign/' />
