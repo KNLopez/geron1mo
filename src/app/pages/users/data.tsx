@@ -31,8 +31,8 @@ const columns = [
   },
   {
     Header: 'Job Description',
-    accessor: 'Job',
-    Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
+    accessor: 'job_description',
+    // Cell: ({row}: any) => <span>{row.original.status?.toUpperCase()}</span>,
   },
   {
     Header: 'Email Address',
@@ -40,7 +40,7 @@ const columns = [
   },
   {
     Header: 'Phone Number',
-    accessor: 'phone',
+    accessor: 'contact_number',
   },
   {
     Header: 'Meeting Links',

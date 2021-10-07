@@ -21,8 +21,8 @@ const columns = [
     Cell: ({row}: any) => <Link to='/campaign/overview'>{row.original.name?.toUpperCase()}</Link>,
   },
   {
-    Header: 'ID',
-    accessor: 'id',
+    Header: 'FB Campaign Id',
+    accessor: 'fb_campaign_id',
   },
   {
     Header: 'Status',
