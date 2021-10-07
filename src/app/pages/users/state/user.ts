@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
 import {createUserApi, getUserApi, updateUserApi} from '../api/users'
 import {ActionWithPayload} from './users'
-import {Customer} from './models'
+import {User} from './models'
 
 const takeLatest: any = Eff.takeLatest
 const call: any = Eff.call
@@ -23,7 +23,7 @@ export const userActionTypes = {
 }
 
 export interface InitialUserStateType {
-  user: Customer
+  user: User
   loadingUser?: boolean
   error?: any
 }
@@ -33,12 +33,13 @@ const initialUser: InitialUserStateType = {
     id: '',
     firstname: '',
     lastname: '',
-    status: undefined,
-    phone: '',
-    campaign_name: '',
-    assigned: '',
+    start_date: '',
+    title: '',
     email: '',
-    created_at: undefined,
+    contact_number: '',
+    meeting_link: '',
+    birthday: '',
+    status: '',
   },
   loadingUser: false,
   error: undefined,

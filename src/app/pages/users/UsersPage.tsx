@@ -7,7 +7,6 @@ import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import UserFormModal from './modals/UserForm'
 import {userActions} from './state/user'
 import {usersActions} from './state/users'
 
@@ -24,7 +23,7 @@ const Users = () => {
 
   const handleRowClick = (value: any) => {
     dispatch(userActions.setUser(value))
-    dispatch(modalActions.showModal(ModalTypes.CONTACT_FORM))
+    dispatch(modalActions.showModal(ModalTypes.USER_FORM))
   }
 
   if (error) {
@@ -42,7 +41,7 @@ const Users = () => {
           searchPlaceholder='Search users'
           rowClick={handleRowClick}
           addActionModal={() => (
-            <ModalButton buttonText='Add User' modalType={ModalTypes.CONTACT_FORM} />
+            <ModalButton buttonText='Add User' modalType={ModalTypes.USER_FORM} />
           )}
         />
       )}

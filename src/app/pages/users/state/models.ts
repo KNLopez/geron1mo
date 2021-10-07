@@ -1,11 +1,12 @@
-export interface Customer {
+export interface User {
   id: string
   firstname: string
   lastname: string
-  phone?: string
-  email?: string
-  status?: number
-  created_at: Date | undefined
-  assigned?: string
-  campaign_name?: string
+  start_date: string
+  title: string
+  email: string
+  contact_number: string
+  meeting_link: string
+  birthday: string
+  status: string
 }

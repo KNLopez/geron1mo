@@ -90,7 +90,7 @@ const ContactForm: React.FC<any> = () => {
                   }
                 )}
                 type='text'
-                placeholder='Enter Full Name'
+                placeholder='Enter First Name'
                 name='firstname'
               />
             </div>
@@ -106,7 +106,7 @@ const ContactForm: React.FC<any> = () => {
                   }
                 )}
                 type='text'
-                placeholder='Enter Full Name'
+                placeholder='Enter Last Name'
                 name='lastname'
               />
             </div>

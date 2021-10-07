@@ -43,7 +43,7 @@ const columns = [
     accessor: 'contact_number',
   },
   {
-    Header: 'Meeting Links',
+    Header: 'Meeting Link',
     accessor: 'meeting_link',
   },
   {

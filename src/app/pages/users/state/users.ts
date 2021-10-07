@@ -5,7 +5,7 @@ import * as Eff from 'redux-saga/effects'
 
 import {getUsersApi} from '../api/users'
 import {userActionTypes} from './user'
-import {Customer} from './models'
+import {User} from './models'
 
 const takeLatest: any = Eff.takeLatest
 const call: any = Eff.call
@@ -23,7 +23,7 @@ export const usersActionTypes = {
 }
 
 export interface InitialContacstStateType {
-  users: Customer[]
+  users: User[]
   loadingUsers?: boolean
   error?: any
 }

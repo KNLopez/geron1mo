@@ -5,6 +5,7 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {userActions, InitialUserStateType} from '../state/user'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
+import Datepicker from '../../../components/Flatpicker'
 
 const UserForm: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -32,11 +33,13 @@ const UserForm: React.FC<any> = () => {
         id: '',
         firstname: '',
         lastname: '',
-        status: '',
-        phone: '',
-        campaign_name: '',
-        assigned: '',
+        start_date: '',
+        title: '',
         email: '',
+        contact_number: '',
+        meeting_link: '',
+        birthday: '',
+        status: '',
       }
 
   const formik = useFormik({
@@ -89,7 +92,7 @@ const UserForm: React.FC<any> = () => {
                   }
                 )}
                 type='text'
-                placeholder='Enter Full Name'
+                placeholder='Enter First Name'
                 name='firstname'
               />
             </div>
@@ -105,8 +108,55 @@ const UserForm: React.FC<any> = () => {
                   }
                 )}
                 type='text'
-                placeholder='Enter Full Name'
+                placeholder='Enter Last Name'
                 name='lastname'
+              />
+            </div>
+            <div className='fv-row mb-5'>
+              <label className='fs-6 fw-bold mb-2'>Start Date</label>
+              <Datepicker
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.start_date && formik.errors.start_date},
+                  {
+                    'is-valid': formik.touched.start_date && !formik.errors.start_date,
+                  }
+                )}
+                handleChange={formik.setFieldValue}
+                minDate={formik.values.start_date}
+                placeholder='Start Date'
+                name='start_date'
+              />
+            </div>
+            <div className='fv-row mb-7'>
+              <label className='required fs-6 fw-bold mb-2'>Title</label>
+              <input
+                {...formik.getFieldProps('title')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.lastname && formik.errors.lastname},
+                  {
+                    'is-valid': formik.touched.lastname && !formik.errors.lastname,
+                  }
+                )}
+                type='text'
+                placeholder='User Title'
+                name='title'
+              />
+            </div>
+            <div className='fv-row mb-7'>
+              <label className='required fs-6 fw-bold mb-2'>Job Description</label>
+              <textarea
+                {...formik.getFieldProps('title')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.lastname && formik.errors.lastname},
+                  {
+                    'is-valid': formik.touched.lastname && !formik.errors.lastname,
+                  }
+                )}
+                placeholder='I make clients happy!'
+                name='job_description'
               />
             </div>
             <div className='fv-row mb-7'>
@@ -134,19 +184,52 @@ const UserForm: React.FC<any> = () => {
               />
             </div>
             <div className='fv-row mb-7'>
-              <label className='fs-6 fw-bold mb-2'>Phone</label>
+              <label className='fs-6 fw-bold mb-2'>Phone Number</label>
               <input
-                {...formik.getFieldProps('phone')}
+                {...formik.getFieldProps('contact_number')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.phone && formik.errors.phone},
+                  {'is-invalid': formik.touched.contact_number && formik.errors.contact_number},
                   {
-                    'is-valid': formik.touched.phone && !formik.errors.phone,
+                    'is-valid': formik.touched.contact_number && !formik.errors.contact_number,
                   }
                 )}
                 type='text'
                 placeholder='+88-888-8888'
-                name='phone'
+                name='contact_number'
+              />
+            </div>
+
+            <div className='fv-row mb-7'>
+              <label className='required fs-6 fw-bold mb-2'>Meeting Link</label>
+              <input
+                {...formik.getFieldProps('meeting_link')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.lastname && formik.errors.lastname},
+                  {
+                    'is-valid': formik.touched.lastname && !formik.errors.lastname,
+                  }
+                )}
+                type='text'
+                placeholder='http://linktomeeting.com'
+                name='meeting_link'
+              />
+            </div>
+            <div className='fv-row mb-7'>
+              <label className='required fs-6 fw-bold mb-2'>Birthday</label>
+              <input
+                {...formik.getFieldProps('birthday')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.lastname && formik.errors.lastname},
+                  {
+                    'is-valid': formik.touched.lastname && !formik.errors.lastname,
+                  }
+                )}
+                type='text'
+                placeholder='6/17/77'
+                name='birthday'
               />
             </div>
             <div className='fv-row mb-7'>
@@ -161,48 +244,14 @@ const UserForm: React.FC<any> = () => {
                 )}
                 {...formik.getFieldProps('status')}
                 name='status'
+                defaultValue=''
               >
-                <option value='' disabled selected>
+                <option value='' disabled>
                   Select Status
                 </option>
-                <option value='lead'>Lead</option>
-                <option value='won'>Won</option>
-                <option value='lost'>Lost</option>
                 <option value='active'>Active</option>
-                <option value='cancelled'>Cancelled</option>
+                <option value='cancelled'>Inactive</option>
               </select>
-            </div>
-            <div className='fv-row mb-7'>
-              <label className='fs-6 fw-bold mb-2'>Assigned To</label>
-              <input
-                {...formik.getFieldProps('assigned')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.assigned && formik.errors.assigned},
-                  {
-                    'is-valid': formik.touched.assigned && !formik.errors.assigned,
-                  }
-                )}
-                type='text'
-                placeholder='Doza'
-                name='assigned'
-              />
-            </div>
-            <div className='fv-row mb-5'>
-              <label className='fs-6 fw-bold mb-2'>Campaign</label>
-              <input
-                {...formik.getFieldProps('campaign_name')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid ',
-                  {'is-invalid': formik.touched.campaign_name && formik.errors.campaign_name},
-                  {
-                    'is-valid': formik.touched.campaign_name && !formik.errors.campaign_name,
-                  }
-                )}
-                type='text'
-                placeholder='Awesome campaign name'
-                name='campaign_name'
-              />
             </div>
           </div>
         </div>
