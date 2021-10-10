@@ -9,4 +9,5 @@ export interface User {
   meeting_link: string
   birthday: string
   status: string
+  role: string
 }

@@ -20,26 +20,30 @@ const UserForm: React.FC<any> = () => {
   const CreateCustomerSchema = Yup.object().shape({
     firstname: Yup.string().required('First Name is required'),
     lastname: Yup.string().required('Last Name is required'),
-    phone: Yup.string(),
+    title: Yup.string(),
+    job_description: Yup.string(),
     status: Yup.string(),
-    assigned: Yup.string(),
-    campaign_name: Yup.string(),
+    contact_number: Yup.string(),
+    role: Yup.string(),
+    birthday: Yup.string(),
+    start_date: Yup.string(),
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
 
   const initialValues = isEdit
     ? user
     : {
-        id: '',
         firstname: '',
         lastname: '',
         start_date: '',
         title: '',
+        job_description: '',
         email: '',
         contact_number: '',
         meeting_link: '',
         birthday: '',
         status: '',
+        role: '',
       }
 
   const formik = useFormik({
@@ -123,7 +127,6 @@ const UserForm: React.FC<any> = () => {
                   }
                 )}
                 handleChange={formik.setFieldValue}
-                minDate={formik.values.start_date}
                 placeholder='Start Date'
                 name='start_date'
               />
@@ -147,7 +150,7 @@ const UserForm: React.FC<any> = () => {
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>Job Description</label>
               <textarea
-                {...formik.getFieldProps('title')}
+                {...formik.getFieldProps('job_description')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
                   {'is-invalid': formik.touched.lastname && formik.errors.lastname},
@@ -218,7 +221,7 @@ const UserForm: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>Birthday</label>
-              <input
+              <Datepicker
                 {...formik.getFieldProps('birthday')}
                 className={clsx(
                   'form-control form-control-lg form-control-solid',
@@ -227,10 +230,33 @@ const UserForm: React.FC<any> = () => {
                     'is-valid': formik.touched.lastname && !formik.errors.lastname,
                   }
                 )}
-                type='text'
+                handleChange={formik.setFieldValue}
                 placeholder='6/17/77'
                 name='birthday'
               />
+            </div>
+            <div className='fv-row mb-7'>
+              <label className='fs-6 fw-bold mb-2'>Role</label>
+              <select
+                className={clsx(
+                  'form-select form-select-solid  select2-hidden-accessible',
+                  {'is-invalid': formik.touched.role && formik.errors.role},
+                  {
+                    'is-valid': formik.touched.role && !formik.errors.role,
+                  }
+                )}
+                {...formik.getFieldProps('role')}
+                name='role'
+                defaultValue=''
+              >
+                <option value='' disabled>
+                  Select Status
+                </option>
+                <option value='Wolf'>Wolf</option>
+                <option value='Pitcrew'>Pitcrew</option>
+                <option value='Rocket'>Rocket</option>
+                <option value='Staff'>Staff</option>
+              </select>
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Status</label>
