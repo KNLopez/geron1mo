@@ -35,9 +35,7 @@ const initialValues = {
 
 export function Login() {
   const [loading, setLoading] = useState(false)
-  const {user, error} = useSelector(({auth}: RootState) => auth, shallowEqual)
-
-  console.log(user, error)
+  const {error} = useSelector(({auth}: RootState) => auth, shallowEqual)
 
   const dispatch = useDispatch()
   const formik = useFormik({

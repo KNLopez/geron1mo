@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {Dropdown1} from '../../../_metronic/partials'
 import {useLocation} from 'react-router-dom'
 
-const ProfileHeader: React.FC = () => {
+const ProfileHeader: React.FC<any> = ({id}) => {
   const location = useLocation()
 
   return (
@@ -167,9 +167,9 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/campaign/overview' && 'active')
+                  (location.pathname === `/campaign/${id}/overview` && 'active')
                 }
-                to='/campaign/overview'
+                to={`/campaign/${id}/overview`}
               >
                 Overview
               </Link>
@@ -200,22 +200,22 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/campaign/documents' && 'active')
+                  (location.pathname === `/campaign/${id}/documents` && 'active')
                 }
-                to='/campaign/documents'
+                to={`/campaign/${id}/documents`}
               >
-                Documents
+                Files
               </Link>
             </li>
             <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/campaign/connections' && 'active')
+                  (location.pathname === `/campaign/${id}/connections` && 'active')
                 }
-                to='/campaign/connections'
+                to={`/campaign/${id}/connections`}
               >
-                Connections
+                Leads
               </Link>
             </li>
           </ul>

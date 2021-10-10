@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
 import {createContactApi, getContactApi, updateContactApi} from '../api/contacts'
 import {ActionWithPayload} from './contacts'
-import {Customer} from './models'
+import {Contact} from './models'
 
 const takeLatest: any = Eff.takeLatest
 const call: any = Eff.call
@@ -23,7 +23,7 @@ export const contactActionTypes = {
 }
 
 export interface InitialContactStateType {
-  contact: Customer
+  contact: Contact
   loadingContact?: boolean
   error?: any
 }

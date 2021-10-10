@@ -7,11 +7,15 @@ export function getCampaignsApi() {
   return axios.get(CAMPAIGNS)
 }
 
-export function getCampaignApi(id: string) {
-  return axios.get(CAMPAIGNS, {params: {id}})
+export function getCampaignLeads(id: string) {
+  return axios.get(`${CAMPAIGNS}/${id}/leads`)
 }
 
-export function UpdateCampaign(campaign: Campaign) {
+export function getCampaignApi(id: string) {
+  return axios.get(`${CAMPAIGNS}/${id}`)
+}
+
+export function updateCampaignApi(campaign: Campaign) {
   return axios.put(`${CAMPAIGNS}/${campaign.id}`, campaign)
 }
 

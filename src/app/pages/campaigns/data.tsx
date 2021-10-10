@@ -12,13 +12,22 @@ const campaignsBreadCrumbs: BreadCrumb[] = [
   },
 ]
 
+const campaignBreadCrumbs: BreadCrumb[] = [
+  {
+    title: 'Campaigns',
+    url: '/campaigns',
+  },
+]
+
 const columns = [
   {
     Header: 'Name',
     accessor: 'name',
     Filter: SelectColumnFilter,
     disableFilters: false,
-    Cell: ({row}: any) => <Link to='/campaign/overview'>{row.original.name?.toUpperCase()}</Link>,
+    Cell: ({row}: any) => (
+      <Link to={`/campaign/${row.original.id}`}>{row.original.name?.toUpperCase()}</Link>
+    ),
   },
   {
     Header: 'FB Campaign Id',
@@ -45,6 +54,7 @@ const campaignsData = {
   title: 'Contacts',
   breadcrumbs: campaignsBreadCrumbs,
   columns,
+  campaignBreadCrumbs,
 }
 
 export default campaignsData

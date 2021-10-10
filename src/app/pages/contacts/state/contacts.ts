@@ -2,10 +2,11 @@ import {Action} from '@reduxjs/toolkit'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
+import {getCampaignLeads} from '../../campaigns/api/campaigns'
 
 import {getContactsApi} from '../api/contacts'
 import {contactActionTypes} from './contact'
-import {Customer} from './models'
+import {Contact} from './models'
 
 const takeLatest: any = Eff.takeLatest
 const call: any = Eff.call
@@ -23,7 +24,7 @@ export const contactsActionTypes = {
 }
 
 export interface InitialContacstStateType {
-  contacts: Customer[]
+  contacts: Contact[]
   loadingContacts?: boolean
   error?: any
 }
@@ -80,15 +81,16 @@ export const reducer = persistReducer(
 
 export const contactsActions = {
   loadingContacts: () => ({type: contactsActionTypes.LoadingContacts}),
-  fetchContacts: () => ({type: contactsActionTypes.FetchContacts}),
+  fetchContacts: (id: any) => ({type: contactsActionTypes.FetchContacts, id}),
   contactsLoaded: (payload: any) => ({type: contactsActionTypes.ContactsLoaded, payload}),
   contactsError: (payload: any) => ({type: contactsActionTypes.ContactsError, payload}),
 }
 
-function* getContacts(): any {
+function* getContacts({id}: any): any {
   yield put(contactsActions.loadingContacts())
   try {
-    const response = yield call(getContactsApi)
+    const api = id ? getCampaignLeads : getContactsApi
+    const response = yield call(api, id)
     yield put(contactsActions.contactsLoaded(response.data))
   } catch (err: any) {
     yield put(contactsActions.contactsError(err))

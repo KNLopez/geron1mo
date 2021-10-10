@@ -19,7 +19,7 @@ export function PrivateRoutes() {
         <Route path='/contacts' component={ContactsPage} />
         <Route path='/studios' component={StudiosPage} />
         <Route path='/campaigns' component={CampaignsPage} />
-        <Route path='/campaign' component={CampaignPage} />
+        <Route path='/campaign/:id' component={CampaignPage} />
         <Route path='/users' component={UsersPage} />
 
         {/* <Route path='/contacts' component={ContactsPage} /> */}

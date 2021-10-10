@@ -1,7 +1,7 @@
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
-import {createCampaignApi, getCampaignApi} from '../api/campaigns'
+import {createCampaignApi, getCampaignApi, updateCampaignApi} from '../api/campaigns'
 import {ActionWithPayload} from './campaigns'
 import {Campaign} from './models'
 
@@ -87,7 +87,7 @@ export const reducer = persistReducer(
 
 export const campaignActions = {
   loadingCampaign: () => ({type: campaignActionTypes.LoadingCampaign}),
-  fetchCampaign: () => ({type: campaignActionTypes.FetchCampaign}),
+  fetchCampaign: (id: any) => ({type: campaignActionTypes.FetchCampaign, id}),
   resetCampaign: () => ({type: campaignActionTypes.ResetCampaign}),
   updateCampaign: (campaign: any) => ({type: campaignActionTypes.UpdateCampaign, campaign}),
   updatedCampaign: (campaign: any) => ({type: campaignActionTypes.UpdatedCampaign, campaign}),
@@ -97,10 +97,10 @@ export const campaignActions = {
   campaignError: (payload: any) => ({type: campaignActionTypes.CampaignError, payload}),
 }
 
-function* getCampaign(payload: any): any {
+function* getCampaign({id}: any): any {
   yield put(campaignActions.loadingCampaign())
   try {
-    const response = yield call(getCampaignApi(payload))
+    const response = yield call(getCampaignApi, id)
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))
@@ -122,7 +122,7 @@ function* createCampaign({campaign}: any): any {
 function* updateCampaign({campaign}: any): any {
   yield put(campaignActions.loadingCampaign())
   try {
-    const response = yield call(createCampaignApi, campaign)
+    const response = yield call(updateCampaignApi, campaign)
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))

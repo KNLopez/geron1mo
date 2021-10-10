@@ -7,11 +7,14 @@ import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
-import ContactFormModal from './modals/ContactForm'
 import {contactActions} from './state/contact'
 import {contactsActions} from './state/contacts'
 
-const Contacts = () => {
+interface ContactsProps {
+  id?: string
+}
+
+const Contacts = ({id}: ContactsProps) => {
   const dispatch = useDispatch()
   const {contacts, loadingContacts, error}: any = useSelector(
     ({contacts}: RootState) => contacts,
@@ -19,7 +22,7 @@ const Contacts = () => {
   )
 
   useEffect(() => {
-    dispatch(contactsActions.fetchContacts())
+    dispatch(contactsActions.fetchContacts(id))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -36,7 +39,7 @@ const Contacts = () => {
 
   return (
     <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
-      <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
+      {!id && <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />}
       <Table
         data={contacts}
         columns={data.columns}

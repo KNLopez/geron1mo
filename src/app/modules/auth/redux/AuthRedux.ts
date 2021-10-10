@@ -64,7 +64,6 @@ export const reducer = persistReducer(
       }
 
       case actionTypes.setError: {
-        console.log(action.payload)
         return {...state, error: action.payload}
       }
 
@@ -97,12 +96,10 @@ function* loginSaga({payload}: LoginProps): any {
   const {email, password} = payload
   try {
     const response = yield call(login, email, password)
-    console.log(response)
     yield put(actions.setUser({user: response.data}))
     const {authorization} = yield response.headers
     yield localStorage.setItem('auth', authorization)
   } catch (err: any) {
-    console.log('error')
     yield put(actions.setError(err))
     // throw new Error(err)
   }
