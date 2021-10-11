@@ -148,6 +148,7 @@ const CreateCampaign: React.FC<any> = () => {
                     'is-valid': formik.touched.start_date && !formik.errors.start_date,
                   }
                 )}
+                value={formik.values.start_date}
                 handleChange={formik.setFieldValue}
                 placeholder='Start Date'
                 name='start_date'
@@ -165,10 +166,12 @@ const CreateCampaign: React.FC<any> = () => {
                   }
                 )}
                 handleChange={formik.setFieldValue}
+                value={formik.values.end_date}
                 minDate={formik.values.start_date}
                 placeholder='End Date'
                 name='end_date'
               />
+              {console.log(formik.values.end_date)}
             </div>
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>FB Campaign ID</label>

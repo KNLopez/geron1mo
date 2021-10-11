@@ -65,7 +65,8 @@ export const reducer = persistReducer(
       }
 
       case campaignActionTypes.UpdatedCampaign: {
-        return {...state, loadingCampaign: false}
+        console.log(action.payload)
+        return {...state, campaign: action.payload, loadingCampaign: false}
       }
 
       case campaignActionTypes.CreateCampaign: {
@@ -90,7 +91,7 @@ export const campaignActions = {
   fetchCampaign: (id: any) => ({type: campaignActionTypes.FetchCampaign, id}),
   resetCampaign: () => ({type: campaignActionTypes.ResetCampaign}),
   updateCampaign: (campaign: any) => ({type: campaignActionTypes.UpdateCampaign, campaign}),
-  updatedCampaign: (campaign: any) => ({type: campaignActionTypes.UpdatedCampaign, campaign}),
+  updatedCampaign: (payload: any) => ({type: campaignActionTypes.UpdatedCampaign, payload}),
   createCampaign: (campaign: any) => ({type: campaignActionTypes.CreateCampaign, campaign}),
   campaignLoaded: (payload: any) => ({type: campaignActionTypes.CampaignLoaded, payload}),
   setCampaign: (payload: any) => ({type: campaignActionTypes.SetCampaign, payload}),
@@ -123,8 +124,9 @@ function* updateCampaign({campaign}: any): any {
   yield put(campaignActions.loadingCampaign())
   try {
     const response = yield call(updateCampaignApi, campaign)
-    yield put(campaignActions.campaignLoaded(response.data))
+    yield put(campaignActions.updatedCampaign(response.data))
   } catch (err: any) {
+    console.log(err)
     yield put(campaignActions.campaignError(err))
     //  // throw new Error(err)
   }

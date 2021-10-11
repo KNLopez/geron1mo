@@ -54,6 +54,7 @@ export const reducer = persistReducer(
       }
 
       case campaignActionTypes.UpdatedCampaign: {
+        console.log(action.payload)
         return {
           ...state,
           campaigns: state.campaigns.map((campaign) => {

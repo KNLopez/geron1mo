@@ -32,6 +32,7 @@ const Datepicker = ({
       <Flatpickr
         {...props}
         name={name}
+        value={value}
         onChange={dateHandler}
         options={{dateFormat: 'm-d-Y', minDate}}
       />
