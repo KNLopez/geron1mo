@@ -252,9 +252,8 @@ const UserForm: React.FC<any> = () => {
                 <option value='' disabled>
                   Select Status
                 </option>
-                <option value='Wolf'>Wolf</option>
-                <option value='Pitcrew'>Pitcrew</option>
-                <option value='Rocket'>Rocket</option>
+                <option value='Wolves'>Wolves</option>
+                <option value='Rockets'>Rockets</option>
                 <option value='Staff'>Staff</option>
               </select>
             </div>
