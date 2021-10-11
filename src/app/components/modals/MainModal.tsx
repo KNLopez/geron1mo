@@ -41,7 +41,7 @@ const MainModal: React.FC<ModalProps> = ({
   }
 
   return (
-    <Modal show={show} onHide={handleClose} size='lg' onEntered={onEntered}>
+    <Modal show={show} onHide={handleClose} size='lg' onEntered={onEntered} enforceFocus={false}>
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
