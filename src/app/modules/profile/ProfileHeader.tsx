@@ -39,13 +39,13 @@ const ProfileHeader: React.FC<any> = ({id}) => {
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
-                    <KTSVG
+                    {/* <KTSVG
                       path='/media/icons/duotone/General/User.svg'
                       className='svg-icon-4 me-1'
-                    />
-                    Developer
+                    /> */}
+                    Campaign Description
                   </a>
-                  <a
+                  {/* <a
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
@@ -64,7 +64,7 @@ const ProfileHeader: React.FC<any> = ({id}) => {
                       className='svg-icon-4 me-1'
                     />
                     max@kt.com
-                  </a>
+                  </a> */}
                 </div>
               </div>
 
@@ -75,11 +75,11 @@ const ProfileHeader: React.FC<any> = ({id}) => {
                     className='svg-icon-3 d-none'
                   />
 
-                  <span className='indicator-label'>Follow</span>
+                  {/* <span className='indicator-label'>Follow</span>
                   <span className='indicator-progress'>
                     Please wait...
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                  </span>
+                  </span> */}
                 </a>
                 {/* <a
                   href='#'

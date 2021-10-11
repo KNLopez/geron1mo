@@ -18,7 +18,7 @@ const columns = [
   },
   {
     Header: 'Location',
-    accessor: 'location',
+    accessor: 'address',
     Filter: SelectColumnFilter,
     disableFilters: false,
   },
@@ -30,23 +30,29 @@ const columns = [
     Header: 'Owner',
     accessor: 'studio_owner.data.lastname',
     Cell: ({row}: any) => (
-      <span>{`${row.original.studio_owner?.data?.lastname}, ${row.original.studio_owner?.data?.firstname}`}</span>
+      <span>{`${row.original.studio_owner?.data?.firstname || ''} ${
+        row.original.studio_owner?.data?.lastname || ''
+      }`}</span>
     ),
   },
   {
     Header: 'Contact Number',
     accessor: 'mobile_number',
+    Cell: ({row}: any) => <span>{`${row.original.studio_owner?.data?.mobile_number || ''}`}</span>,
   },
   {
     Header: 'Studio Manager',
     accessor: 'studio_manager_lastname',
     Cell: ({row}: any) => (
-      <span>{`${row.original.studio_manager?.data?.lastname}, ${row.original.studio_manager?.data?.firstname}`}</span>
+      <span>{`${row.original.studio_manager?.data?.firstname || ''} ${
+        row.original.studio_manager?.data?.lastname || ''
+      }`}</span>
     ),
   },
   {
     Header: 'Studio Manager Email',
     accessor: 'studio_manager_email',
+    Cell: ({row}: any) => <span>{`${row.original.studio_manager?.data?.email}`}</span>,
   },
   {
     Header: 'Service Offered',

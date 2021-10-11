@@ -167,7 +167,7 @@ export function Login() {
           type='submit'
           id='kt_sign_in_submit'
           className='btn btn-lg btn-primary w-100 mb-5'
-          disabled={formik.isSubmitting || !formik.isValid}
+          disabled={formik.isSubmitting}
         >
           {!loading && <span className='indicator-label'>Continue</span>}
           {loading && (

@@ -5,9 +5,11 @@ import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
 
 type Props = {
   className: string
+  title?: string
+  options?: any
 }
 
-const ChartsWidget3: React.FC<Props> = ({className}) => {
+const ChartsWidget3: React.FC<Props> = ({className, title, options}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const ChartsWidget3: React.FC<Props> = ({className}) => {
 
     const height = parseInt(getCSS(chartRef.current, 'height'))
 
-    const chart = new ApexCharts(chartRef.current, getChartOptions(height))
+    const chart = new ApexCharts(chartRef.current, options ? options : getChartOptions(height))
     if (chart) {
       chart.render()
     }
@@ -30,49 +32,51 @@ const ChartsWidget3: React.FC<Props> = ({className}) => {
   }, [chartRef])
 
   return (
-    <div className={`card ${className}`}>
-      {/* begin::Header */}
-      <div className='card-header border-0 pt-5'>
-        <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bolder fs-3 mb-1'>Recent Transactions</span>
+    <div className={`${className}`}>
+      <div className={`card `}>
+        {/* begin::Header */}
+        <div className='card-header border-0 pt-5'>
+          <h3 className='card-title align-items-start flex-column'>
+            <span className='card-label fw-bolder fs-3 mb-1'>{title}</span>
 
-          <span className='text-muted fw-bold fs-7'>More than 1000 new records</span>
-        </h3>
+            <span className='text-muted fw-bold fs-7'>More than 1000 new records</span>
+          </h3>
 
-        {/* begin::Toolbar */}
-        <div className='card-toolbar' data-kt-buttons='true'>
-          <a
-            className='btn btn-sm btn-color-muted btn-active btn-active-primary active px-4 me-1'
-            id='kt_charts_widget_3_year_btn'
-          >
-            Year
-          </a>
+          {/* begin::Toolbar */}
+          <div className='card-toolbar' data-kt-buttons='true'>
+            <a
+              className='btn btn-sm btn-color-muted btn-active btn-active-primary active px-4 me-1'
+              id='kt_charts_widget_3_year_btn'
+            >
+              Year
+            </a>
 
-          <a
-            className='btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1'
-            id='kt_charts_widget_3_month_btn'
-          >
-            Month
-          </a>
+            <a
+              className='btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1'
+              id='kt_charts_widget_3_month_btn'
+            >
+              Month
+            </a>
 
-          <a
-            className='btn btn-sm btn-color-muted btn-active btn-active-primary px-4'
-            id='kt_charts_widget_3_week_btn'
-          >
-            Week
-          </a>
+            <a
+              className='btn btn-sm btn-color-muted btn-active btn-active-primary px-4'
+              id='kt_charts_widget_3_week_btn'
+            >
+              Week
+            </a>
+          </div>
+          {/* end::Toolbar */}
         </div>
-        {/* end::Toolbar */}
-      </div>
-      {/* end::Header */}
+        {/* end::Header */}
 
-      {/* begin::Body */}
-      <div className='card-body'>
-        {/* begin::Chart */}
-        <div ref={chartRef} id='kt_charts_widget_3_chart' style={{height: '350px'}}></div>
-        {/* end::Chart */}
+        {/* begin::Body */}
+        <div className='card-body'>
+          {/* begin::Chart */}
+          <div ref={chartRef} id='kt_charts_widget_3_chart' style={{height: '350px'}}></div>
+          {/* end::Chart */}
+        </div>
+        {/* end::Body */}
       </div>
-      {/* end::Body */}
     </div>
   )
 }

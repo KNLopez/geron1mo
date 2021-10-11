@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import {Redirect, Route, Switch, useParams} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
-import {Overview} from '../../modules/profile/components/Overview'
 import {Documents} from '../../modules/profile/components/Documents'
 import {ProfileHeader} from '../../modules/profile/ProfileHeader'
 import Campaigns from './CampaignsPage'
@@ -11,6 +10,7 @@ import {RootState} from '../../../setup'
 import Toolbar from '../../components/Toolbar'
 import data from './data'
 import {campaignActions} from './state/campaign'
+import OverviewPage from './CampaignPages/OverviewPage'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -55,12 +55,8 @@ const CampaignPage: React.FC = () => {
       <Switch>
         <Route path='/campaign/:id/overview'>
           <PageTitle breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>
-          <Overview />
+          <OverviewPage />
         </Route>
-        {/* <Route path='/campaign/projects'>
-          <PageTitle breadcrumbs={profileBreadCrumbs}>Projects</PageTitle>
-          <Projects />
-        </Route> */}
         <Route path='/campaign/:id/campaigns'>
           <PageTitle breadcrumbs={profileBreadCrumbs}>Campaigns</PageTitle>
           <Campaigns />
