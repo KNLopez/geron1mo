@@ -6,6 +6,7 @@ import {campaignActions, InitialCampaignStateType} from '../state/campaign'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
 import Datepicker from '../../../components/Flatpicker'
+import {useParams} from 'react-router-dom'
 
 const CreateCampaign: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -48,6 +49,8 @@ const CreateCampaign: React.FC<any> = () => {
       setSubmitting(false)
     },
   })
+
+  if (error) formik.setStatus(error)
 
   const title = isEdit ? 'Edit Campaign' : 'Create Campaign'
   const submitButtonText = isEdit ? 'Update' : 'Submit'
@@ -171,7 +174,6 @@ const CreateCampaign: React.FC<any> = () => {
                 placeholder='End Date'
                 name='end_date'
               />
-              {console.log(formik.values.end_date)}
             </div>
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>FB Campaign ID</label>

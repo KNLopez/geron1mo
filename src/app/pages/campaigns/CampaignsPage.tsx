@@ -24,7 +24,7 @@ const Campaigns = () => {
 
   const handleRowClick = (value: any) => {
     dispatch(campaignActions.setCampaign(value))
-    dispatch(modalActions.showModal(ModalTypes.CAMPAIGN_FORM))
+    dispatch(modalActions.showModal({type: ModalTypes.CAMPAIGN_FORM}))
   }
 
   const handleDelete = () => {}

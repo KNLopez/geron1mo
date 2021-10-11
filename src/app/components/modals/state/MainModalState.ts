@@ -1,4 +1,5 @@
 import {Action} from '@reduxjs/toolkit'
+import {ModalTypes} from '../models'
 
 export const modalActionTypes = {
   ShowModal: '[Modal] Show',
@@ -7,11 +8,13 @@ export const modalActionTypes = {
 
 export interface InitialModalStateType {
   show: boolean
-  type: string | undefined
+  params: any
+  type: string | ModalTypes | undefined
 }
 
 const intialModalState: InitialModalStateType = {
   show: false,
+  params: {},
   type: undefined,
 }
 
@@ -25,7 +28,8 @@ export const reducer = (
 ) => {
   switch (action.type) {
     case modalActionTypes.ShowModal:
-      return {show: true, type: action.payload}
+      console.log(action.payload)
+      return {show: true, type: action.payload.type, params: action.payload.params}
 
     case modalActionTypes.HideModal:
       return {show: false, type: undefined}
@@ -35,6 +39,6 @@ export const reducer = (
 }
 
 export const modalActions = {
-  showModal: (payload: string) => ({type: modalActionTypes.ShowModal, payload}),
+  showModal: (payload: any) => ({type: modalActionTypes.ShowModal, payload}),
   hideModal: () => ({type: modalActionTypes.HideModal}),
 }

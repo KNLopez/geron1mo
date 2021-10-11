@@ -26,7 +26,7 @@ const Studios = () => {
 
   const handleRowClick = (value: any) => {
     dispatch(studioActions.setStudio(value))
-    dispatch(modalActions.showModal(ModalTypes.STUDIO_FORM))
+    dispatch(modalActions.showModal({type: ModalTypes.STUDIO_FORM}))
   }
 
   if (error) {

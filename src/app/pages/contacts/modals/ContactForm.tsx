@@ -5,6 +5,9 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {contactActions, InitialContactStateType} from '../state/contact'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
+import {useParams} from 'react-router-dom'
+import {campaignsActions} from '../../campaigns/state/campaigns'
+import {useEffect} from 'react'
 
 const ContactForm: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -14,6 +17,20 @@ const ContactForm: React.FC<any> = () => {
     shallowEqual
   )
 
+  const {params}: any = useSelector(({modal}: RootState) => modal, shallowEqual)
+
+  const {
+    campaigns,
+    loadingCampaigns,
+    error: campaingsError,
+  }: any = useSelector(({campaigns}: RootState) => campaigns, shallowEqual)
+
+  const test: any = useParams()
+
+  useEffect(() => {
+    dispatch(campaignsActions.fetchCampaigns())
+  }, [])
+
   const isEdit = contact?.id
 
   const CreateCustomerSchema = Yup.object().shape({
@@ -21,7 +38,7 @@ const ContactForm: React.FC<any> = () => {
     lastname: Yup.string().required('Last Name is required'),
     phone: Yup.string(),
     status: Yup.string(),
-    campaign_name: Yup.string(),
+    campaign_id: Yup.string(),
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
 
@@ -33,7 +50,7 @@ const ContactForm: React.FC<any> = () => {
         lastname: '',
         status: '',
         phone: '',
-        campaign_name: '',
+        campaign_id: '',
         assigned: '',
         email: '',
       }
@@ -189,21 +206,28 @@ const ContactForm: React.FC<any> = () => {
                 name='assigned'
               />
             </div>
-            <div className='fv-row mb-5'>
+            <div className={`${params?.id && !isEdit ? 'd-none' : 'fv-row mb-5'}`}>
               <label className='fs-6 fw-bold mb-2'>Campaign</label>
-              <input
-                {...formik.getFieldProps('campaign_name')}
+              <select
                 className={clsx(
-                  'form-control form-control-lg form-control-solid ',
-                  {'is-invalid': formik.touched.campaign_name && formik.errors.campaign_name},
+                  'form-select form-select-solid  select2-hidden-accessible',
+                  {'is-invalid': formik.touched.campaign_id && formik.errors.campaign_id},
                   {
-                    'is-valid': formik.touched.campaign_name && !formik.errors.campaign_name,
+                    'is-valid': formik.touched.campaign_id && !formik.errors.campaign_id,
                   }
                 )}
-                type='text'
-                placeholder='Awesome campaign name'
-                name='campaign_name'
-              />
+                {...formik.getFieldProps('campaign_id')}
+                name='campaign_id'
+                defaultValue={formik.values.campaign_id}
+                disabled={loadingCampaigns}
+              >
+                <option value='' disabled selected>
+                  Select Campaign
+                </option>
+                {campaigns.map((campaign: any) => (
+                  <option value={campaign.id}>{campaign.name}</option>
+                ))}
+              </select>
             </div>
           </div>
         </div>

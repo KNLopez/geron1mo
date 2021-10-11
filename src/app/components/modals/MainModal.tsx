@@ -1,5 +1,6 @@
 import {Button, Modal} from 'react-bootstrap-v5'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
+import {useParams} from 'react-router-dom'
 import {RootState} from '../../../setup'
 import {modalActions} from './state/MainModalState'
 

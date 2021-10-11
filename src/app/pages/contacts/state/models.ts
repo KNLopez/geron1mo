@@ -7,5 +7,5 @@ export interface Contact {
   status?: number
   created_at: Date | undefined
   assigned?: string
-  campaign_name?: string
+  campaign_id?: string
 }

@@ -23,7 +23,7 @@ const Users = () => {
 
   const handleRowClick = (value: any) => {
     dispatch(userActions.setUser(value))
-    dispatch(modalActions.showModal(ModalTypes.USER_FORM))
+    dispatch(modalActions.showModal({type: ModalTypes.USER_FORM}))
   }
 
   if (error) {

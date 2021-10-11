@@ -35,7 +35,7 @@ const initialContact: InitialContactStateType = {
     lastname: '',
     status: undefined,
     phone: '',
-    campaign_name: '',
+    campaign_id: '',
     assigned: '',
     email: '',
     created_at: undefined,

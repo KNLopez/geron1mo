@@ -30,7 +30,7 @@ const Contacts = ({id}: ContactsProps) => {
 
   const handleRowClick = (value: any) => {
     dispatch(contactActions.setContact(value))
-    dispatch(modalActions.showModal(ModalTypes.CONTACT_FORM))
+    dispatch(modalActions.showModal({type: ModalTypes.CONTACT_FORM, params: {id}}))
   }
 
   if (error) {

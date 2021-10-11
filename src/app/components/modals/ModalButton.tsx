@@ -1,5 +1,6 @@
 import {Button} from 'react-bootstrap-v5'
 import {useDispatch} from 'react-redux'
+import {useParams} from 'react-router-dom'
 import {modalActions} from './state/MainModalState'
 
 export interface ModalButtonProps {
@@ -9,9 +10,10 @@ export interface ModalButtonProps {
 
 const ModalButton: React.FC<ModalButtonProps> = ({buttonText, modalType}) => {
   const dispatch = useDispatch()
+  const params = useParams()
 
   const handleShow = () => {
-    dispatch(modalActions.showModal(modalType))
+    dispatch(modalActions.showModal({type: modalType, params}))
   }
 
   return (
