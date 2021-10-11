@@ -52,7 +52,7 @@ const columns = [
     filter: 'equals',
     disableFilters: false,
     Filter: SelectColumnFilter,
-    accessor: 'campaign_name',
+    accessor: 'campaign_details.name',
   },
 ]
 

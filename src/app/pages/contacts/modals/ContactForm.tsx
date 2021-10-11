@@ -206,7 +206,7 @@ const ContactForm: React.FC<any> = () => {
                 name='assigned'
               />
             </div>
-            <div className={`${params?.id && !isEdit ? 'd-none' : 'fv-row mb-5'}`}>
+            <div className={`${params?.id ? 'd-none' : 'fv-row mb-5'}`}>
               <label className='fs-6 fw-bold mb-2'>Campaign</label>
               <select
                 className={clsx(
