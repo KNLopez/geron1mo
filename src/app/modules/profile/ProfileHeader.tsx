@@ -185,17 +185,17 @@ const ProfileHeader: React.FC<any> = ({id}) => {
                 Projects
               </Link>
             </li> */}
-            {/* <li className='nav-item'>
+            <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/campaign/campaigns' && 'active')
+                  (location.pathname === `/campaign/${id}/discussions` && 'active')
                 }
-                to='/campaign/campaigns'
+                to={`/campaign/${id}/discussions`}
               >
-                Campaigns
+                Discussions
               </Link>
-            </li> */}
+            </li>
             <li className='nav-item'>
               <Link
                 className={

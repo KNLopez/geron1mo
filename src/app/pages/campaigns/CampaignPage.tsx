@@ -12,6 +12,8 @@ import data from './data'
 import {campaignActions} from './state/campaign'
 import OverviewPage from './CampaignPages/OverviewPage'
 
+import {Group} from '../../modules/apps/chat/components/Group'
+
 const profileBreadCrumbs: Array<PageLink> = [
   {
     title: 'Profile',
@@ -57,9 +59,9 @@ const CampaignPage: React.FC = () => {
           <PageTitle breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>
           <OverviewPage />
         </Route>
-        <Route path='/campaign/:id/campaigns'>
-          <PageTitle breadcrumbs={profileBreadCrumbs}>Campaigns</PageTitle>
-          <Campaigns />
+        <Route path='/campaign/:id/discussions'>
+          <PageTitle breadcrumbs={profileBreadCrumbs}>Discussions</PageTitle>
+          <Group />
         </Route>
         <Route path='/campaign/:id/documents'>
           <PageTitle breadcrumbs={profileBreadCrumbs}>Documents</PageTitle>
