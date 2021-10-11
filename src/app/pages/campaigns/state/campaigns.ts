@@ -92,7 +92,7 @@ function* getCampaigns(): any {
     yield put(campaignsActions.campaignsLoaded(response.data))
   } catch (err: any) {
     yield put(campaignsActions.campaignsError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

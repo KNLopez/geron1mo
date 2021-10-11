@@ -92,7 +92,7 @@ function* getUsers(): any {
     yield put(usersActions.usersLoaded(response.data))
   } catch (err: any) {
     yield put(usersActions.usersError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

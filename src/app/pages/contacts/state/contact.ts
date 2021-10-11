@@ -107,7 +107,7 @@ function* getContact(payload: any): any {
     yield put(contactActions.contactLoaded(response.data))
   } catch (err: any) {
     yield put(contactActions.contactError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -118,7 +118,7 @@ function* createContact({lead}: any): any {
     yield put(contactActions.contactLoaded(response.data))
   } catch (err: any) {
     yield put(contactActions.contactError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -129,7 +129,7 @@ function* updateContact({lead}: any): any {
     yield put(contactActions.contactUpdated(response.data))
   } catch (err: any) {
     yield put(contactActions.contactError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

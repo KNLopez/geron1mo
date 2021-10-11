@@ -94,7 +94,7 @@ function* getContacts({id}: any): any {
     yield put(contactsActions.contactsLoaded(response.data))
   } catch (err: any) {
     yield put(contactsActions.contactsError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

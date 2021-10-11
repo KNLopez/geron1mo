@@ -104,7 +104,7 @@ function* getCampaign({id}: any): any {
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -115,7 +115,7 @@ function* createCampaign({campaign}: any): any {
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))
-    throw new Error(err)
+    //  // throw new Error(err)
   }
 }
 
@@ -126,7 +126,7 @@ function* updateCampaign({campaign}: any): any {
     yield put(campaignActions.campaignLoaded(response.data))
   } catch (err: any) {
     yield put(campaignActions.campaignError(err))
-    throw new Error(err)
+    //  // throw new Error(err)
   }
 }
 

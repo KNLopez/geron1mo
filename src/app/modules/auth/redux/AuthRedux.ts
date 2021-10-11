@@ -101,7 +101,7 @@ function* loginSaga({payload}: LoginProps): any {
     yield localStorage.setItem('auth', authorization)
   } catch (err: any) {
     yield put(actions.setError(err))
-    // throw new Error(err)
+    //  // throw new Error(err)
   }
 }
 

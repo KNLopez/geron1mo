@@ -107,7 +107,7 @@ function* getStudio(payload: any): any {
     yield put(studioActions.studioLoaded(response.data))
   } catch (err: any) {
     yield put(studioActions.studioError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -120,7 +120,7 @@ function* createStudio({studio}: any): any {
     yield put(modalActions.hideModal())
   } catch (err: any) {
     yield put(studioActions.studioError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -133,7 +133,7 @@ function* updateStudioSaga({studio}: any): any {
     yield put(modalActions.hideModal())
   } catch (err: any) {
     yield put(studioActions.studioError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

@@ -93,7 +93,7 @@ function* getStudios(): any {
     yield put(studiosActions.studiosLoaded(response.data))
   } catch (err: any) {
     yield put(studiosActions.studiosError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 

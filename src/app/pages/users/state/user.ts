@@ -109,7 +109,7 @@ function* getUser(payload: any): any {
     yield put(userActions.userLoaded(response.data))
   } catch (err: any) {
     yield put(userActions.userError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -120,7 +120,7 @@ function* createUser({lead}: any): any {
     yield put(userActions.userLoaded(response.data))
   } catch (err: any) {
     yield put(userActions.userError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
@@ -131,7 +131,7 @@ function* updateUser({lead}: any): any {
     yield put(userActions.userUpdated(response.data))
   } catch (err: any) {
     yield put(userActions.userError(err))
-    throw new Error(err)
+    // throw new Error(err)
   }
 }
 
