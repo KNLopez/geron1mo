@@ -13,6 +13,7 @@ import {campaignActions} from './state/campaign'
 import OverviewPage from './CampaignPages/OverviewPage'
 
 import {Group} from '../../modules/apps/chat/components/Group'
+import {FallbackView} from '../../../_metronic/partials'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -39,6 +40,9 @@ const CampaignPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(campaignActions.fetchCampaign(id))
+    return () => {
+      dispatch(campaignActions.resetCampaign())
+    }
   }, [])
 
   const breadCrumbs = [
@@ -50,10 +54,12 @@ const CampaignPage: React.FC = () => {
 
   if (error) return null
 
+  if (loadingCampaign) return <FallbackView />
+
   return (
     <>
       <Toolbar title={campaign.name} breadcrumbs={breadCrumbs} />
-      <ProfileHeader {...{id}} />
+      <ProfileHeader {...{id}} title={campaign.name} />
       <Switch>
         <Route path='/campaign/:id/overview'>
           <PageTitle breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>

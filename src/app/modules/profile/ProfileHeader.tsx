@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {Dropdown1} from '../../../_metronic/partials'
 import {useLocation} from 'react-router-dom'
 
-const ProfileHeader: React.FC<any> = ({id}) => {
+const ProfileHeader: React.FC<any> = ({id, title}) => {
   const location = useLocation()
 
   return (
@@ -24,7 +24,7 @@ const ProfileHeader: React.FC<any> = ({id}) => {
               <div className='d-flex flex-column'>
                 <div className='d-flex align-items-center mb-2'>
                   <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
-                    Campaign Sample
+                    {title}
                   </a>
                   <a href='#'>
                     <KTSVG
