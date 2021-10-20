@@ -11,13 +11,15 @@ import {studios} from '../../app/pages/studios/state'
 import {user} from '../../app/pages/users/state'
 import {users} from '../../app/pages/users/state'
 import {modal} from '../../app/components/modals/state'
+import {pipeline} from '../../app/pages/pipeline/state'
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
-  contacts: contacts.reducer,
-  contact: contact.reducer,
   campaign: campaign.reducer,
   campaigns: campaigns.reducer,
+  contacts: contacts.reducer,
+  contact: contact.reducer,
+  pipeline: pipeline.reducer,
   studio: studio.reducer,
   studios: studios.reducer,
   user: user.reducer,
@@ -34,6 +36,7 @@ export function* rootSaga() {
     contact.saga(),
     campaign.saga(),
     campaigns.saga(),
+    pipeline.saga(),
     studio.saga(),
     studios.saga(),
     user.saga(),

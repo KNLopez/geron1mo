@@ -4,6 +4,8 @@ import {useLayout} from '../core'
 
 const Footer: FC = () => {
   const {classes} = useLayout()
+
+  return null
   return (
     <div className='footer py-4 d-flex flex-lg-column' id='kt_footer'>
       {/* begin::Container */}
