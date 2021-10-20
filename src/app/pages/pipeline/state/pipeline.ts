@@ -28,21 +28,7 @@ export interface InitialPipelineStateType {
 
 const initialPipeline: InitialPipelineStateType = {
   data: {
-    open: [
-      {
-        id: '414141',
-        title: 'yayaya',
-      },
-      {
-        id: '4142141',
-        title: 'yay4aya',
-      },
-      {
-        id: '4134141',
-        title: 'yay4aya',
-      },
-    ],
-
+    open: [],
     won: [],
     paid: [],
     cancelled: [],
