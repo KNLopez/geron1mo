@@ -86,7 +86,7 @@ const Table: React.FC<Props> = ({
   )
 
   const handleClick = (e: any, row: any) => {
-    if (e.target instanceof HTMLAnchorElement) {
+    if (e.target instanceof HTMLAnchorElement || e.target instanceof HTMLButtonElement) {
       return
     }
 

@@ -18,7 +18,14 @@ const PipelineCard = ({item, index}: any) => {
     </Tooltip>
   )
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
+    console.log(e.target)
+    if (
+      e.target instanceof HTMLAnchorElement ||
+      e.target instanceof HTMLButtonElement ||
+      e.target instanceof SVGElement
+    )
+      return
     dispatch(contactActions.setContact(item))
     dispatch(modalActions.showModal({type: ModalTypes.CONTACT_FORM}))
   }
