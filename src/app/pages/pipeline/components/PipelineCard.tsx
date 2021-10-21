@@ -1,5 +1,6 @@
 import {Draggable} from 'react-beautiful-dnd'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap-v5'
+import {KTSVG} from '../../../../_metronic/helpers/components/KTSVG'
 
 const bgs = ['bg-warning', 'bg-success', 'bg-info', 'bg-danger', 'bg-dark']
 
@@ -19,32 +20,63 @@ const PipelineCard = ({item, index}: any) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className='card p-4 mb-4'
+          className='card p-2 mb-4'
           onClick={() => {
             console.log('test')
           }}
         >
-          <div className='card-body'>
-            <h4>
-              {item.firstname} {item.lastname}
-            </h4>
+          <div className='card-body p-4'>
+            <div className='d-flex justify-content-between align-items-center'>
+              <h4>
+                {item.firstname} {item.lastname}
+              </h4>
+            </div>
+            <span className='text-primary'>{item.campaign_name}</span>
           </div>
-          <OverlayTrigger placement='right' overlay={renderTooltip}>
+          <div className='card-footer p-4 border-0 pt-0 d-flex justify-content-between align-items-center w-100 mt-2'>
+            <div className='d-flex text-muted'>
+              <a
+                className='btn btn-icon btn-bg-light btn-active-color-info btn-sm me-2'
+                href={`tel:${item.phone}`}
+              >
+                <KTSVG
+                  path='/media/icons/duotone/Interface/Phone.svg'
+                  className='svg-icon-4 me-0 text-primary'
+                />
+              </a>
+              <a
+                className='btn btn-icon btn-bg-light btn-active-color-info btn-sm me-2'
+                href={`mailto:${item.email}`}
+              >
+                <KTSVG
+                  path='/media/icons/duotone/Interface/Envelope.svg'
+                  className='svg-icon-4 me-0 text-primary'
+                />
+              </a>
+              <button className='btn btn-icon btn-bg-light btn-active-color-info btn-sm me-2'>
+                <KTSVG
+                  path='/media/icons/duotone/Communication/Chat6.svg'
+                  className='svg-icon-4 me-0 text-primary'
+                />
+              </button>
+            </div>
             <div
-              className='symbol symbol-35px symbol-circle d-flex align-items-center justify-content-end w-100'
+              className='symbol symbol-35px symbol-circle d-flex align-items-center justify-content-end '
               data-bs-toggle='tooltip'
               title=''
               data-bs-original-title={`${item.firstname} ${item.lastname}`}
             >
-              <span
-                className={`symbol-label  text-inverse-primary fw-bolder ms-2 ${
-                  bgs[numberValue % bgs.length]
-                }`}
-              >
-                {item.firstname?.charAt(0)}
-              </span>
+              <OverlayTrigger placement='right' overlay={renderTooltip}>
+                <span
+                  className={`symbol-label text-inverse-primary fw-bolder ms-2 ${
+                    bgs[numberValue % bgs.length]
+                  }`}
+                >
+                  {item.firstname?.charAt(0)}
+                </span>
+              </OverlayTrigger>
             </div>
-          </OverlayTrigger>
+          </div>
         </div>
       )}
     </Draggable>
