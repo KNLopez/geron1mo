@@ -1,10 +1,15 @@
 import {Draggable} from 'react-beautiful-dnd'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap-v5'
+import {useDispatch} from 'react-redux'
 import {KTSVG} from '../../../../_metronic/helpers/components/KTSVG'
+import {ModalTypes} from '../../../components/modals/models'
+import {modalActions} from '../../../components/modals/state/MainModalState'
+import {contactActions} from '../../contacts/state/contact'
 
 const bgs = ['bg-warning', 'bg-success', 'bg-info', 'bg-danger', 'bg-dark']
 
 const PipelineCard = ({item, index}: any) => {
+  const dispatch = useDispatch()
   const numberValue = item.firstname ? item.firstname.toLowerCase().charCodeAt(0) - 97 + 1 : 0
 
   const renderTooltip = (props: any) => (
@@ -12,6 +17,11 @@ const PipelineCard = ({item, index}: any) => {
       {item.firstname}
     </Tooltip>
   )
+
+  const handleClick = () => {
+    dispatch(contactActions.setContact(item))
+    dispatch(modalActions.showModal({type: ModalTypes.CONTACT_FORM}))
+  }
 
   return (
     <Draggable draggableId={item.id} index={index}>
@@ -21,9 +31,7 @@ const PipelineCard = ({item, index}: any) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           className='card p-2 mb-4'
-          onClick={() => {
-            console.log('test')
-          }}
+          onClick={handleClick}
         >
           <div className='card-body p-4'>
             <div className='d-flex justify-content-between align-items-center'>
