@@ -63,6 +63,7 @@ export function Login() {
   useEffect(() => {
     if (error) {
       formik.setStatus(error)
+      formik.setSubmitting(false)
       setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

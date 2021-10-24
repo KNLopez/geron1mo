@@ -24,14 +24,15 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
           dispatch(props.logout())
         } else {
           const user = await getUserByToken()
-          if (user.data.data.email) {
+          const details = JSON.parse(user.data.details)
+          if (details.data.email) {
             dispatch(
               actions.setUser({
-                user: user.data.data,
+                user: user.data.details,
               })
             )
           } else {
-            dispatch(props.logout())
+            // dispatch(props.logout())
           }
         }
         setShowSplashScreen(false)

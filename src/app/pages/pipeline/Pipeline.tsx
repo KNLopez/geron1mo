@@ -1,45 +1,21 @@
-import clsx from 'clsx'
-import {useCallback, useEffect, useState} from 'react'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
-import {batch, shallowEqual, useDispatch, useSelector} from 'react-redux'
+import {useCallback, useEffect} from 'react'
+import {DragDropContext} from 'react-beautiful-dnd'
+import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../../setup'
-import {contactsActions} from '../contacts/state/contacts'
+import Toolbar from '../../components/Toolbar'
 import PipelineColumn from './components/PipelineColumn'
+import data from './data'
 import {pipelineActions} from './state/pipeline'
 
-const mockData: any = {
-  open: [
-    {
-      id: '414141',
-      title: 'yayaya',
-    },
-    {
-      id: '4142141',
-      title: 'yay4aya',
-    },
-    {
-      id: '4134141',
-      title: 'yay4aya',
-    },
-  ],
-
-  won: [],
-  paid: [],
-  cancelled: [],
-  lost: [],
-}
-
 const Pipeline = () => {
-  const {data} = useSelector(({pipeline}: RootState) => pipeline, shallowEqual)
-  const {contacts} = useSelector(({contacts}: RootState) => contacts, shallowEqual)
-  console.log(data)
+  const {data: PipelineData} = useSelector(({pipeline}: RootState) => pipeline, shallowEqual)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // console.log(data)
     dispatch(pipelineActions.processData())
-    // setPipelineData(mockData)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onBeforeCapture = useCallback(() => {
@@ -64,34 +40,44 @@ const Pipeline = () => {
       if (!destination) {
         return
       }
-      let newData = await JSON.parse(JSON.stringify(data))
+      let newData = await JSON.parse(JSON.stringify(PipelineData))
       const spliced = newData[source.droppableId].splice(source.index, 1)
       newData[destination.droppableId].splice(destination.index, 0, spliced[0])
-      dispatch(pipelineActions.setData(newData))
+      dispatch(
+        pipelineActions.changeStatus({
+          oldData: PipelineData,
+          newData,
+          contact: spliced[0],
+          status: destination.droppableId,
+        })
+      )
 
       // the only one that is required
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    [PipelineData]
   )
 
   return (
-    <DragDropContext
-      onBeforeCapture={onBeforeCapture}
-      onBeforeDragStart={onBeforeDragStart}
-      onDragStart={onDragStart}
-      onDragUpdate={onDragUpdate}
-      onDragEnd={onDragEnd}
-    >
-      <div className='container-fluid h-100'>
-        <div className='d-flex h-100'>
-          {Object.entries(data).map((entry, index) => {
-            const [dataKey, data] = entry
-            return <PipelineColumn key={dataKey} {...{dataKey, data, index}} />
-          })}
+    <>
+      <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
+      <DragDropContext
+        onBeforeCapture={onBeforeCapture}
+        onBeforeDragStart={onBeforeDragStart}
+        onDragStart={onDragStart}
+        onDragUpdate={onDragUpdate}
+        onDragEnd={onDragEnd}
+      >
+        <div className='container-fluid h-100'>
+          <div className='d-flex h-100'>
+            {Object.entries(PipelineData).map((entry, index) => {
+              const [dataKey, data] = entry
+              return <PipelineColumn key={dataKey} {...{dataKey, data, index}} />
+            })}
+          </div>
         </div>
-      </div>
-    </DragDropContext>
+      </DragDropContext>
+    </>
   )
 }
 

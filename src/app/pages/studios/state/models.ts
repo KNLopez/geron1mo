@@ -9,6 +9,6 @@ export interface Studio {
   studio_manager_firstname: string
   studio_manager_lastname: string
   studio_manager_email: string
-  assigned_to: string
-  service_offered: string
+  assigned_to?: string
+  service_offered?: string
 }

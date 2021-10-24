@@ -80,8 +80,6 @@ const CreateStudio: React.FC<any> = () => {
     }
   }
 
-  console.log(studio?.id)
-
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAppSchema[0])
@@ -105,6 +103,9 @@ const CreateStudio: React.FC<any> = () => {
     if (!stepper.current) {
       return
     }
+
+    // delete values.assigned_to
+    // delete values.service_offered
 
     setCurrentSchema(createAppSchema[stepper.current.currentStepIndex])
 
@@ -135,7 +136,6 @@ const CreateStudio: React.FC<any> = () => {
   }, [stepperRef])
 
   const handleStepperClick = (index: any) => {
-    console.log('clicked', stepper.current)
     if (!stepper.current || !isEdit) {
       return
     }
