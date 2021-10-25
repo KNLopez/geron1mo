@@ -24,7 +24,7 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
           dispatch(props.logout())
         } else {
           const user = await getUserByToken()
-          const details = JSON.parse(user.data.details)
+          const {details} = user.data
           if (details.data.email) {
             dispatch(
               actions.setUser({
