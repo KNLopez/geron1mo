@@ -27,6 +27,7 @@ const UserForm: React.FC<any> = () => {
     role: Yup.string(),
     birthday: Yup.string(),
     start_date: Yup.string(),
+    studios: Yup.array(),
     email: Yup.string().email('Wrong email format').required('Email is required'),
   })
 
@@ -43,6 +44,7 @@ const UserForm: React.FC<any> = () => {
         meeting_link: '',
         birthday: '',
         status: '',
+        studios: [],
         role: '',
       }
 
@@ -234,6 +236,9 @@ const UserForm: React.FC<any> = () => {
                 placeholder='6/17/77'
                 name='birthday'
               />
+            </div>
+            <div className='fv-row mb-7'>
+              <label className='required fs-6 fw-bold mb-2'>Assigned Studios</label>
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Role</label>

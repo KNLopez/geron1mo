@@ -4,9 +4,15 @@ import {useIntl} from 'react-intl'
 import {KTSVG} from '../../../helpers'
 import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
 import {AsideMenuItem} from './AsideMenuItem'
+import PermissionGate from '../../../../app/components/PermissionGate'
+import useAuth, {PERMISSIONS} from '../../../../app/hooks/useAuth'
 
 export function AsideMenuMain() {
   const intl = useIntl()
+  const {can} = useAuth()
+
+  const canSeeStudios = can(PERMISSIONS.STUDIO_INDEX)
+  const canSeeCampaigns = can(PERMISSIONS.STUDIO_INDEX)
 
   return (
     <>
@@ -22,24 +28,31 @@ export function AsideMenuMain() {
         title='Layout Builder'
         fontIcon='bi-layers'
       /> */}
+
       <AsideMenuItem
         to='/contacts'
         title='Contacts'
         icon='/media/icons/duotone/Communication/Contact1.svg'
         fontIcon='bi-layers'
       />
-      <AsideMenuItem
-        to='/studios'
-        title='Studios'
-        icon='/media/icons/duotone/Map/Marker2.svg'
-        fontIcon='bi-layers'
-      />
-      <AsideMenuItem
-        to='/campaigns'
-        title='Campaigns'
-        icon='/media/icons/duotone/Devices/LTE1.svg'
-        fontIcon='bi-layers'
-      />
+
+      {canSeeStudios && (
+        <AsideMenuItem
+          to='/studios'
+          title='Studios'
+          icon='/media/icons/duotone/Map/Marker2.svg'
+          fontIcon='bi-layers'
+        />
+      )}
+
+      {canSeeCampaigns && (
+        <AsideMenuItem
+          to='/campaigns'
+          title='Campaigns'
+          icon='/media/icons/duotone/Devices/LTE1.svg'
+          fontIcon='bi-layers'
+        />
+      )}
       <AsideMenuItem
         to='/users'
         title='Users'

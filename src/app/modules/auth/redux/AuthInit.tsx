@@ -1,5 +1,5 @@
 import {FC, useRef, useEffect, useState} from 'react'
-import {shallowEqual, useSelector, connect, useDispatch, ConnectedProps} from 'react-redux'
+import {shallowEqual, useSelector, connect, useDispatch, ConnectedProps, batch} from 'react-redux'
 import {LayoutSplashScreen} from '../../../../_metronic/layout/core'
 import * as auth from './AuthRedux'
 import {RootState} from '../../../../setup'
@@ -24,13 +24,20 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
           dispatch(props.logout())
         } else {
           const user = await getUserByToken()
-          const {details} = user.data
+          const {details, permissions} = user.data
           if (details.data.email) {
-            dispatch(
-              actions.setUser({
-                user: user.data.details,
-              })
-            )
+            batch(() => {
+              dispatch(
+                actions.setUser({
+                  user: details,
+                })
+              )
+              dispatch(
+                actions.setPermisions({
+                  permissions,
+                })
+              )
+            })
           } else {
             // dispatch(props.logout())
           }

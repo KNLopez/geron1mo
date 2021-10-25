@@ -6,12 +6,16 @@ import {ModalTypes} from '../../components/modals/models'
 import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
+import useAuth, {PERMISSIONS} from '../../hooks/useAuth'
 import data from './data'
 import {studioActions} from './state/studio'
 import {studiosActions} from './state/studios'
 
 const Studios = () => {
   const dispatch = useDispatch()
+  const {can} = useAuth()
+  const canEditStudio = can(PERMISSIONS.STUDIO_EDIT)
+  const canCreateStudio = can(PERMISSIONS.STUDIO_CREATE)
   const {studios, loadingStudios, error}: any = useSelector(
     ({studios}: RootState) => studios,
     shallowEqual
@@ -25,8 +29,15 @@ const Studios = () => {
   const handleDelete = () => {}
 
   const handleRowClick = (value: any) => {
+    if (!canEditStudio) return
     dispatch(studioActions.setStudio(value))
     dispatch(modalActions.showModal({type: ModalTypes.STUDIO_FORM}))
+  }
+
+  const addModal = () => {
+    return canCreateStudio ? (
+      <ModalButton buttonText='Add Studio' modalType={ModalTypes.STUDIO_FORM} />
+    ) : null
   }
 
   if (error) {
@@ -43,9 +54,7 @@ const Studios = () => {
         deleteAction={handleDelete}
         rowClick={handleRowClick}
         loading={loadingStudios}
-        addActionModal={() => (
-          <ModalButton buttonText='Add Studio' modalType={ModalTypes.STUDIO_FORM} />
-        )}
+        addActionModal={addModal}
       />
 
       {/* <CreateStudios /> */}

@@ -21,7 +21,7 @@ const TableActions: React.FC<TableActionsProps> = ({
         {!Object.keys(selectedRowIds)?.length ? (
           <>
             <TableFilter {...{headerGroups}} />
-            {addActionModal && addActionModal()}{' '}
+            {addActionModal && addActionModal()}
           </>
         ) : (
           <TableDelete {...{selectedRowIds, deleteAction}} />

@@ -20,18 +20,21 @@ export const actionTypes = {
   UserLoaded: '[Load User] Auth API',
   SetUser: '[Set User] Action',
   setError: '[Auth] Set Error',
+  setPermissions: '[Auth] Set Permissions',
 }
 
 const initialAuthState: IAuthState = {
   user: undefined,
   accessToken: undefined,
   error: undefined,
+  permissions: {},
 }
 
 export interface IAuthState {
   user?: UserModel
   accessToken?: string
   error?: any
+  permissions: any
 }
 
 export const reducer = persistReducer(
@@ -40,12 +43,12 @@ export const reducer = persistReducer(
     switch (action.type) {
       case actionTypes.Login: {
         const accessToken = action.payload?.accessToken
-        return {accessToken, user: undefined}
+        return {...state, accessToken, user: undefined}
       }
 
       case actionTypes.Register: {
         const accessToken = action.payload?.accessToken
-        return {accessToken, user: undefined}
+        return {...state, accessToken, user: undefined}
       }
 
       case actionTypes.Logout: {
@@ -67,6 +70,10 @@ export const reducer = persistReducer(
         return {...state, error: action.payload}
       }
 
+      case actionTypes.setPermissions: {
+        return {...state, permissions: action.payload}
+      }
+
       default:
         return state
     }
@@ -82,6 +89,7 @@ export const actions = {
   setUser: (payload: any) => ({type: actionTypes.SetUser, payload}),
   logout: () => ({type: actionTypes.Logout}),
   setError: (err: any) => ({type: actionTypes.setError, payload: err.message}),
+  setPermisions: ({permissions}: any) => ({type: actionTypes.setPermissions, payload: permissions}),
 }
 
 interface LoginProps {
@@ -97,6 +105,7 @@ function* loginSaga({payload}: LoginProps): any {
   try {
     const response = yield call(login, email, password)
     yield put(actions.setUser({user: response.data}))
+    yield put(actions.setPermisions({permissions: response.data.permissions}))
     const {authorization} = yield response.headers
     yield localStorage.setItem('auth', authorization)
   } catch (err: any) {

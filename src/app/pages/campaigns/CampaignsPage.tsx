@@ -6,6 +6,7 @@ import {ModalTypes} from '../../components/modals/models'
 import {modalActions} from '../../components/modals/state/MainModalState'
 import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
+import useAuth, {PERMISSIONS} from '../../hooks/useAuth'
 import data from './data'
 import {campaignActions} from './state/campaign'
 import {campaignsActions} from './state/campaigns'
@@ -17,17 +18,29 @@ const Campaigns = () => {
     shallowEqual
   )
 
+  const {can} = useAuth()
+
+  const canEditCampaign = can(PERMISSIONS.CAMPAIGN_EDIT)
+  const canCreateCampaign = can(PERMISSIONS.CAMPAIGN_CREATE)
+
   useEffect(() => {
     dispatch(campaignsActions.fetchCampaigns())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleRowClick = (value: any) => {
+    if (!canEditCampaign) return
     dispatch(campaignActions.setCampaign(value))
     dispatch(modalActions.showModal({type: ModalTypes.CAMPAIGN_FORM}))
   }
 
   const handleDelete = () => {}
+
+  const addModal = () => {
+    return canCreateCampaign ? (
+      <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
+    ) : null
+  }
 
   if (error) {
     return <h2>Error</h2>
@@ -43,9 +56,7 @@ const Campaigns = () => {
         deleteAction={handleDelete}
         rowClick={handleRowClick}
         loading={loadingCampaigns}
-        addActionModal={() => (
-          <ModalButton buttonText='Add Campaign' modalType={ModalTypes.CAMPAIGN_FORM} />
-        )}
+        addActionModal={addModal}
       />
     </div>
   )

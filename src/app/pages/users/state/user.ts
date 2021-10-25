@@ -40,6 +40,7 @@ const initialUser: InitialUserStateType = {
     meeting_link: '',
     birthday: '',
     status: '',
+    studios: [],
     role: '',
   },
   loadingUser: false,

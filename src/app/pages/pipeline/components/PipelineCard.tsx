@@ -46,7 +46,7 @@ const PipelineCard = ({item, index}: any) => {
                 {item.firstname} {item.lastname}
               </h4>
             </div>
-            <span className='text-primary'>{item.campaign_name}</span>
+            <span className='text-primary'>{item.campaign_details?.name}</span>
           </div>
           <div className='card-footer p-4 border-0 pt-0 d-flex justify-content-between align-items-center w-100 mt-2'>
             <div className='d-flex text-muted'>

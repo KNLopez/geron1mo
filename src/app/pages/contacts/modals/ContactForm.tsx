@@ -183,11 +183,11 @@ const ContactForm: React.FC<any> = () => {
                 <option value='' disabled selected>
                   Select Status
                 </option>
-                <option value='lead'>Lead</option>
+                <option value='open'>Open</option>
                 <option value='won'>Won</option>
-                <option value='lost'>Lost</option>
-                <option value='active'>Active</option>
+                <option value='paid'>Paid</option>
                 <option value='cancelled'>Cancelled</option>
+                <option value='lost'>Lost</option>
               </select>
             </div>
             <div className='fv-row mb-7'>
