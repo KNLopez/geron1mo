@@ -252,7 +252,6 @@ const UserForm: React.FC<any> = () => {
                 )}
                 {...formik.getFieldProps('role')}
                 name='role'
-                defaultValue=''
               >
                 <option value='' disabled>
                   Select Status
@@ -274,7 +273,6 @@ const UserForm: React.FC<any> = () => {
                 )}
                 {...formik.getFieldProps('status')}
                 name='status'
-                defaultValue=''
               >
                 <option value='' disabled>
                   Select Status

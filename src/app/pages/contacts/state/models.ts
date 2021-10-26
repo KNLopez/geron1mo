@@ -4,8 +4,8 @@ export interface Contact {
   lastname: string
   phone?: string
   email?: string
-  status?: number
+  status: string
   created_at: Date | undefined
-  assigned?: string
-  campaign_id?: string
+  assigned: string
+  campaign_id: string
 }

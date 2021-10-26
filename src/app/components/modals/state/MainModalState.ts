@@ -28,7 +28,6 @@ export const reducer = (
 ) => {
   switch (action.type) {
     case modalActionTypes.ShowModal:
-      console.log(action.payload)
       return {show: true, type: action.payload.type, params: action.payload.params}
 
     case modalActionTypes.HideModal:

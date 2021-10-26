@@ -5,7 +5,6 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {contactActions, InitialContactStateType} from '../state/contact'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
-import {useParams} from 'react-router-dom'
 import {campaignsActions} from '../../campaigns/state/campaigns'
 import {useEffect} from 'react'
 
@@ -24,8 +23,6 @@ const ContactForm: React.FC<any> = () => {
     loadingCampaigns,
     error: campaingsError,
   }: any = useSelector(({campaigns}: RootState) => campaigns, shallowEqual)
-
-  const test: any = useParams()
 
   useEffect(() => {
     dispatch(campaignsActions.fetchCampaigns())
@@ -180,7 +177,7 @@ const ContactForm: React.FC<any> = () => {
                 {...formik.getFieldProps('status')}
                 name='status'
               >
-                <option value='' disabled selected>
+                <option value='' disabled>
                   Select Status
                 </option>
                 <option value='open'>Open</option>
@@ -218,14 +215,15 @@ const ContactForm: React.FC<any> = () => {
                 )}
                 {...formik.getFieldProps('campaign_id')}
                 name='campaign_id'
-                defaultValue={formik.values.campaign_id}
                 disabled={loadingCampaigns}
               >
-                <option value='' disabled selected>
+                <option value='' disabled>
                   Select Campaign
                 </option>
                 {campaigns.map((campaign: any) => (
-                  <option value={campaign.id}>{campaign.name}</option>
+                  <option key={campaign.id} value={campaign.id}>
+                    {campaign.name}
+                  </option>
                 ))}
               </select>
             </div>

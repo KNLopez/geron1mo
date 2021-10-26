@@ -33,7 +33,7 @@ const initialContact: InitialContactStateType = {
     id: '',
     firstname: '',
     lastname: '',
-    status: undefined,
+    status: '',
     phone: '',
     campaign_id: '',
     assigned: '',
