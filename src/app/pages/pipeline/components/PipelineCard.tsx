@@ -19,7 +19,6 @@ const PipelineCard = ({item, index}: any) => {
   )
 
   const handleClick = (e: any) => {
-    console.log(e.target)
     if (
       e.target instanceof HTMLAnchorElement ||
       e.target instanceof HTMLButtonElement ||

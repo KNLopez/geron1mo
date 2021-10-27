@@ -5,6 +5,7 @@ import * as Eff from 'redux-saga/effects'
 
 import {getCampaignLeads} from '../../campaigns/api/campaigns'
 import {getContactsApi, updateContactApi} from '../../contacts/api/contacts'
+import {contactActionTypes} from '../../contacts/state/contact'
 import {contactsActions} from '../../contacts/state/contacts'
 
 const takeLatest: any = Eff.takeLatest
@@ -20,6 +21,7 @@ export const pipelineActionTypes = {
   ProcessData: '[Pipeline] Process',
   ChangeStatus: '[Pipeline] Change Status',
   SetData: '[Pipeline] SetData',
+  UpdateContact: '[Pipeline] UpdateContact',
 }
 
 export interface InitialPipelineStateType {
@@ -50,6 +52,24 @@ export const reducer = persistReducer(
         return {...state, data: action.payload}
       }
 
+      case pipelineActionTypes.UpdateContact: {
+        const {status}: any = action.payload
+        const newData = state.data[status].map((data: any) => {
+          if (data.id === action.payload.id) {
+            return action.payload
+          }
+          return data
+        })
+        console.log(status, newData, action.payload)
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            [status]: newData,
+          },
+        }
+      }
+
       default:
         return state
     }
@@ -60,6 +80,7 @@ export const pipelineActions = {
   processData: () => ({type: pipelineActionTypes.ProcessData}),
   changeStatus: (payload: any) => ({type: pipelineActionTypes.ChangeStatus, payload}),
   setData: (payload: any) => ({type: pipelineActionTypes.SetData, payload}),
+  updateContact: (lead: any) => ({type: pipelineActionTypes.UpdateContact, payload: lead}),
 }
 
 const getContacts = (state: any) => state.contacts
@@ -99,7 +120,12 @@ function* changeStatus({payload}: any): any {
   }
 }
 
+function* updateContact({lead}: any): any {
+  yield put(pipelineActions.updateContact(lead))
+}
+
 export function* saga() {
   yield takeLatest(pipelineActionTypes.ProcessData, getPipeline)
   yield takeLatest(pipelineActionTypes.ChangeStatus, changeStatus)
+  yield takeLatest(contactActionTypes.ContactUpdate, updateContact)
 }
