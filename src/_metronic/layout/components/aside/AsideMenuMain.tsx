@@ -37,40 +37,14 @@ export function AsideMenuMain() {
       />
 
       {canSeeStudios && (
-        <AsideMenuItem
+        <AsideMenuItemWithSub
           to='/studios'
           title='Studios'
           icon='/media/icons/duotone/Map/Marker2.svg'
           fontIcon='bi-layers'
-        />
-      )}
-
-      {canSeeStudios && (
-        <AsideMenuItemWithSub
-          to='/crafted/pages'
-          title='Pages'
-          fontIcon='bi-archive'
-          icon='/media/icons/duotone/Code/Compiling.svg'
         >
-          <AsideMenuItemWithSub to='/crafted/pages/profile' title='Profile' hasBullet={true}>
-            <AsideMenuItem to='/crafted/pages/profile/overview' title='Overview' hasBullet={true} />
-            <AsideMenuItem to='/crafted/pages/profile/projects' title='Projects' hasBullet={true} />
-            <AsideMenuItem
-              to='/crafted/pages/profile/campaigns'
-              title='Campaigns'
-              hasBullet={true}
-            />
-            <AsideMenuItem
-              to='/crafted/pages/profile/documents'
-              title='Documents'
-              hasBullet={true}
-            />
-            <AsideMenuItem
-              to='/crafted/pages/profile/connections'
-              title='Connections'
-              hasBullet={true}
-            />
-          </AsideMenuItemWithSub>
+          <AsideMenuItem to='/studio-dashboard/' title='Dashboard' hasBullet={true} />
+          <AsideMenuItem to='/studios/' title='List' hasBullet={true} />
         </AsideMenuItemWithSub>
       )}
 

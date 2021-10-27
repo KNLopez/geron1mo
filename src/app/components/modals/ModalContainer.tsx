@@ -2,6 +2,7 @@ import {shallowEqual, useSelector} from 'react-redux'
 import {RootState} from '../../../setup'
 import CampaignForm from '../../pages/campaigns/modals/CampaignForm'
 import ContactForm from '../../pages/contacts/modals/ContactForm'
+import StudioDashboardForm from '../../pages/studioDashboard/modals/StudioDashboardForm'
 import StudioForm from '../../pages/studios/modals/StudioForm'
 import UserForm from '../../pages/users/modals/UserForm'
 import {ModalTypes} from './models'
@@ -14,6 +15,7 @@ const ModalContainer: React.FC = () => {
     [ModalTypes.STUDIO_FORM]: StudioForm,
     [ModalTypes.CAMPAIGN_FORM]: CampaignForm,
     [ModalTypes.USER_FORM]: UserForm,
+    [ModalTypes.STUDIO_DASHBOARD_FORM]: StudioDashboardForm,
   }
 
   if (!type) return null

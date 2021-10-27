@@ -7,6 +7,7 @@ export function PrivateRoutes() {
   const ContactsPage = lazy(() => import('../pages/contacts/ContactsPage'))
   const CampaignsPage = lazy(() => import('../pages/campaigns/CampaignsPage'))
   const StudiosPage = lazy(() => import('../pages/studios/StudioPage'))
+  const StudioDashboardPage = lazy(() => import('../pages/studioDashboard/StudioDashboardPage'))
   const CampaignPage = lazy(() => import('../pages/campaigns/CampaignPage'))
   const UsersPage = lazy(() => import('../pages/users/UsersPage'))
   const PipelinePage = lazy(() => import('../pages/pipeline/Pipeline'))
@@ -19,6 +20,7 @@ export function PrivateRoutes() {
         <Route path='/dashboard' component={DashboardWrapper} />
         <Route path='/contacts' component={ContactsPage} />
         <Route path='/studios' component={StudiosPage} />
+        <Route path='/studio-dashboard' component={StudioDashboardPage} />
         <Route path='/campaigns' component={CampaignsPage} />
         <Route path='/campaign/:id' component={CampaignPage} />
         <Route path='/users' component={UsersPage} />

@@ -8,6 +8,8 @@ import {campaigns} from '../../app/pages/campaigns/state'
 import {campaign} from '../../app/pages/campaigns/state'
 import {studio} from '../../app/pages/studios/state'
 import {studios} from '../../app/pages/studios/state'
+import {studio_dashboard} from '../../app/pages/studioDashboard/state'
+import {studio_dashboards} from '../../app/pages/studioDashboard/state'
 import {user} from '../../app/pages/users/state'
 import {users} from '../../app/pages/users/state'
 import {modal} from '../../app/components/modals/state'
@@ -22,6 +24,8 @@ export const rootReducer = combineReducers({
   pipeline: pipeline.reducer,
   studio: studio.reducer,
   studios: studios.reducer,
+  studio_dashboard: studio_dashboard.reducer,
+  studio_dashboards: studio_dashboards.reducer,
   user: user.reducer,
   users: users.reducer,
   modal: modal.reducer,
