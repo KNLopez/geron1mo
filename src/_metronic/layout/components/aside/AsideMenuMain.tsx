@@ -45,6 +45,35 @@ export function AsideMenuMain() {
         />
       )}
 
+      {canSeeStudios && (
+        <AsideMenuItemWithSub
+          to='/crafted/pages'
+          title='Pages'
+          fontIcon='bi-archive'
+          icon='/media/icons/duotone/Code/Compiling.svg'
+        >
+          <AsideMenuItemWithSub to='/crafted/pages/profile' title='Profile' hasBullet={true}>
+            <AsideMenuItem to='/crafted/pages/profile/overview' title='Overview' hasBullet={true} />
+            <AsideMenuItem to='/crafted/pages/profile/projects' title='Projects' hasBullet={true} />
+            <AsideMenuItem
+              to='/crafted/pages/profile/campaigns'
+              title='Campaigns'
+              hasBullet={true}
+            />
+            <AsideMenuItem
+              to='/crafted/pages/profile/documents'
+              title='Documents'
+              hasBullet={true}
+            />
+            <AsideMenuItem
+              to='/crafted/pages/profile/connections'
+              title='Connections'
+              hasBullet={true}
+            />
+          </AsideMenuItemWithSub>
+        </AsideMenuItemWithSub>
+      )}
+
       {canSeeCampaigns && (
         <AsideMenuItem
           to='/campaigns'

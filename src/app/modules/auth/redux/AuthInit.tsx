@@ -44,6 +44,7 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
         }
         setShowSplashScreen(false)
       } catch (err) {
+        dispatch(props.logout())
         console.log(err)
       }
     }
