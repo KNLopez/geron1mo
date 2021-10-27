@@ -47,9 +47,10 @@ const TableFilter = ({headerGroups}: TableFilterProps) => {
 
         {headerGroups.map((headerGroup) => (
           <div {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column: any) => (
-              <div key={column.id}>{column.canFilter ? column.render('Filter') : null}</div>
-            ))}
+            {headerGroup.headers.map((column: any) => {
+              if (column.id === 'selection' || !column.canFilter) return null
+              return <div key={column.id}>{column.render('Filter')}</div>
+            })}
           </div>
         ))}
       </div>

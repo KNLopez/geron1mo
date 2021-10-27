@@ -15,15 +15,18 @@ const columns = [
   {
     Header: 'Name',
     accessor: 'firstname',
+    disableFilters: true,
     Cell: ({row}: any) => <span>{`${row.original?.firstname} ${row.original?.lastname}`}</span>,
   },
   {
     Header: 'Phone',
     accessor: 'phone',
+    disableFilters: true,
   },
   {
     Header: 'Email',
     accessor: 'email',
+    disableFilters: true,
   },
   {
     Header: 'Date Created',
