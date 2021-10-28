@@ -30,7 +30,7 @@ const CardList = ({data, onClick, loading}: any) => {
             </div>
             <div className='d-flex flex-column align-items-start justify-content-start ms-3'>
               <a className='text-dark fw-bolder text-hover-primary fs-6'>{item.name}</a>
-              <span className='text-muted d-block fw-bold'>{item.address}</span>
+              <span className='text-muted fw-bold text-start'>{item.address}</span>
             </div>
           </button>
         )
