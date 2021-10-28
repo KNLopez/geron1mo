@@ -18,8 +18,8 @@ $success-light: if(isDarkMode(), #1c3238, #e8fff3);
 $success-inverse: #ffffff;
 
 // Info
-$info: if(isDarkMode(), #8950fc, #7239ea);
-$info-active: if(isDarkMode(), #7337ee, #5014d0);
+$info: if(isDarkMode(), #5b50fc, #3945ea);
+$info-active: if(isDarkMode(), #3777ee, #1456d0);
 $info-light: if(isDarkMode(), #2f264f, #f8f5ff);
 $info-inverse: #ffffff;
 

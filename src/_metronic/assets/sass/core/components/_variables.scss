@@ -92,7 +92,7 @@ $success-inverse: $white !default; // Custom variable
 // Inco colors
 $info: #8950fc !default; // Bootstrap variable
 $info-active: #7337ee !default; // Custom variable
-$info-light: if(isDarkMode(), #2f264f, #eee5ff) !default; // Custom variable
+$info-light: if(isDarkMode(), #26334f, #eee5ff) !default; // Custom variable
 $info-inverse: $white !default; // Custom variable
 
 // Warning colors
@@ -585,7 +585,7 @@ $font-sizes: (
   // 68.25px
   5hx: $font-size-base * 5.5,
   // 71.5px
-  5tx: $font-size-base * 5.75 // 74.75px,
+  5tx: $font-size-base * 5.75 // 74.75px,,
 ) !default;
 
 $headings-margin-bottom: $spacer * 0.5 !default;

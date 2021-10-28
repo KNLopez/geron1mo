@@ -33,3 +33,7 @@ select option {
     background: $gray-100;
   }
 }
+
+.btn-hover-outline-info:hover {
+  border: 1px solid lighten($info, 9%) !important;
+}

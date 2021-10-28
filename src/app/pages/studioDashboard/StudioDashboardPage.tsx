@@ -1,43 +1,42 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../../setup/redux/RootReducer'
 import ModalButton from '../../components/modals/ModalButton'
 import {ModalTypes} from '../../components/modals/models'
 import {modalActions} from '../../components/modals/state/MainModalState'
-import Table from '../../components/Table/Table'
 import Toolbar from '../../components/Toolbar'
 import useAuth, {PERMISSIONS} from '../../hooks/useAuth'
 import data from './data'
 import {studio_dashboardActions} from './state/studio_dashboard'
 import {studio_dashboardsActions} from './state/studios_dasbhboards'
+import Table from '../../components/Table/Table'
+import {studiosActions} from '../studios/state/studios'
+import CardList from '../../components/CardList/CardList'
+import {Overview} from '../../modules/profile/components/Overview'
+import {ProfileHeader} from '../../modules/profile/ProfileHeader'
+import {StudioProfile} from './StudioProfile'
 
 const Studio_dashboards = () => {
   const dispatch = useDispatch()
   const {can} = useAuth()
   const canEditStudio_dashboard = can(PERMISSIONS.STUDIO_EDIT)
   const canCreateStudio_dashboard = can(PERMISSIONS.STUDIO_CREATE)
-  const {studio_dashboards, loadingStudio_dashboards, error}: any = useSelector(
-    ({studio_dashboards}: RootState) => studio_dashboards,
+
+  const [studio, setStudio] = useState(undefined)
+
+  const {studios, loadingStudios, error}: any = useSelector(
+    ({studios}: RootState) => studios,
     shallowEqual
   )
 
   useEffect(() => {
-    dispatch(studio_dashboardsActions.fetchStudio_dashboards())
+    dispatch(studiosActions.fetchStudios())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleDelete = () => {}
-
   const handleRowClick = (value: any) => {
-    if (!canEditStudio_dashboard) return
-    dispatch(studio_dashboardActions.setStudio_dashboard(value))
-    dispatch(modalActions.showModal({type: ModalTypes.STUDIO_FORM}))
-  }
-
-  const addModal = () => {
-    return canCreateStudio_dashboard ? (
-      <ModalButton buttonText='Add Entry' modalType={ModalTypes.STUDIO_DASHBOARD_FORM} />
-    ) : null
+    console.log(value)
+    setStudio(value)
   }
 
   if (error) {
@@ -45,20 +44,19 @@ const Studio_dashboards = () => {
   }
 
   return (
-    <div className='content d-flex flex-column flex-column-fluid' id='kt_content'>
+    <>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      <Table
-        data={studio_dashboards}
-        columns={data.columns}
-        searchPlaceholder='Search Entry'
-        deleteAction={handleDelete}
-        rowClick={handleRowClick}
-        loading={loadingStudio_dashboards}
-        addActionModal={addModal}
-      />
-
-      {/* <CreateStudio_dashboards /> */}
-    </div>
+      <div className='row'>
+        <div className='col-md-4'>
+          <div className='d-flex flex-column flex-column-fluid' id='kt_content'>
+            <CardList data={studios} onClick={handleRowClick} loading={loadingStudios} />
+          </div>
+        </div>
+        <div className='col-md-8'>
+          <StudioProfile {...{studio}} />
+        </div>
+      </div>
+    </>
   )
 }
 

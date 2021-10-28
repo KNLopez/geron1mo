@@ -12,7 +12,7 @@ import {
 
 export function Overview() {
   return (
-    <div className='row g-5 g-xxl-8'>
+    <div className=''>
       <div className='col-xl-6'>
         <FeedsWidget2 className='mb-5 mb-xxl-8' />
 
