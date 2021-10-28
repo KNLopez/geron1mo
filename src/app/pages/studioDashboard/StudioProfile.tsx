@@ -151,8 +151,9 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                   </div>
                 </div>
               </div>
-              <div className='border-top mt-4'>
+              <div className='d-flex flex-column border-top mt-4'>
                 <Table
+                  style={{maxHeight: '45vh', overflowY: 'auto'}}
                   data={data.mockData}
                   columns={data.columns}
                   deleteAction={handleDelete}

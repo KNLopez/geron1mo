@@ -23,6 +23,7 @@ export interface TableProps {
   deleteAction: () => any
   rowClick?: (row: any) => any
   loading?: boolean
+  style?: any
 }
 
 type Props = TableProps & TableSearchProps
@@ -35,6 +36,7 @@ const Table: React.FC<Props> = ({
   deleteAction,
   rowClick,
   loading = false,
+  style,
 }) => {
   const defaultColumn: any = useMemo(
     () => ({
@@ -111,7 +113,7 @@ const Table: React.FC<Props> = ({
           deleteAction,
         }}
       />
-      <div className='card-body pt-0'>
+      <div className='card-body pt-0' {...{style}}>
         <div className={clsx('table-responsive overlay', {'overlay-block': loading})}>
           {loading && (
             <div className='flex align-items-center fullwidth p-4 overlay-layer bg-white '>
