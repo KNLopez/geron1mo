@@ -6,6 +6,8 @@ import {userActions, InitialUserStateType} from '../state/user'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
 import Datepicker from '../../../components/Flatpicker'
+import Select from 'react-select/dist/declarations/src/Select'
+import SelectBox from '../../../components/Select'
 
 const UserForm: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -239,12 +241,18 @@ const UserForm: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>Assigned Studios</label>
+              <SelectBox
+                options={[]}
+                isMulti
+                {...formik.getFieldProps('studios')}
+                handleChange={formik.setFieldValue}
+              />
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Role</label>
               <select
                 className={clsx(
-                  'form-select form-select-solid  select2-hidden-accessible',
+                  'form-select form-select-solid  select2-hidden-accessible mt-multiselect',
                   {'is-invalid': formik.touched.role && formik.errors.role},
                   {
                     'is-valid': formik.touched.role && !formik.errors.role,
