@@ -39,7 +39,7 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
               )
             })
           } else {
-            // dispatch(props.logout())
+            dispatch(props.logout())
           }
         }
         setShowSplashScreen(false)

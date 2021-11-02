@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {Link} from 'react-router-dom'
+import {KTSVG} from '../../../_metronic/helpers'
 import {Dropdown1} from '../../../_metronic/partials'
-import {useLocation} from 'react-router-dom'
 import Table from '../../components/Table/Table'
 import data from './data'
 import {ModalTypes} from '../../components/modals/models'
 import {modalActions} from '../../components/modals/state/MainModalState'
 import {useDispatch} from 'react-redux'
 import ModalButton from '../../components/modals/ModalButton'
+import {Col, Nav, Row, Tab, Tabs} from 'react-bootstrap-v5'
+import Contacts from '../contacts/ContactsPage'
 
 const StudioProfile: React.FC<any> = ({studio}) => {
   const dispatch = useDispatch()
@@ -19,8 +19,6 @@ const StudioProfile: React.FC<any> = ({studio}) => {
   const handleRowClick = (value: any) => {
     dispatch(modalActions.showModal({type: ModalTypes.STUDIO_DASHBOARD_FORM}))
   }
-
-  console.log(data, studio)
 
   if (!studio) return null
   return (
@@ -76,7 +74,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
               </div>
             </div>
 
-            <div className='d-flex flex-wrap flex-stack'>
+            <div className='d-flex flex-wrap flex-stack flex-column align-items-start'>
               <div className='d-flex flex-column flex-grow-1 pe-8'>
                 <div className='d-flex flex-wrap'>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -151,37 +149,48 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                   </div>
                 </div>
               </div>
-              <div className='d-flex flex-column border-top mt-4'>
-                <Table
-                  style={{maxHeight: '45vh', overflowY: 'auto'}}
-                  data={data.mockData}
-                  columns={data.columns}
-                  deleteAction={handleDelete}
-                  searchPlaceholder='Search entries'
-                  rowClick={handleRowClick}
-                  loading={false}
-                  addActionModal={() => (
-                    <ModalButton
-                      buttonText='Add Entry'
-                      modalType={ModalTypes.STUDIO_DASHBOARD_FORM}
-                    />
-                  )}
-                />
-              </div>
+              <div className='border-top m-4 flex-grow' />
 
-              {/* <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
-                <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-bold fs-6 text-gray-400'>Profile Compleation</span>
-                  <span className='fw-bolder fs-6'>50%</span>
-                </div>
-                <div className='h-5px mx-3 w-100 bg-light mb-3'>
-                  <div
-                    className='bg-success rounded h-5px'
-                    role='progressbar'
-                    style={{width: '50%'}}
-                  ></div>
-                </div>
-              </div> */}
+              <Tab.Container defaultActiveKey='first'>
+                <Nav
+                  variant='tabs'
+                  className='nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap'
+                >
+                  <Nav.Item>
+                    <Nav.Link eventKey='first' className='text-active-primary'>
+                      Leads
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey='second' className='text-active-primary'>
+                      Studio Scores
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+
+                <Tab.Content className='w-100'>
+                  <Tab.Pane eventKey='first'>
+                    <Contacts id={studio?.id} type='studio' />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey='second'>
+                    <Table
+                      style={{maxHeight: '45vh', overflowY: 'auto'}}
+                      data={data.mockData}
+                      columns={data.columns}
+                      deleteAction={handleDelete}
+                      searchPlaceholder='Search entries'
+                      rowClick={handleRowClick}
+                      loading={false}
+                      addActionModal={() => (
+                        <ModalButton
+                          buttonText='Add Entry'
+                          modalType={ModalTypes.STUDIO_DASHBOARD_FORM}
+                        />
+                      )}
+                    />
+                  </Tab.Pane>
+                </Tab.Content>
+              </Tab.Container>
             </div>
           </div>
         </div>

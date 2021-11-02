@@ -12,9 +12,10 @@ import {contactsActions} from './state/contacts'
 
 interface ContactsProps {
   id?: string
+  type?: string
 }
 
-const Contacts = ({id}: ContactsProps) => {
+const Contacts = ({id, type = 'contact'}: ContactsProps) => {
   const dispatch = useDispatch()
   const {contacts, loadingContacts, error}: any = useSelector(
     ({contacts}: RootState) => contacts,
@@ -22,9 +23,9 @@ const Contacts = ({id}: ContactsProps) => {
   )
 
   useEffect(() => {
-    dispatch(contactsActions.fetchContacts(id))
+    dispatch(contactsActions.fetchContacts(id, type))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id])
 
   const handleDelete = () => {}
 

@@ -12,6 +12,10 @@ export function getStudioApi(id: string) {
   return axios.get(STUDIO, {params: {id}})
 }
 
+export function getLeadsByStudio(id: string) {
+  return axios.get(`${STUDIO}/${id}/leads`)
+}
+
 export function updateStudio(studio: Studio) {
   return axios.put(`${STUDIO}/${studio.id}`, {studio})
 }

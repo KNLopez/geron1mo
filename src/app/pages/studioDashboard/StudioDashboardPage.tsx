@@ -5,24 +5,18 @@ import ModalButton from '../../components/modals/ModalButton'
 import {ModalTypes} from '../../components/modals/models'
 import {modalActions} from '../../components/modals/state/MainModalState'
 import Toolbar from '../../components/Toolbar'
-import useAuth, {PERMISSIONS} from '../../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import data from './data'
-import {studio_dashboardActions} from './state/studio_dashboard'
-import {studio_dashboardsActions} from './state/studios_dasbhboards'
-import Table from '../../components/Table/Table'
+
 import {studiosActions} from '../studios/state/studios'
 import CardList from '../../components/CardList/CardList'
-import {Overview} from '../../modules/profile/components/Overview'
-import {ProfileHeader} from '../../modules/profile/ProfileHeader'
+
 import {StudioProfile} from './StudioProfile'
+import {Error404} from '../../modules/errors/components/Error404'
 
 const Studio_dashboards = () => {
   const dispatch = useDispatch()
-  const {can} = useAuth()
-  const canEditStudio_dashboard = can(PERMISSIONS.STUDIO_EDIT)
-  const canCreateStudio_dashboard = can(PERMISSIONS.STUDIO_CREATE)
-
-  const [studio, setStudio] = useState(undefined)
+  const [studio, setStudio] = useState<any>(undefined)
 
   const {studios, loadingStudios, error}: any = useSelector(
     ({studios}: RootState) => studios,
@@ -34,13 +28,19 @@ const Studio_dashboards = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (studio && studios.length === 0) return
+    setStudio(studios[0])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studios])
+
   const handleRowClick = (value: any) => {
-    console.log(value)
     setStudio(value)
   }
 
   if (error) {
-    return <h2>Error</h2>
+    return <Error404 />
   }
 
   return (
@@ -49,7 +49,12 @@ const Studio_dashboards = () => {
       <div className='row'>
         <div className='col-md-4'>
           <div className='d-flex flex-column flex-column-fluid' id='kt_content'>
-            <CardList data={studios} onClick={handleRowClick} loading={loadingStudios} />
+            <CardList
+              selected={studio?.id}
+              data={studios}
+              onClick={handleRowClick}
+              loading={loadingStudios}
+            />
           </div>
         </div>
         <div className='col-md-8'>

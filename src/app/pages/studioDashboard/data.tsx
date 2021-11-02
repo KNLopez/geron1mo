@@ -177,7 +177,7 @@ const studio_dashboardsData = {
   breadcrumbs: studio_dashboardsBreadCrumbs,
   mainColumns: studiosData.columns,
   columns,
-  mockData,
+  mockData: mockData.reverse(),
 }
 
 export default studio_dashboardsData

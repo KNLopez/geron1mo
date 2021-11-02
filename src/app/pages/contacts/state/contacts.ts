@@ -3,6 +3,7 @@ import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as Eff from 'redux-saga/effects'
 import {getCampaignLeads} from '../../campaigns/api/campaigns'
+import {getLeadsByStudio} from '../../studios/api/studios'
 
 import {getContactsApi} from '../api/contacts'
 import {contactActionTypes} from './contact'
@@ -81,15 +82,25 @@ export const reducer = persistReducer(
 
 export const contactsActions = {
   loadingContacts: () => ({type: contactsActionTypes.LoadingContacts}),
-  fetchContacts: (id: any) => ({type: contactsActionTypes.FetchContacts, id}),
+  fetchContacts: (id: any, type: any) => ({
+    type: contactsActionTypes.FetchContacts,
+    payload: {id, type},
+  }),
   contactsLoaded: (payload: any) => ({type: contactsActionTypes.ContactsLoaded, payload}),
   contactsError: (payload: any) => ({type: contactsActionTypes.ContactsError, payload}),
 }
 
-function* getContacts({id}: any): any {
+const getLeadsByType = {
+  contact: getContactsApi,
+  campaign: getCampaignLeads,
+  studio: getLeadsByStudio,
+}
+
+function* getContacts({payload}: any): any {
   yield put(contactsActions.loadingContacts())
   try {
-    const api = id ? getCampaignLeads : getContactsApi
+    const {id, type} = payload
+    const api = getLeadsByType[type as keyof typeof getLeadsByType]
     const response = yield call(api, id)
     yield put(contactsActions.contactsLoaded(response.data))
   } catch (err: any) {

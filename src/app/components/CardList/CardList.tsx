@@ -1,9 +1,10 @@
+import clsx from 'clsx'
 import {Card1} from '../../../_metronic/partials/content/cards/Card1'
 import {FallbackView} from '../../../_metronic/partials/content/fallback-view/FallbackView'
 
 const bgs = ['bg-warning', 'bg-success', 'bg-info', 'bg-danger', 'bg-dark']
 
-const CardList = ({data, onClick, loading}: any) => {
+const CardList = ({selected, data, onClick, loading}: any) => {
   if (loading) return <FallbackView />
   return (
     <>
@@ -11,7 +12,10 @@ const CardList = ({data, onClick, loading}: any) => {
         const numberValue = item.name ? item.name.toLowerCase().charCodeAt(0) - 97 + 1 : 0
         return (
           <button
-            className='mb-4 p-4 d-flex border border-white flex-row btn btn-white btn-hover-outline-info btn-active'
+            className={clsx(
+              'mb-4 p-4 d-flex border border-white flex-row btn btn-white btn-hover-outline-info btn-active',
+              selected === item.id && 'border-info'
+            )}
             onClick={() => onClick(item)}
           >
             <div
