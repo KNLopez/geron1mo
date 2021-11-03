@@ -23,6 +23,8 @@ const Studio_dashboards = () => {
     shallowEqual
   )
 
+  const [filteredStudios, setFilteredStudios] = useState(studios)
+
   useEffect(() => {
     dispatch(studiosActions.fetchStudios())
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,6 +41,11 @@ const Studio_dashboards = () => {
     setStudio(value)
   }
 
+  const handleSearch = (e: any) => {
+    const newStudios = studios.filter((studio: any) => studio.name.includes(e.target.value))
+    setFilteredStudios(newStudios)
+  }
+
   if (error) {
     return <Error404 />
   }
@@ -46,12 +53,21 @@ const Studio_dashboards = () => {
   return (
     <>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
+
       <div className='row'>
         <div className='col-md-4'>
+          <div className='fv-row mb-7 card p-3'>
+            <input
+              type='text'
+              onChange={handleSearch}
+              placeholder='Filter Studios'
+              className='form-control form-control-lg form-control-solid w-100'
+            />
+          </div>
           <div className='d-flex flex-column flex-column-fluid' id='kt_content'>
             <CardList
               selected={studio?.id}
-              data={studios}
+              data={filteredStudios}
               onClick={handleRowClick}
               loading={loadingStudios}
             />
