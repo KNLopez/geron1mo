@@ -33,6 +33,7 @@ const Studio_dashboards = () => {
   useEffect(() => {
     if (studio && studios.length === 0) return
     setStudio(studios[0])
+    setFilteredStudios(studios)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studios])
@@ -56,7 +57,10 @@ const Studio_dashboards = () => {
 
       <div className='row'>
         <div className='col-md-4'>
-          <div className='fv-row mb-7 card p-3'>
+          <div
+            className='fv-row mb-7 card p-3 position-sticky shadow-xs'
+            style={{top: 125, zIndex: 4}}
+          >
             <input
               type='text'
               onChange={handleSearch}

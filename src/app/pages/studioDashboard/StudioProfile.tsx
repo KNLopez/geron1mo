@@ -22,7 +22,10 @@ const StudioProfile: React.FC<any> = ({studio}) => {
 
   if (!studio) return null
   return (
-    <div className='card mb-5 mb-xl-10 position-sticky' style={{top: 150}}>
+    <div
+      className='card mb-5 mb-xl-10 position-sticky'
+      style={{top: 125, maxHeight: 'calc(100vh - 160px)', overflowY: 'auto'}}
+    >
       <div className='card-body pt-9 pb-0'>
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
           <div className='flex-grow-1'>
@@ -43,7 +46,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                   </a>
                 </div>
 
-                <div className='d-flex flex-wrap fw-bold fs-6 mb-4 pe-2'>
+                <div className='d-flex flex-wrap fw-bold fs-7 mb-4 pe-2'>
                   <a
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
@@ -86,7 +89,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>150</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Leads</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Leads</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -98,7 +101,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>67%</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Sales Conversion</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Sales Conversion</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -110,10 +113,10 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>29%</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Rollover</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Rollover</div>
                   </div>
 
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                  <div className='border border-gray-300 border-dashed rounded mw-120 min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       <KTSVG
                         path='/media/icons/duotone/Navigation/Arrow-up.svg'
@@ -122,7 +125,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>119</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Ave. Member Attendance</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Ave. Member Attendance</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -134,7 +137,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>4</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Cancels</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Cancels</div>
                   </div>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
@@ -145,7 +148,7 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                       <div className='fs-2 fw-bolder'>0</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Net Growth</div>
+                    <div className='fw-bold fs-7 text-gray-400'>Net Growth</div>
                   </div>
                 </div>
               </div>
@@ -174,7 +177,6 @@ const StudioProfile: React.FC<any> = ({studio}) => {
                   </Tab.Pane>
                   <Tab.Pane eventKey='second'>
                     <Table
-                      style={{maxHeight: '45vh', overflowY: 'auto'}}
                       data={data.mockData}
                       columns={data.columns}
                       deleteAction={handleDelete}
