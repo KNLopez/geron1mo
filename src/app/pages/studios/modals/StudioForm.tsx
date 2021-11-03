@@ -13,6 +13,7 @@ import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-free/css/solid.min.css'
 import {Studio} from '../state/models'
 import {modalActions} from '../../../components/modals/state/MainModalState'
+import SelectBox from '../../../components/Select'
 
 const inits: Studio = {
   name: '',
@@ -244,7 +245,7 @@ const CreateStudio: React.FC<any> = () => {
               initialValues={initValues}
               onSubmit={submitStep}
             >
-              {({status}) => (
+              {({setFieldValue}) => (
                 <Form className='form ' noValidate id='kt_modal_create_app_form'>
                   <div className='current' data-kt-stepper-element='content'>
                     <div className='w-100'>
@@ -585,19 +586,17 @@ const CreateStudio: React.FC<any> = () => {
                             title='Assign to staff'
                           ></i>
                         </label>
-                        <Field
-                          as='select'
-                          className='form-select form-select-lg form-select-solid  select2-hidden-accessible'
+                        <SelectBox
+                          options={[
+                            {
+                              value: 'Jover',
+                              label: 'Jover Newspain',
+                            },
+                          ]}
+                          isMulti
                           name='assigned_to'
-                          placeholder='Service Offered'
-                          defaultValue=''
-                        >
-                          <option value='' disabled>
-                            Select Staff
-                          </option>
-                          <option value='1'>Jover Newspain</option>
-                          <option value='2'>Ed Salinas</option>
-                        </Field>
+                          handleChange={setFieldValue}
+                        />
 
                         <ErrorMessage
                           name='assigned_to'

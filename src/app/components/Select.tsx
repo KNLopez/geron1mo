@@ -19,7 +19,7 @@ const SelectBox = ({options, isMulti, name, handleChange, value}: any) => {
   return (
     <Select
       isMulti={isMulti}
-      options={optionsDef}
+      options={options.length ? options : optionsDef}
       isLoading={!optionsDef}
       closeMenuOnSelect={true}
       onChange={selectHandler}
