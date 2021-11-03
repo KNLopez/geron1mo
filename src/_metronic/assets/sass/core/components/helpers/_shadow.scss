@@ -3,5 +3,9 @@
 //
 
 .shadow-xs {
-    box-shadow: $box-shadow-xs;
+  box-shadow: $box-shadow-xs;
+}
+
+.shadow-md {
+  box-shadow: $box-shadow;
 }

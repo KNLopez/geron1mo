@@ -58,14 +58,14 @@ const Studio_dashboards = () => {
       <div className='row'>
         <div className='col-md-4'>
           <div
-            className='fv-row mb-7 card p-3 position-sticky shadow-xs'
+            className='fv-row mb-7 border-radius-3 position-sticky rounded bg-white p-4 shadow-xs'
             style={{top: 125, zIndex: 4}}
           >
             <input
               type='text'
               onChange={handleSearch}
               placeholder='Filter Studios'
-              className='form-control form-control-lg form-control-solid w-100'
+              className='form-control form-control-lg w-100 bg-light'
             />
           </div>
           <div className='d-flex flex-column flex-column-fluid' id='kt_content'>
