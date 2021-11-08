@@ -50,7 +50,6 @@ const createAppSchema = [
       .required(),
   }),
   Yup.object({
-    assigned_to: Yup.string().required().label('Assign to').required(),
     service_offered: Yup.string().required().label('Service Offered').required(),
   }),
 ]
