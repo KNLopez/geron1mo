@@ -62,7 +62,14 @@ export const reducer = persistReducer(
       }
 
       case pipelineActionTypes.SetData: {
-        const filteredData = Object.entries(action.payload).map((data) => {
+        let filteredData: any = {
+          open: [],
+          won: [],
+          paid: [],
+          cancelled: [],
+          lost: [],
+        }
+        Object.entries(action.payload).forEach((data) => {
           const [key, items]: any = data
           const newItems = items.filter((item: any) => {
             const dateFilter =
@@ -71,8 +78,9 @@ export const reducer = persistReducer(
 
             if (dateFilter) return dateFilter
           })
-          return newItems
+          filteredData[key] = newItems
         })
+        console.log(filteredData)
 
         return {...state, data: action.payload, filteredData}
       }

@@ -41,7 +41,14 @@ const Pipeline = () => {
 
   useEffect(() => {
     if (debounceFilters) {
-      const newData = Object.entries(PipelineData).map((data) => {
+      let newData: any = {
+        open: [],
+        won: [],
+        paid: [],
+        cancelled: [],
+        lost: [],
+      }
+      Object.entries(PipelineData).forEach((data) => {
         const [key, items]: any = data
         const newItems = items.filter((item: any) => {
           const search = filters.name.toLowerCase()
@@ -59,7 +66,8 @@ const Pipeline = () => {
             console.log(item, new Date(item.created_at) > new Date(filters.date.start))
           return dateFilter && nameFilter
         })
-        return newItems
+        console.log(newItems)
+        newData[key] = newItems
       })
 
       dispatch(pipelineActions.setFilteredData(newData))
@@ -154,7 +162,7 @@ const Pipeline = () => {
           <label className=' fs-5 fw-bold   mb-2'>Name Filter</label>
           <input
             type='text'
-            className='form-control'
+            className='form-control bd'
             onChange={handleSearch}
             value={filters.name}
           />
