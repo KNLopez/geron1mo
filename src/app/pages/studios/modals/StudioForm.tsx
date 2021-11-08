@@ -6,7 +6,7 @@ import {studioActions} from '../state/studio'
 
 import {RootState} from '../../../../setup/redux/RootReducer'
 
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {StepperComponent} from '../../../../_metronic/assets/ts/components'
 import {KTSVG} from '../../../../_metronic/helpers'
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
@@ -135,6 +135,19 @@ const CreateStudio: React.FC<any> = () => {
 
     loadStepper()
   }, [stepperRef])
+
+  const {
+    users,
+    loadingUsers,
+    error: usersError,
+  }: any = useSelector((state: RootState) => state.users, shallowEqual)
+
+  const options = useMemo(
+    () => users.map((user: any) => ({label: `${user.firstname} ${user.lastname}`, value: user.id})),
+    [users]
+  )
+
+  useEffect(() => {}, [])
 
   const handleStepperClick = (index: any) => {
     if (!stepper.current || !isEdit) {
@@ -587,13 +600,9 @@ const CreateStudio: React.FC<any> = () => {
                           ></i>
                         </label>
                         <SelectBox
-                          options={[
-                            {
-                              value: 'Jover',
-                              label: 'Jover Newspain',
-                            },
-                          ]}
+                          options={options}
                           isMulti
+                          loading={loadingUsers}
                           name='assigned_to'
                           handleChange={setFieldValue}
                         />

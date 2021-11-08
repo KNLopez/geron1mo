@@ -22,13 +22,13 @@ export const usersActionTypes = {
   UsersError: '[Users] Error',
 }
 
-export interface InitialContacstStateType {
+export interface InitialUsersStateType {
   users: User[]
   loadingUsers?: boolean
   error?: any
 }
 
-const initialUsers: InitialContacstStateType = {
+const initialUsers: InitialUsersStateType = {
   users: [],
   loadingUsers: false,
   error: undefined,
@@ -36,7 +36,7 @@ const initialUsers: InitialContacstStateType = {
 
 export const reducer = persistReducer(
   {storage, key: 'v1-geron1mo-users', whitelist: []},
-  (state: InitialContacstStateType = initialUsers, action: ActionWithPayload<any>) => {
+  (state: InitialUsersStateType = initialUsers, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case usersActionTypes.LoadingUsers: {
         return {...state, loadingUsers: true}
