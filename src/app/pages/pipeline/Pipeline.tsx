@@ -62,11 +62,9 @@ const Pipeline = () => {
               (item.lastname || '').toLowerCase().includes(search)
             : true
 
-          if (dateFilter || nameFilter)
-            console.log(item, new Date(item.created_at) > new Date(filters.date.start))
           return dateFilter && nameFilter
         })
-        console.log(newItems)
+
         newData[key] = newItems
       })
 

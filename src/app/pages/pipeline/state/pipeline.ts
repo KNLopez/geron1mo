@@ -80,7 +80,6 @@ export const reducer = persistReducer(
           })
           filteredData[key] = newItems
         })
-        console.log(filteredData)
 
         return {...state, data: action.payload, filteredData}
       }
