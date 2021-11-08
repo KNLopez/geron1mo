@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import Select from 'react-select'
 
 const SelectBox = ({options, isMulti, name, handleChange, value, loading}: any) => {
-  const [optionSelected, setSelectedOptions] = useState(value)
+  const [optionSelected, setSelectedOptions] = useState()
 
   const selectHandler = (selected: any) => {
     const values = selected.map((select: any) => select.value)
@@ -11,18 +11,19 @@ const SelectBox = ({options, isMulti, name, handleChange, value, loading}: any) 
   }
 
   useEffect(() => {
-    if (!value?.length && !options.length) return
+    if (!value || !value?.length || !options.length) return
+
     const currentValue = options.filter((option: any) => {
       return value.includes(option.value)
     })
 
     setSelectedOptions(currentValue)
-  }, [options])
+  }, [])
 
   return (
     <Select
       isMulti={isMulti}
-      options={options || []}
+      options={options}
       isLoading={loading}
       closeMenuOnSelect={true}
       onChange={selectHandler}
