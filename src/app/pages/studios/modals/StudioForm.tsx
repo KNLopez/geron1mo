@@ -122,11 +122,11 @@ const CreateStudio: React.FC<any> = () => {
     }
   }
 
-  useEffect(() => {
-    if (error) {
-      alert('error!')
-    }
-  }, [error])
+  // useEffect(() => {
+  //   if (error) {
+  //     alert('error!')
+  //   }
+  // }, [error])
 
   useEffect(() => {
     if (!stepperRef.current) {

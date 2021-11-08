@@ -45,6 +45,14 @@ const initialPipeline: InitialPipelineStateType = {
   error: undefined,
 }
 
+function getLastWeek() {
+  var today = new Date()
+  var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)
+  return lastWeek
+}
+
+const lastWeek = getLastWeek()
+
 export const reducer = persistReducer(
   {storage, key: 'v1-geron1mo-pipeline', whitelist: []},
   (state: InitialPipelineStateType = initialPipeline, action: ActionWithPayload<any>) => {
@@ -54,7 +62,19 @@ export const reducer = persistReducer(
       }
 
       case pipelineActionTypes.SetData: {
-        return {...state, data: action.payload, filteredData: action.payload}
+        const filteredData = Object.entries(action.payload).map((data) => {
+          const [key, items]: any = data
+          const newItems = items.filter((item: any) => {
+            const dateFilter =
+              new Date(item.created_at) > new Date(lastWeek) &&
+              new Date(item.created_at) < new Date(Date.now())
+
+            if (dateFilter) return dateFilter
+          })
+          return newItems
+        })
+
+        return {...state, data: action.payload, filteredData}
       }
 
       case pipelineActionTypes.SetFilteredData: {

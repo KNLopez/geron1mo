@@ -16,9 +16,18 @@ const Pipeline = () => {
   )
 
   const [filters, setFilters] = useState<any>({
-    date: {},
+    date: {
+      start: getLastWeek(),
+      end: new Date(Date.now()),
+    },
     name: '',
   })
+
+  function getLastWeek() {
+    var today = new Date()
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)
+    return lastWeek
+  }
 
   const debounceFilters = useDebounce(filters, 1000)
 
@@ -36,7 +45,7 @@ const Pipeline = () => {
         const [key, items]: any = data
         const newItems = items.filter((item: any) => {
           const search = filters.name.toLowerCase()
-          console.log(search, item)
+
           const dateFilter = filters.date
             ? new Date(item.created_at) > new Date(filters.date.start) &&
               new Date(item.created_at) < new Date(filters.date.end)
@@ -122,20 +131,34 @@ const Pipeline = () => {
   return (
     <>
       <Toolbar title={data.title} breadcrumbs={data.breadcrumbs} />
-      <div className='pipeline-filter'>
-        <Datepicker
-          handleChange={handleDateChange}
-          name='start'
-          value={filters.date.start}
-          label='Start date'
-        />
-        <Datepicker
-          handleChange={handleDateChange}
-          name='end'
-          value={filters.date.end}
-          label='End Date'
-        />
-        <input type='text' className='form-control' onChange={handleSearch} value={filters.name} />
+      <div className='pipeline-filter row'>
+        <div className='col-md-4'>
+          <Datepicker
+            handleChange={handleDateChange}
+            name='start'
+            value={filters.date.start}
+            label='Start date'
+            className='form-control form-control-lg '
+          />
+        </div>
+        <div className='col-md-4'>
+          <Datepicker
+            handleChange={handleDateChange}
+            name='end'
+            value={filters.date.end}
+            label='End Date'
+            className='form-control form-control-lg '
+          />
+        </div>
+        <div className='col-md-4'>
+          <label className=' fs-5 fw-bold   mb-2'>Name Filter</label>
+          <input
+            type='text'
+            className='form-control'
+            onChange={handleSearch}
+            value={filters.name}
+          />
+        </div>
       </div>
       <DragDropContext
         onBeforeCapture={onBeforeCapture}
