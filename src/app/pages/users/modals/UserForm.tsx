@@ -8,6 +8,8 @@ import {RootState} from '../../../../setup/redux/RootReducer'
 import Datepicker from '../../../components/Flatpicker'
 import Select from 'react-select/dist/declarations/src/Select'
 import SelectBox from '../../../components/Select'
+import {InitialStudiosStateType, studiosActions} from '../../studios/state/studios'
+import {useEffect, useMemo} from 'react'
 
 const UserForm: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -16,6 +18,21 @@ const UserForm: React.FC<any> = () => {
     (state: RootState) => state.user,
     shallowEqual
   )
+
+  const {
+    studios,
+    loadingStudios,
+    error: StudiosError,
+  }: InitialStudiosStateType = useSelector((state: RootState) => state.studios, shallowEqual)
+
+  const options = useMemo(
+    () => studios.map((studio) => ({label: studio.name, value: studio.id})),
+    [studios]
+  )
+
+  useEffect(() => {
+    if (!studios.length) dispatch(studiosActions.fetchStudios())
+  }, [])
 
   const isEdit = user?.id
 
@@ -46,7 +63,7 @@ const UserForm: React.FC<any> = () => {
         meeting_link: '',
         birthday: '',
         status: '',
-        studios: [],
+        studios: '',
         role: '',
       }
 
@@ -54,6 +71,8 @@ const UserForm: React.FC<any> = () => {
     initialValues,
     validationSchema: CreateCustomerSchema,
     onSubmit: (values, {setSubmitting}) => {
+      // if (values.studios) values.studios = JSON.stringify(values.studios)
+
       isEdit ? dispatch(userActions.updateUser(values)) : dispatch(userActions.createUser(values))
 
       setSubmitting(false)
@@ -242,7 +261,8 @@ const UserForm: React.FC<any> = () => {
             <div className='fv-row mb-7'>
               <label className='required fs-6 fw-bold mb-2'>Assigned Studios</label>
               <SelectBox
-                options={[]}
+                options={options}
+                loading={loadingStudios}
                 isMulti
                 {...formik.getFieldProps('studios')}
                 handleChange={formik.setFieldValue}

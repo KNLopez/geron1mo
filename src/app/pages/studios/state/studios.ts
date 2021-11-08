@@ -22,13 +22,13 @@ export const studiosActionTypes = {
   StudiosError: '[Studios] Error',
 }
 
-export interface InitialContacstStateType {
+export interface InitialStudiosStateType {
   studios: Studio[]
   loadingStudios?: boolean
   error?: any
 }
 
-const initialStudios: InitialContacstStateType = {
+const initialStudios: InitialStudiosStateType = {
   studios: [],
   loadingStudios: false,
   error: undefined,
@@ -36,7 +36,7 @@ const initialStudios: InitialContacstStateType = {
 
 export const reducer = persistReducer(
   {storage, key: 'v1-geron1mo-studios', whitelist: []},
-  (state: InitialContacstStateType = initialStudios, action: ActionWithPayload<any>) => {
+  (state: InitialStudiosStateType = initialStudios, action: ActionWithPayload<any>) => {
     switch (action.type) {
       case studiosActionTypes.LoadingStudios: {
         return {...state, loadingStudios: true, error: null}

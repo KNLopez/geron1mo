@@ -1,14 +1,8 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Select from 'react-select'
 
-const SelectBox = ({options, isMulti, name, handleChange, value}: any) => {
+const SelectBox = ({options, isMulti, name, handleChange, value, loading}: any) => {
   const [optionSelected, setSelectedOptions] = useState(value)
-
-  const optionsDef: any = [
-    {value: '1', label: 'Studio 1'},
-    {value: '2', label: 'Studio 2'},
-    {value: '3', label: 'Studio 3'},
-  ]
 
   const selectHandler = (selected: any) => {
     const values = selected.map((select: any) => select.value)
@@ -16,11 +10,20 @@ const SelectBox = ({options, isMulti, name, handleChange, value}: any) => {
     handleChange(name, values)
   }
 
+  useEffect(() => {
+    if (!value?.length && !options.length) return
+    const currentValue = options.filter((option: any) => {
+      return value.includes(option.value)
+    })
+
+    setSelectedOptions(currentValue)
+  }, [options])
+
   return (
     <Select
       isMulti={isMulti}
-      options={options.length ? options : optionsDef}
-      isLoading={!optionsDef}
+      options={options || []}
+      isLoading={loading}
       closeMenuOnSelect={true}
       onChange={selectHandler}
       value={optionSelected}
