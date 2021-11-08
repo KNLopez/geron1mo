@@ -14,6 +14,7 @@ import '@fortawesome/fontawesome-free/css/solid.min.css'
 import {Studio} from '../state/models'
 import {modalActions} from '../../../components/modals/state/MainModalState'
 import SelectBox from '../../../components/Select'
+import {usersActions} from '../../users/state/users'
 
 const inits: Studio = {
   name: '',
@@ -147,7 +148,9 @@ const CreateStudio: React.FC<any> = () => {
     [users]
   )
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    dispatch(usersActions.fetchUsers())
+  }, [])
 
   const handleStepperClick = (index: any) => {
     if (!stepper.current || !isEdit) {

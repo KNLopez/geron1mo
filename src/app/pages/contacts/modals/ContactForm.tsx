@@ -6,7 +6,9 @@ import {contactActions, InitialContactStateType} from '../state/contact'
 import clsx from 'clsx'
 import {RootState} from '../../../../setup/redux/RootReducer'
 import {campaignsActions} from '../../campaigns/state/campaigns'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
+import SelectBox from '../../../components/Select'
+import {usersActions} from '../../users/state/users'
 
 const ContactForm: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -26,7 +28,19 @@ const ContactForm: React.FC<any> = () => {
 
   useEffect(() => {
     dispatch(campaignsActions.fetchCampaigns())
+    dispatch(usersActions.fetchUsers())
   }, [])
+
+  const {
+    users,
+    loadingUsers,
+    error: usersError,
+  }: any = useSelector((state: RootState) => state.users, shallowEqual)
+
+  const options = useMemo(
+    () => users.map((user: any) => ({label: `${user.firstname} ${user.lastname}`, value: user.id})),
+    [users]
+  )
 
   const isEdit = contact?.id
 
@@ -189,18 +203,12 @@ const ContactForm: React.FC<any> = () => {
             </div>
             <div className='fv-row mb-7'>
               <label className='fs-6 fw-bold mb-2'>Assigned To</label>
-              <input
-                {...formik.getFieldProps('assigned')}
-                className={clsx(
-                  'form-control form-control-lg form-control-solid',
-                  {'is-invalid': formik.touched.assigned && formik.errors.assigned},
-                  {
-                    'is-valid': formik.touched.assigned && !formik.errors.assigned,
-                  }
-                )}
-                type='text'
-                placeholder='Doza'
-                name='assigned'
+              <SelectBox
+                options={options}
+                isMulti
+                loading={loadingUsers}
+                name='assigned_to'
+                handleChange={formik.setFieldValue}
               />
             </div>
             <div className={`${params?.id ? 'd-none' : 'fv-row mb-5'}`}>
