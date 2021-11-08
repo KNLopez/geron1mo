@@ -25,7 +25,7 @@ const inits: Studio = {
   studio_manager_firstname: '',
   studio_manager_lastname: '',
   studio_manager_email: '',
-  assigned_to: '',
+  assigned_to: [],
   service_offered: '',
 }
 
