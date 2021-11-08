@@ -22,21 +22,26 @@ export const pipelineActionTypes = {
   ChangeStatus: '[Pipeline] Change Status',
   SetData: '[Pipeline] SetData',
   UpdateContact: '[Pipeline] UpdateContact',
+  SetFilteredData: '[Pipeline] Set Filtered Data',
 }
 
 export interface InitialPipelineStateType {
   data: any
   error?: any
+  filteredData: any
+}
+
+const initialData = {
+  open: [],
+  won: [],
+  paid: [],
+  cancelled: [],
+  lost: [],
 }
 
 const initialPipeline: InitialPipelineStateType = {
-  data: {
-    open: [],
-    won: [],
-    paid: [],
-    cancelled: [],
-    lost: [],
-  },
+  data: initialData,
+  filteredData: initialData,
   error: undefined,
 }
 
@@ -49,7 +54,11 @@ export const reducer = persistReducer(
       }
 
       case pipelineActionTypes.SetData: {
-        return {...state, data: action.payload}
+        return {...state, data: action.payload, filteredData: action.payload}
+      }
+
+      case pipelineActionTypes.SetFilteredData: {
+        return {...state, filteredData: action.payload}
       }
 
       case pipelineActionTypes.UpdateContact: {
@@ -60,7 +69,7 @@ export const reducer = persistReducer(
           }
           return data
         })
-        console.log(status, newData, action.payload)
+
         return {
           ...state,
           data: {
@@ -80,6 +89,7 @@ export const pipelineActions = {
   processData: () => ({type: pipelineActionTypes.ProcessData}),
   changeStatus: (payload: any) => ({type: pipelineActionTypes.ChangeStatus, payload}),
   setData: (payload: any) => ({type: pipelineActionTypes.SetData, payload}),
+  setFilteredData: (payload: any) => ({type: pipelineActionTypes.SetFilteredData, payload}),
   updateContact: (lead: any) => ({type: pipelineActionTypes.UpdateContact, payload: lead}),
 }
 
